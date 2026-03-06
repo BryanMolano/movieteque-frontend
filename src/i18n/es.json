@@ -1,0 +1,77 @@
+{
+  "login": {
+    "title": "MOVIETEQUE",
+    "signInView": ">>> INICIAR SESIÓN",
+    "signUpView": ">>> CREAR CUENTA",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "usernameLabel": "Nombre de usuario",
+    "enterBtn": "ENTRAR",
+    "registerBtn": "REGISTRARSE",
+    "processing": ">>> PROCESANDO...",
+    "googleBtn": "Continuar con Google",
+    "noAccount": "> No tienes cuenta? Regístrate",
+    "hasAccount": "> Ya tienes cuenta? Inicia sesión"
+  },
+  "validation": {
+    "emailRequired": "El correo es obligatorio",
+    "emailInvalid": "Debe ser un correo válido",
+    "passwordMin": "Mínimo 6 caracteres",
+    "usernameRequired": "Requerido para crear cuenta"
+  },
+  "dashboard": {
+    "title": "Movieteque // Mis Grupos",
+    "loading": ">>> ESTABLECIENDO CONEXIÓN SEGURA... CARGANDO GRUPOS...",
+    "error": "[ ERROR ] No se pudo obtener la información del servidor.",
+    "empty": "> No perteneces a ningún grupo de recomendación todavía.",
+    "createGroupBtn": "+ CREAR NUEVO GRUPO",
+    "type": "TIPO",
+    "users": "USR",
+    "created": "CRE"
+  },
+  "createGroup": {
+    "title": ">>> CREAR_GRUPO",
+    "nameLabel": "[ NOMBRE ]",
+    "typeLabel": "[ TIPO ]",
+    "typePublic": "PÚBLICO",
+    "typePrivate": "PRIVADO",
+    "selectImage": "[ SELECCIONAR_IMAGEN ]",
+    "cancel": "CANCELAR",
+    "execute": "EJECUTAR",
+    "processing": "PROCESANDO...",
+    "errors": {
+      "nameRequired": "EL NOMBRE ES REQUERIDO [!]"
+    }
+  },
+  
+  "groupSidebar": {
+    "nameFallback": "NOMBRE DEL GRUPO",
+    "created": ">>> CREADO",
+    "unknown": "DESCONOCIDO",
+    "type": "[ TIPO ]",
+    "public": "PÚBLICO",
+    "members": "[ MIEMBROS ]",
+    "nickname": "[ NICKNAME ]",
+    "copyInvite": "> COPIAR_INVITACION",
+    "inviteCopied": "> [ OK ] ENLACE_COPIADO",
+    "changeNickname": "> CAMBIAR_NICKNAME",
+    "deleteGroup": "[X] ELIMINAR_GRUPO",
+    "deleteModalTitle": "ADVERTENCIA_CRITICA",
+    "deleteModalBody": "¿Estás absolutamente seguro de que deseas destruir este grupo? Todos los datos y miembros se perderán. Esta acción es irreversible.",
+    "cancel": "[ CANCELAR ]",
+    "confirmDelete": "[ EJECUTAR_ELIMINACION ]",
+    "deleting": "ELIMINANDO...",
+    "deleteError": "ERROR_DE_SISTEMA: NO SE PUDO ELIMINAR EL GRUPO"
+  },
+  "groupMembers": {
+    "title": "/// REGISTRO_DE_MIEMBROS",
+    "roleAdmin": "[ ADMIN ]",
+    "roleUser": "[ USUARIO ]",
+    "adminBtn": "A",
+    "userBtn": "U",
+    "banBtn": "X",
+    "empty": "NO_HAY_MIEMBROS_REGISTRADOS"
+  }
+
+  
+}

@@ -1,0 +1,260 @@
+// --- INICIO CAMBIOS: Importaciones necesarias ---
+import { Box, Typography, Button, Stack, Dialog, DialogContent, DialogActions } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+// --- FIN CAMBIOS ---
+
+import { COLORS } from '../../theme/AppTheme'; // Ajusta la ruta según tu estructura
+import type { Group } from '../../interfaces/Group'; // Ajusta la ruta
+import { useState } from 'react';
+import { movietequeApi } from '../../api/MovietequeApi';
+import { useUser } from '../../hooks/useUser';
+import { ChangeMemberNicknameModal } from './ChangeNicknameModal';
+import type { Member } from '../../interfaces/Member';
+
+interface GroupInfoSidebarProps {
+  group: Group;
+  isAdmin: boolean;
+  currentMember: Member | undefined;
+}
+
+const mechanicalButtonStyle = {
+  borderRadius: 0,
+  border: `2px solid ${COLORS.primaryLight}`,
+  backgroundColor: COLORS.primaryDark,
+  color: COLORS.primaryLight,
+  fontFamily: 'sans-serif',
+  fontWeight: 900,
+  fontSize: '1rem',
+  letterSpacing: '-1.5px',
+  padding: '12px 16px',
+  boxShadow: `4px 4px 0px ${COLORS.accentMid}`,
+  transition: 'all 0.05s linear',
+  justifyContent: 'flex-start', // Texto alineado a la izquierda para toque de consola
+  '&:hover': {
+    backgroundColor: COLORS.primaryDark,
+    filter: 'brightness(1.2)',
+  },
+  '&:active': {
+    transform: 'translate(4px, 4px)',
+    boxShadow: `0px 0px 0px transparent`,
+  },
+};
+
+const formatTerminalDate = (isoString?: string) => {
+  if (!isoString) return 'DESCONOCIDO';
+  try {
+    const date = new Date(isoString);
+    // Devuelve formato YYYY-MM-DD para un look técnico
+    return date.toISOString().split('T')[0];
+  } catch (error) {
+    return 'ERROR_DE_SISTEMA';
+  }
+};
+
+export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSidebarProps) {
+  const rawDate = group.created_at || group.created_at;
+  const memberCount = group.members?.length || 0;
+  const { data: currentUser } = useUser();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  // --- INICIO CAMBIOS: Inicialización de Hooks para eliminación ---
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
+  const deleteGroupMutation = useMutation({
+    mutationFn: async () => {
+      await movietequeApi.delete(`/group/${group.id}/deleteGroup`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user-groups'] });
+      setIsDeleteModalOpen(false);
+      navigate('/dashboard');
+    },
+    onError: (error) => {
+      console.error(error);
+      alert(t('groupSidebar.deleteError'));
+    }
+  });
+  // --- FIN CAMBIOS ---
+
+  const [isCopied, setIsCopied] = useState(false);
+  const handleCopyInvite = async () => {
+    try {
+      const response = await movietequeApi.get(`/group/${group.id}/invitation-link`, {});
+      const jwt = response.data;
+      const inviteUrl = `${window.location.origin}/login?invite=${jwt}`;
+      await navigator.clipboard.writeText(inviteUrl);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (error) {
+      console.error("Error al generar enlace", error);
+      alert("ERROR_DE_SISTEMA: NO SE PUDO GENERAR EL ENLACE(noaisistema)");
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        border: `2px solid ${COLORS.primaryMid}`,
+        backgroundColor: COLORS.primaryDark,
+        p: 2,
+        gap: 3
+      }}
+    >
+      {/* IMAGEN DEL GRUPO */}
+      <Box
+        sx={{
+          width: '100%',
+          aspectRatio: '1 / 1', // Mantiene el formato cuadrado perfecto
+          border: `2px solid ${COLORS.primaryLight}`,
+          boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
+          backgroundImage: `url(${group.imgUrl || 'https://via.placeholder.com/600x600/0B2833/CBD3D6?text=NO+IMAGE'})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* INFORMACIÓN DEL GRUPO */}
+      {/* --- INICIO CAMBIOS: Aplicando traducciones 't' en la información --- */}
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Typography
+          sx={{
+            fontFamily: 'sans-serif',
+            fontWeight: 900,
+            fontSize: '2rem',
+            letterSpacing: '-1.5px',
+            color: COLORS.primaryLight,
+            textTransform: 'uppercase',
+            lineHeight: 1.1
+          }}
+        >
+          {group.name || t('groupSidebar.nameFallback')}
+        </Typography>
+
+        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
+          {`${t('groupSidebar.created')}: ${formatTerminalDate(rawDate)}`}
+        </Typography>
+        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
+          {`${t('groupSidebar.type')}: ${group.type || t('groupSidebar.public')}`}
+        </Typography>
+        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 'bold' }}>
+          {`${t('groupSidebar.members')}: ${memberCount}`}
+        </Typography>
+        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 'bold' }}>
+          {`${t('groupSidebar.nickname')}: ${currentMember?.nickname || ''}`}
+        </Typography>
+      </Box>
+
+      {/* BOTONES DE ACCIÓN (ESTILO TERMINAL) */}
+      <Stack spacing={2}>
+        <Button disableRipple sx={mechanicalButtonStyle}
+          onClick={handleCopyInvite}>
+          {isCopied ? t('groupSidebar.inviteCopied') : t('groupSidebar.copyInvite')}
+        </Button>
+        <Button disableRipple sx={mechanicalButtonStyle}
+          onClick={() => setIsModalOpen(true)}
+        >
+          {t('groupSidebar.changeNickname')}
+        </Button>
+        <ChangeMemberNicknameModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          groupId={group.id}
+        />
+      </Stack>
+      {/* --- FIN CAMBIOS --- */}
+
+      {/* BOTÓN DE ELIMINAR (SÓLO ADMIN) */}
+      {isAdmin && (
+        <Button
+          disableRipple
+          // --- INICIO CAMBIOS: Conectando el botón de eliminar al Modal ---
+          onClick={() => setIsDeleteModalOpen(true)}
+          // --- FIN CAMBIOS ---
+          sx={{
+            ...mechanicalButtonStyle,
+            mt: 4,
+            border: `2px solid ${COLORS.primaryMid}`,
+            color: COLORS.primaryMid,
+            boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
+            fontSize: '0.8rem',
+            p: '8px',
+            '&:hover': {
+              backgroundColor: COLORS.primaryDark,
+              color: COLORS.primaryLight,
+              borderColor: COLORS.primaryLight,
+            }
+          }}
+        >
+          {t('groupSidebar.deleteGroup')}
+        </Button>
+      )}
+
+      {/* --- INICIO CAMBIOS: Modal de Confirmación de Eliminación Brutalista --- */}
+      <Dialog
+        open={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        PaperProps={{
+          sx: {
+            border: `2px solid #ff5555`, // Borde rojo alerta
+            boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
+            backgroundColor: COLORS.primaryDark,
+          }
+        }}
+      >
+        <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid #ff5555` }}>
+          <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif', color: '#ff5555' }}>
+            {t('groupSidebar.deleteModalTitle')}
+          </Typography>
+        </Box>
+
+        <DialogContent sx={{ pt: 4, pb: 4 }}>
+          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
+            {t('groupSidebar.deleteModalBody')}
+          </Typography>
+        </DialogContent>
+
+        <DialogActions sx={{ p: 3, pt: 1, gap: 2 }}>
+          <Button
+            onClick={() => setIsDeleteModalOpen(false)}
+            disableRipple
+            sx={{
+              ...mechanicalButtonStyle,
+              border: `2px solid ${COLORS.primaryMid}`,
+              boxShadow: `4px 4px 0px ${COLORS.accentDark}`,
+              color: COLORS.primaryMid,
+              p: '8px 16px'
+            }}
+          >
+            {t('groupSidebar.cancel')}
+          </Button>
+          <Button
+            onClick={() => deleteGroupMutation.mutate()}
+            disabled={deleteGroupMutation.isPending}
+            disableRipple
+            sx={{
+              ...mechanicalButtonStyle,
+              bgcolor: '#ff5555',
+              color: COLORS.primaryDark,
+              borderColor: '#ff5555',
+              boxShadow: `4px 4px 0px ${COLORS.accentDark}`,
+              p: '8px 16px',
+              '&:hover': { bgcolor: '#ff7777' }
+            }}
+          >
+            {deleteGroupMutation.isPending ? t('groupSidebar.deleting') : t('groupSidebar.confirmDelete')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* --- FIN CAMBIOS --- */}
+
+    </Box>
+  );
+}

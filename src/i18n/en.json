@@ -1,0 +1,77 @@
+{
+  "login": {
+    "title": "MOVIETEQUE",
+    "signInView": ">>> SIGN IN",
+    "signUpView": ">>> CREATE ACCOUNT",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "usernameLabel": "Username",
+    "enterBtn": "ENTER",
+    "registerBtn": "REGISTER",
+    "processing": ">>> PROCESSING...",
+    "googleBtn": "Continue with Google",
+    "noAccount": "> No account? Register here",
+    "hasAccount": "> Already have an account? Sign in"
+  },
+  "validation": {
+    "emailRequired": "The email is required",
+    "emailInvalid": "The email must be valid",
+    "passwordMin": "6 characters min",
+    "usernameRequired": "the username is required"
+  },
+  "dashboard": {
+    "title": "Movieteque // My Groups",
+    "loading": ">>> ESTABLISHING SECURE CONNECTION... LOADING GROUPS...",
+    "error": "[ ERROR ] Could not fetch information from the server.",
+    "empty": "> You do not belong to any recommendation group yet.",
+    "createGroupBtn": "+ CREATE NEW GROUP",
+    "type": "TYP",
+    "users": "USR",
+    "created": "CRE"
+  },
+  "createGroup": {
+    "title": ">>> CREATE_GROUP",
+    "nameLabel": "[ NAME ]",
+    "typeLabel": "[ TYPE ]",
+    "typePublic": "PUBLIC",
+    "typePrivate": "PRIVATE",
+    "selectImage": "[ SELECT_IMAGE ]",
+    "cancel": "CANCEL",
+    "execute": "EXECUTE",
+    "processing": "PROCESSING...",
+    "errors": {
+      "nameRequired": "NAME IS REQUIRED [!]"
+    }
+  },
+  "groupSidebar": {
+    "nameFallback": "GROUP NAME",
+    "created": ">>> CREATED",
+    "unknown": "UNKNOWN",
+    "type": "[ TYPE ]",
+    "public": "PUBLIC",
+    "members": "[ MEMBERS ]",
+    "nickname": "[ NICKNAME ]",
+    "copyInvite": "> COPY_INVITE",
+    "inviteCopied": "> [ OK ] INVITE_COPIED",
+    "changeNickname": "> CHANGE_NICKNAME",
+    "deleteGroup": "[X] DELETE_GROUP",
+    "deleteModalTitle": "CRITICAL_WARNING",
+    "deleteModalBody": "Are you absolutely sure you want to destroy this group? All data and members will be lost. This action is irreversible.",
+    "cancel": "[ CANCEL ]",
+    "confirmDelete": "[ EXECUTE_DELETION ]",
+    "deleting": "DELETING...",
+    "deleteError": "SYSTEM_ERROR: COULD NOT DELETE GROUP"
+  },
+  "groupMembers": {
+    "title": "/// MEMBER_REGISTRY",
+    "roleAdmin": "[ ADMIN ]",
+    "roleUser": "[ USER ]",
+    "adminBtn": "A",
+    "userBtn": "U",
+    "banBtn": "X",
+    "empty": "NO_MEMBERS_REGISTERED"
+  }
+
+
+
+}
