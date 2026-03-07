@@ -35,7 +35,10 @@ export function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-
+  useEffect(() => {
+    const movietequeAuthToken = localStorage.getItem('movieteque-token')
+    if (movietequeAuthToken) navigate('/dashboard', { replace: true });
+  }, []);
 
   useEffect(() => {
     const inviteToken = searchParams.get('invite');

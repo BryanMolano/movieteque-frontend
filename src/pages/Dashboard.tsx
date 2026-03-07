@@ -19,51 +19,6 @@ interface Group {
 // Función auxiliar para leer el JWT de forma nativa
 // --- COMPONENTE AISLADO PARA LA TARJETA ---
 // Recibe la función 't' como prop para no llamar múltiples hooks
-const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t: any }) => (
-  <Paper
-    elevation={0}
-    onClick={onClick}
-    sx={{
-      p: 2, display: 'flex', gap: 2, alignItems: 'flex-start',
-      height: '100%', boxSizing: 'border-box', // <-- ESTO OBLIGA A QUE TODAS MIDAN IGUAL
-      backgroundColor: COLORS.primaryDark, borderRadius: 0,
-      border: `2px solid ${COLORS.primaryMid}`, boxShadow: `6px 6px 0px ${COLORS.accentDark}`,
-      cursor: 'pointer', transition: 'all 0.1s linear',
-      '&:hover': {
-        borderColor: COLORS.primaryLight,
-        boxShadow: `6px 6px 0px ${COLORS.accentMid}`,
-        transform: 'translate(-2px, -2px)'
-      }
-    }}
-  >
-    <Avatar
-      src={group.imgUrl}
-      alt={group.name}
-      variant="square"
-      sx={{ width: 70, height: 70, border: `2px solid ${COLORS.primaryLight}`, flexShrink: 0 }} // flexShrink evita que la imagen se aplaste
-    />
-
-    {/* minWidth: 0 es un truco de flexbox para que el truncamiento (noWrap) funcione */}
-    <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
-      <Typography variant="h6" color={COLORS.primaryLight} noWrap sx={{ fontWeight: 'bold', fontFamily: 'monospace', textTransform: 'uppercase' }}>
-        {group.name}
-      </Typography>
-
-      {/* flexWrap permite que las etiquetas bajen de línea si la pantalla es muy pequeña */}
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 1 }}>
-        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
-          {t('dashboard.type')}: [{group.type}]
-        </Typography>
-        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
-          {t('dashboard.users')}: [{group.membersCount}]
-        </Typography>
-        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
-          {t('dashboard.created')}: [{group.created_at}]
-        </Typography>
-      </Box>
-    </Box>
-  </Paper>
-);
 
 // --- COMPONENTE PRINCIPAL ---
 export function Dashboard() {
@@ -224,3 +179,50 @@ export function Dashboard() {
     </Box >
   );
 }
+
+
+const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t: any }) => (
+  <Paper
+    elevation={0}
+    onClick={onClick}
+    sx={{
+      p: 2, display: 'flex', gap: 2, alignItems: 'flex-start',
+      height: '100%', boxSizing: 'border-box', // <-- ESTO OBLIGA A QUE TODAS MIDAN IGUAL
+      backgroundColor: COLORS.primaryDark, borderRadius: 0,
+      border: `2px solid ${COLORS.primaryMid}`, boxShadow: `6px 6px 0px ${COLORS.accentDark}`,
+      cursor: 'pointer', transition: 'all 0.1s linear',
+      '&:hover': {
+        borderColor: COLORS.primaryLight,
+        boxShadow: `6px 6px 0px ${COLORS.accentMid}`,
+        transform: 'translate(-2px, -2px)'
+      }
+    }}
+  >
+    <Avatar
+      src={group.imgUrl}
+      alt={group.name}
+      variant="square"
+      sx={{ width: 70, height: 70, border: `2px solid ${COLORS.primaryLight}`, flexShrink: 0 }} // flexShrink evita que la imagen se aplaste
+    />
+
+    {/* minWidth: 0 es un truco de flexbox para que el truncamiento (noWrap) funcione */}
+    <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
+      <Typography variant="h6" color={COLORS.primaryLight} noWrap sx={{ fontWeight: 'bold', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+        {group.name}
+      </Typography>
+
+      {/* flexWrap permite que las etiquetas bajen de línea si la pantalla es muy pequeña */}
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 1 }}>
+        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
+          {t('dashboard.type')}: [{group.type}]
+        </Typography>
+        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
+          {t('dashboard.users')}: [{group.membersCount}]
+        </Typography>
+        <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
+          {t('dashboard.created')}: [{group.created_at}]
+        </Typography>
+      </Box>
+    </Box>
+  </Paper>
+);
