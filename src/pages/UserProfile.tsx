@@ -1,11 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { movietequeApi } from "../api/MovietequeApi";
 import type { User } from "../interfaces/User";
 import { Box, Button, Typography } from "@mui/material";
 import { COLORS } from "../theme/AppTheme";
 import type { Group } from "../interfaces/Group";
+import { useToast } from "../contexts/ToastContext";
+import axios from "axios";
+import { useState } from "react";
+import { EditUserProfile } from '../components/users/EditUserProfile';
 
 const formatTerminalDate = (isoString?: string) => {
   if (!isoString) return 'DESCONOCIDO';
@@ -18,12 +22,34 @@ const formatTerminalDate = (isoString?: string) => {
   }
 };
 export function UserProfile() {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const { showToast } = useToast();
+  const queryClient = useQueryClient()
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data: currentUser } = useUser();
   let isCurrentUserProfile: boolean = false;
   if (id === currentUser?.id) {
     isCurrentUserProfile = true;
   }
+
+  const joinGroupMutation = useMutation({
+    mutationFn: async (groupId: string) => {
+      return await movietequeApi.post(`/group/${groupId}/joinPublicGroup`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['public-groups-user', id] })
+      showToast('[OK] TE HAS UNIDO AL GRUPO', 'success')
+    },
+    onError: (error) => {
+      let serverMessage = "ERROR_DE_SISTEMA";
+      if (axios.isAxiosError(error)) {
+        serverMessage = error.response?.data?.message || serverMessage;
+        if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
+      }
+      showToast(`[ ERROR ] ${serverMessage}`, 'error');
+    }
+  });
 
   const { data: user, isLoading, isError } = useQuery({
     queryKey: ['user', id],
@@ -59,6 +85,9 @@ export function UserProfile() {
     );
   }
   const handleJoinGroup = (groupId: string) => { console.log('universe al grupo', groupId) }
+  const goToGroup = (groupId: string) => {
+
+  }
   return (
     <Box sx={{
       minHeight: '100vh',
@@ -108,6 +137,7 @@ export function UserProfile() {
             {/* BOTÓN EDITAR (Condicional) */}
             {isCurrentUserProfile && (
               <Button
+                onClick={() => setIsModalOpen(true)}
                 disableRipple
                 // onClick={handleEditProfile} // Tu función aquí
                 sx={{
@@ -123,6 +153,12 @@ export function UserProfile() {
                 [ EDITAR PERFIL ]
               </Button>
             )}
+            <EditUserProfile
+              key={`${currentUser!.id}-${isModalOpen}`}
+              open={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              user={currentUser}
+            />
           </Box>
         </Box>
 
@@ -147,53 +183,76 @@ export function UserProfile() {
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            {groups?.map((group) => (
-              <Box
-                key={group.id}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  p: 1.5,
-                  border: `2px solid ${COLORS.primaryMid}`,
-                  backgroundColor: COLORS.primaryDark,
-                  transition: 'all 0.1s linear',
-                  '&:hover': {
-                    borderColor: COLORS.primaryLight,
-                    backgroundColor: 'rgba(203, 211, 214, 0.05)'
-                  }
-                }}
-              >
-                {/* Imagen del grupo pequeña */}
+            {groups?.map((group) => {
+
+              const isMember = group.members?.some(m => m.user.id === currentUser?.id);
+              return (
                 <Box
-                  component="img"
-                  src={group.imgUrl || 'https://via.placeholder.com/40'} // Cambia por tu variable real
-                  sx={{ width: 40, height: 40, border: `1px solid ${COLORS.primaryMid}`, mr: 2, objectFit: 'cover' }}
-                />
-
-                {/* Nombre del grupo */}
-                <Typography color={COLORS.primaryLight} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                  {group.name}
-                </Typography>
-
-                {/* Botón Unirse (Mecánico y pequeño) */}
-                <Button
-                  disableRipple
-                  // onClick={() => handleJoinGroup(group.id)} // Tu función aquí
+                  key={group.id}
                   sx={{
-                    minWidth: 'auto',
-                    p: '4px 8px',
-                    color: COLORS.primaryDark,
-                    backgroundColor: COLORS.primaryLight,
-                    border: `2px solid ${COLORS.primaryLight}`,
-                    boxShadow: `2px 2px 0px ${COLORS.accentMid}`,
-                    fontSize: '0.85rem',
-                    '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
+                    display: 'flex',
+                    alignItems: 'center',
+                    p: 1.5,
+                    border: `2px solid ${COLORS.primaryMid}`,
+                    backgroundColor: COLORS.primaryDark,
+                    transition: 'all 0.1s linear',
+                    '&:hover': {
+                      borderColor: COLORS.primaryLight,
+                      backgroundColor: 'rgba(203, 211, 214, 0.05)'
+                    }
                   }}
                 >
-                  UNIRSE
-                </Button>
-              </Box>
-            ))}
+                  {/* Imagen del grupo pequeña */}
+                  <Box
+                    component="img"
+                    src={group.imgUrl || 'https://via.placeholder.com/40'} // Cambia por tu variable real
+                    sx={{ width: 40, height: 40, border: `1px solid ${COLORS.primaryMid}`, mr: 2, objectFit: 'cover' }}
+                  />
+
+                  {/* Nombre del grupo */}
+                  <Typography color={COLORS.primaryLight} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                    {group.name}
+                  </Typography>
+
+                  {/* Botón Unirse (Mecánico y pequeño) */}
+                  {currentUser && !isMember && <Button
+                    disableRipple
+                    onClick={() => joinGroupMutation.mutate(group.id)} // Tu función aquí
+                    disabled={joinGroupMutation.isPending}
+                    sx={{
+                      minWidth: 'auto',
+                      p: '4px 8px',
+                      color: COLORS.primaryDark,
+                      backgroundColor: COLORS.primaryLight,
+                      border: `2px solid ${COLORS.primaryLight}`,
+                      boxShadow: `2px 2px 0px ${COLORS.accentMid}`,
+                      fontSize: '0.85rem',
+                      opacity: joinGroupMutation.isPending ? 0.5 : 1,
+                      '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
+                    }}
+                  >
+                    {joinGroupMutation.isPending ? 'UNIENDO...' : 'UNIRSE'}
+                  </Button>}
+
+                  {currentUser && isMember && <Button
+                    disableRipple
+                    onClick={() => navigate(`/groups/${group.id}`)}
+                    sx={{
+                      minWidth: 'auto',
+                      p: '4px 8px',
+                      color: COLORS.primaryDark,
+                      backgroundColor: COLORS.primaryLight,
+                      border: `2px solid ${COLORS.primaryLight}`,
+                      boxShadow: `2px 2px 0px ${COLORS.accentMid}`,
+                      fontSize: '0.85rem',
+                      '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
+                    }}
+                  >
+                    IR A GRUPO
+                  </Button>}
+                </Box>
+              )
+            })}
 
             {/* Mensaje si no hay grupos */}
             {groups?.length === 0 && (
