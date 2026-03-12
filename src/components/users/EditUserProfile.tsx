@@ -14,7 +14,6 @@ interface Props {
   open: boolean;
   onClose: () => void;
   user: User | null | undefined;
-  groupId: string | null;
 }
 
 interface FormErrors {
@@ -42,7 +41,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
     onSuccess: (dataFromServer) => {
       onClose();
       queryClient.invalidateQueries({ queryKey: ['user', user?.id] })
-      showToast('[OK] PERFIL ACTUALIZADO', 'success')
+      showToast(t('editUserProfile.success', '[OK] PERFIL ACTUALIZADO'), 'success')
+      // showToast('[OK] PERFIL ACTUALIZADO', 'success')
     },
     onError: (error) => {
       let serverErrors = {}
@@ -64,10 +64,12 @@ export function EditUserProfile({ open, onClose, user }: Props) {
         setFormErrors(newErrors)
       }
       else if (typeof serverErrors === 'string') {
-        showToast(`[ERROR DEL SERVIDOR] ${serverErrors}`, 'error')
+        showToast(`${t('editUserProfile.serverError', '[ERROR DEL SERVIDOR]')} ${serverErrors}`, 'error')
+        // showToast(`[ERROR DEL SERVIDOR] ${serverErrors}`, 'error')
       }
       else {
-        showToast(`[ERROR CRIRICO] No se pudo completar la operacion`, 'error')
+        showToast(t('editUserProfile.criticalError', '[ERROR CRITICO] No se pudo completar la operacion'), 'error')
+        // showToast(`[ERROR CRIRICO] No se pudo completar la operacion`, 'error')
       }
     }
   });
@@ -117,7 +119,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
         {/* ENCABEZADO */}
         <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid ${COLORS.primaryMid}` }}>
           <Typography color={COLORS.primaryLight} sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif' }}>
-            [ EDITAR_PERFIL ]
+            {t('editUserProfile.title', '[ EDITAR_PERFIL ]')}
+            {/* [ EDITAR_PERFIL ] */}
           </Typography>
         </Box>
 
@@ -125,7 +128,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
 
           {/* INPUT: USERNAME */}
           <TextField
-            label="USERNAME"
+            label={t('editUserProfile.usernameLabel', 'USERNAME')}
+            // label="USERNAME"
             fullWidth
             value={username}
             onChange={(e) => {
@@ -139,7 +143,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
 
           {/* INPUT: DESCRIPCIÓN */}
           <TextField
-            label="DESCRIPCIÓN (BIO)"
+            label={t('editUserProfile.descriptionLabel', 'DESCRIPCIÓN (BIO)')}
+            // label="DESCRIPCIÓN (BIO)"
             multiline
             rows={3} // Lo hacemos más grande
             fullWidth
@@ -156,12 +161,14 @@ export function EditUserProfile({ open, onClose, user }: Props) {
           {/* SECCIÓN DE CONTRASEÑA (Separador visual) */}
           <Box sx={{ borderTop: `1px dashed ${COLORS.primaryMid}`, mt: 1, pt: 3 }}>
             <Typography color={COLORS.primaryMid} sx={{ mb: 2, fontSize: '0.85rem' }}>
-              {'>'} DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA
+              {'>'} {t('editUserProfile.passwordHint', 'DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA')}
+              {/* {'>'} DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA */}
             </Typography>
 
             {/* INPUT: OLD PASSWORD */}
             <TextField
-              label="CONTRASEÑA ACTUAL"
+              label={t('editUserProfile.oldPasswordLabel', 'CONTRASEÑA ACTUAL')}
+              // label="CONTRASEÑA ACTUAL"
               type="password"
               fullWidth
               value={oldPassword}
@@ -176,7 +183,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
 
             {/* INPUT: NEW PASSWORD */}
             <TextField
-              label="NUEVA CONTRASEÑA"
+              label={t('editUserProfile.newPasswordLabel', 'NUEVA CONTRASEÑA')}
+              // label="NUEVA CONTRASEÑA"
               type="password"
               fullWidth
               value={newPassword}
@@ -193,10 +201,12 @@ export function EditUserProfile({ open, onClose, user }: Props) {
           {/* BOTÓN DE ARCHIVO (IMAGEN) */}
           <Box sx={{ borderTop: `1px dashed ${COLORS.primaryMid}`, mt: 1, pt: 3 }}>
             <Typography color={COLORS.primaryMid} sx={{ mb: 1, fontSize: '0.85rem' }}>
-              {'>'} ACTUALIZAR IMAGEN DE PERFIL
+              {'>'} {t('editUserProfile.imageHint', 'ACTUALIZAR IMAGEN DE PERFIL')}
+              {/* {'>'} ACTUALIZAR IMAGEN DE PERFIL */}
             </Typography>
             <Button component="label" sx={{ ...mechanicalBtnSx, py: 1.5, width: '100%', color: COLORS.primaryLight, backgroundColor: 'transparent' }}>
-              {imageFile ? `[ ${imageFile.name} ]` : 'SELECCIONAR_NUEVA_IMAGEN'}
+              {imageFile ? `[ ${imageFile.name} ]` : t('editUserProfile.selectImageBtn', 'SELECCIONAR_NUEVA_IMAGEN')}
+              {/* {imageFile ? `[ ${imageFile.name} ]` : 'SELECCIONAR_NUEVA_IMAGEN'} */}
               <input
                 type="file"
                 hidden
@@ -215,7 +225,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
         {/* ACCIONES */}
         <DialogActions sx={{ p: 3, pt: 1, gap: 2, borderTop: `2px solid ${COLORS.primaryMid}` }}>
           <Button disableRipple onClick={onClose} sx={{ ...mechanicalBtnSx, color: COLORS.primaryMid, backgroundColor: 'transparent' }}>
-            CANCELAR
+            {t('editUserProfile.cancelBtn', 'CANCELAR')}
+            {/* CANCELAR */}
           </Button>
           <Button
             disableRipple
@@ -230,7 +241,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
               '&:hover': { bgcolor: '#ffffff' }
             }}
           >
-            {editUserProfileMutation.isPending ? 'GUARDANDO...' : 'GUARDAR CAMBIOS'}
+            {editUserProfileMutation.isPending ? t('editUserProfile.savingBtn', 'GUARDANDO...') : t('editUserProfile.executeBtn', 'GUARDAR CAMBIOS')}
+            {/* {editUserProfileMutation.isPending ? 'GUARDANDO...' : 'GUARDAR CAMBIOS'} */}
           </Button>
         </DialogActions>
 

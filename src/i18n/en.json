@@ -54,6 +54,7 @@
     "copyInvite": "> COPY_INVITE",
     "inviteCopied": "> [ OK ] INVITE_COPIED",
     "changeNickname": "> CHANGE_NICKNAME",
+    "editGroup": "> EDIT_GROUP",
     "deleteGroup": "[X] DELETE_GROUP",
     "deleteModalTitle": "CRITICAL_WARNING",
     "deleteModalBody": "Are you absolutely sure you want to destroy this group? All data and members will be lost. This action is irreversible.",
@@ -70,8 +71,53 @@
     "userBtn": "U",
     "banBtn": "X",
     "empty": "NO_MEMBERS_REGISTERED"
+  },
+  "editGroup": {
+    "title": "[ EDIT_GROUP ]",
+    "success": "[OK] GROUP_UPDATED",
+    "serverError": "[SERVER_ERROR]",
+    "criticalError": "[CRITICAL_ERROR] Operation could not be completed"
+  },
+  "userProfile": {
+    "unknownDate": "UNKNOWN",
+    "systemError": "SYSTEM_ERROR",
+    "joinSuccess": "[OK] YOU HAVE JOINED THE GROUP",
+    "errorPrefix": "[ ERROR ]",
+    "loadingUser": ">>> LOADING_USER..._",
+    "errorNotFound": ">>> ERROR_404: NOT FOUND..._",
+    "memberSince": "MEMBER_SINCE",
+    "editProfileBtn": "[ EDIT PROFILE ]",
+    "bioTitle": "[ USER_BIO ]",
+    "noBioError": "> ERROR: USER_HAS_NO_DESCRIPTION.",
+    "publicGroupsTitle": "PUBLIC_GROUPS",
+    "joiningBtn": "JOINING...",
+    "joinBtn": "JOIN",
+    "goToGroupBtn": "GO TO GROUP",
+    "noGroupsMsg": "> THIS_USER_DOES_NOT_BELONG_TO_ANY_PUBLIC_GROUP.",
+    "inviteToGroupBtn": "[ INVITE TO GROUP ]"
+  },
+  "editUserProfile": {
+    "success": "[OK] PROFILE UPDATED",
+    "serverError": "[SERVER ERROR]",
+    "criticalError": "[CRITICAL ERROR] Operation could not be completed",
+    "title": "[ EDIT_PROFILE ]",
+    "usernameLabel": "USERNAME",
+    "descriptionLabel": "DESCRIPTION (BIO)",
+    "passwordHint": "LEAVE BLANK IF YOU DO NOT WISH TO CHANGE YOUR PASSWORD",
+    "oldPasswordLabel": "CURRENT PASSWORD",
+    "newPasswordLabel": "NEW PASSWORD",
+    "imageHint": "UPDATE PROFILE IMAGE",
+    "selectImageBtn": "SELECT_NEW_IMAGE",
+    "cancelBtn": "CANCEL",
+    "savingBtn": "SAVING...",
+    "executeBtn": "SAVE CHANGES"
+  },
+  "inviteModal": {
+    "title": "[ INVITE TO GROUP ]",
+    "inviteBtn": "INVITE",
+    "alreadyMemberBtn": "ALREADY MEMBER",
+    "closeBtn": "CLOSE",
+    "noGroupsMsg": "> NO_GROUPS_AVAILABLE_TO_INVITE."
   }
-
-
 
 }

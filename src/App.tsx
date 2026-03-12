@@ -6,6 +6,7 @@ import { MainLayout } from './components/layout/MainLayout'; // Importa el Layou
 import { Group } from './pages/Group';
 import { ToastProvider } from './contexts/ToastContext';
 import { UserProfile } from './pages/UserProfile';
+import { Users } from './pages/Users';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/groups/:id" element={<Group />} />
               <Route path="/userProfile/:id" element={<UserProfile />} />
+              <Route path="/users" element={<Users />} />
               {/* Agrega aquí /movies, /users, etc. */}
             </Route>
           </Route>

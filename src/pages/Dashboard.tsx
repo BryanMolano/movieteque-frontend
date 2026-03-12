@@ -6,6 +6,8 @@ import { movietequeApi } from '../api/MovietequeApi';
 import { COLORS } from '../theme/AppTheme';
 import { useEffect, useState } from 'react';
 import { CreateGroupModal } from '../components/groups/CreateGroupModal';
+import axios from 'axios';
+import { useToast } from '../contexts/ToastContext';
 
 // --- INTERFACES ---
 interface Group {
@@ -26,6 +28,7 @@ export function Dashboard() {
   const { t } = useTranslation(); // Iniciamos el traductor
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const queryClient = useQueryClient()
+  const { showToast } = useToast();
 
 
   const [pendingToken, setPendingToken] = useState<string | null>(
@@ -63,7 +66,12 @@ export function Dashboard() {
     onError: (error) => {
       localStorage.removeItem('pending-invite');
       setPendingToken(null);
-      alert("YA ERES PARTE DE ESTE GRUPO");
+      let serverMessage = "ERROR_DE_SISTEMA";
+      if (axios.isAxiosError(error)) {
+        serverMessage = error.response?.data?.message || serverMessage;
+        if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
+      }
+      showToast(`[ ERROR ] ${serverMessage}`, 'error');
     }
   });
 
@@ -179,8 +187,6 @@ export function Dashboard() {
     </Box >
   );
 }
-
-
 const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t: any }) => (
   <Paper
     elevation={0}

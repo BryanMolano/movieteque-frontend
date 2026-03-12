@@ -10,19 +10,22 @@ import { useToast } from "../contexts/ToastContext";
 import axios from "axios";
 import { useState } from "react";
 import { EditUserProfile } from '../components/users/EditUserProfile';
+import { useTranslation } from "react-i18next";
+import { InviteUserModal } from "../components/users/InviteUserToGroupModal";
 
 const formatTerminalDate = (isoString?: string) => {
   if (!isoString) return 'DESCONOCIDO';
   try {
     const date = new Date(isoString);
-    // Devuelve formato YYYY-MM-DD para un look técnico
     return date.toISOString().split('T')[0];
   } catch (error) {
     return 'ERROR_DE_SISTEMA';
   }
 };
 export function UserProfile() {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isInviteUserModalOpen, setIsInviteUserModalOpen] = useState<boolean>(false)
   const { showToast } = useToast();
   const queryClient = useQueryClient()
   const navigate = useNavigate();
@@ -39,10 +42,11 @@ export function UserProfile() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['public-groups-user', id] })
-      showToast('[OK] TE HAS UNIDO AL GRUPO', 'success')
+      showToast(t('userProfile.joinSuccess', '[OK] TE HAS UNIDO AL GRUPO'), 'success');
+      // showToast('[OK] TE HAS UNIDO AL GRUPO', 'success')
     },
     onError: (error) => {
-      let serverMessage = "ERROR_DE_SISTEMA";
+      let serverMessage = t('userProfile.systemError')
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
@@ -70,7 +74,8 @@ export function UserProfile() {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '2rem' }}>
-          {`>>> CARGANDO_USER..._`}
+          {/* {`>>> CARGANDO_USER..._`} */}
+          {t('userProfile.loadingUser')}
         </Typography>
       </Box>
     );
@@ -131,7 +136,8 @@ export function UserProfile() {
               {user?.username}
             </Typography>
             <Typography color={COLORS.primaryMid} sx={{ mb: 2 }}>
-              {`> MIEMBRO_DESDE: ${formatTerminalDate(user?.createdAt)}`}
+              {/* {`> MIEMBRO_DES{DE: ${formatTerminalDate(user?.createdAt)}`} */}
+              {`> ${t('userProfile.memberSince', 'MIEMBRO_DESDE')}: ${formatTerminalDate(user?.createdAt)}`}
             </Typography>
 
             {/* BOTÓN EDITAR (Condicional) */}
@@ -150,7 +156,8 @@ export function UserProfile() {
                   '&:active': { transform: 'translate(3px, 3px)', boxShadow: 'none' }
                 }}
               >
-                [ EDITAR PERFIL ]
+                {/* [ EDITAR PERFIL ] */}
+                {t('userProfile.editProfileBtn', '[ EDITAR PERFIL ]')}
               </Button>
             )}
             <EditUserProfile
@@ -158,6 +165,35 @@ export function UserProfile() {
               open={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               user={currentUser}
+            />
+
+
+
+            {/* BOTÓN INVITAR A GRUPO (Solo si NO es el usuario actual) */}
+            {!isCurrentUserProfile && currentUser && (
+              <Button
+                disableRipple
+                onClick={() => setIsInviteUserModalOpen(true)}
+                sx={{
+                  alignSelf: 'flex-start',
+                  color: COLORS.primaryDark,
+                  backgroundColor: COLORS.primaryLight,
+                  border: `2px solid ${COLORS.primaryLight}`,
+                  boxShadow: `3px 3px 0px ${COLORS.accentMid}`,
+                  fontWeight: 900,
+                  fontFamily: 'monospace',
+                  '&:hover': { backgroundColor: '#ffffff' },
+                  '&:active': { transform: 'translate(3px, 3px)', boxShadow: 'none' }
+                }}
+              >
+                {t('userProfile.inviteToGroupBtn', '[ INVITAR A GRUPO ]')}
+              </Button>
+            )}
+            <InviteUserModal
+              open={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              user={currentUser}
+              invitedUser={user}
             />
           </Box>
         </Box>
@@ -169,17 +205,20 @@ export function UserProfile() {
           backgroundColor: 'transparent'
         }}>
           <Typography color={COLORS.primaryLight} sx={{ fontWeight: 900, mb: 2 }}>
-            [ BIO_DEL_USUARIO ]
+            {/* [ BIO_DEL_USUARIO ] */}
+            {t('userProfile.bioTitle', '[ BIO_DEL_USUARIO ]')}
           </Typography>
           <Typography color={COLORS.primaryLight} sx={{ whiteSpace: 'pre-line' }}>
-            {user?.description || '> ERROR: USUARIO_SIN_DESCRIPCIÓN.'}
+            {user?.description || t('userProfile.noBioError', '> ERROR: USUARIO_SIN_DESCRIPCIÓN.')}
+            {/* {user?.description || '> ERROR: USUARIO_SIN_DESCRIPCIÓN.'} */}
           </Typography>
         </Box>
 
         {/* 3. LISTADO DE GRUPOS */}
         <Box>
           <Typography color={COLORS.primaryLight} sx={{ fontWeight: 900, mb: 2, letterSpacing: '-1px' }}>
-            {`>>> GRUPOS_PÚBLICOS [${groups?.length || 0}]`}
+            {/* {`>>> GRUPOS_PÚBLICOS [${groups?.length || 0}]`} */}
+            {`>>> ${t('userProfile.publicGroupsTitle', 'GRUPOS_PÚBLICOS')} [${groups?.length || 0}]`}
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
@@ -231,7 +270,8 @@ export function UserProfile() {
                       '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
                     }}
                   >
-                    {joinGroupMutation.isPending ? 'UNIENDO...' : 'UNIRSE'}
+                    {/* {joinGroupMutation.isPending ? 'UNIENDO...' : 'UNIRSE'} */}
+                    {joinGroupMutation.isPending ? t('userProfile.joiningBtn', 'UNIENDO...') : t('userProfile.joinBtn', 'UNIRSE')}
                   </Button>}
 
                   {currentUser && isMember && <Button
@@ -248,7 +288,8 @@ export function UserProfile() {
                       '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
                     }}
                   >
-                    IR A GRUPO
+                    {t('userProfile.goToGroupBtn', 'IR A GRUPO')}
+                    {/* IR A GRUPO */}
                   </Button>}
                 </Box>
               )
@@ -257,7 +298,8 @@ export function UserProfile() {
             {/* Mensaje si no hay grupos */}
             {groups?.length === 0 && (
               <Typography color={COLORS.primaryMid}>
-                {`> ESTE_USUARIO_NO_PERTENECE_A_NINGÚN_GRUPO_PÚBLICO.`}
+                {t('userProfile.noGroupsMsg', '> ESTE_USUARIO_NO_PERTENECE_A_NINGÚN_GRUPO_PÚBLICO.')}
+                {/* {`> ESTE_USUARIO_NO_PERTENECE_A_NINGÚN_GRUPO_PÚBLICO.`} */}
               </Typography>
             )}
           </Box>

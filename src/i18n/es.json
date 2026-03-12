@@ -55,6 +55,7 @@
     "copyInvite": "> COPIAR_INVITACION",
     "inviteCopied": "> [ OK ] ENLACE_COPIADO",
     "changeNickname": "> CAMBIAR_NICKNAME",
+    "editGroup": "> EDITAR_GRUPO",
     "deleteGroup": "[X] ELIMINAR_GRUPO",
     "deleteModalTitle": "ADVERTENCIA_CRITICA",
     "deleteModalBody": "¿Estás absolutamente seguro de que deseas destruir este grupo? Todos los datos y miembros se perderán. Esta acción es irreversible.",
@@ -71,6 +72,53 @@
     "userBtn": "U",
     "banBtn": "X",
     "empty": "NO_HAY_MIEMBROS_REGISTRADOS"
+  },
+  "editGroup": {
+    "title": "[ EDITAR_GRUPO ]",
+    "success": "[OK] GRUPO_ACTUALIZADO",
+    "serverError": "[ERROR_DEL_SERVIDOR]",
+    "criticalError": "[ERROR_CRITICO] No se pudo completar la operación"
+  },
+  "userProfile": {
+    "unknownDate": "DESCONOCIDO",
+    "systemError": "ERROR_DE_SISTEMA",
+    "joinSuccess": "[OK] TE HAS UNIDO AL GRUPO",
+    "errorPrefix": "[ ERROR ]",
+    "loadingUser": ">>> CARGANDO_USER..._",
+    "errorNotFound": ">>> ERROR_404: NOT FOUND..._",
+    "memberSince": "MIEMBRO_DESDE",
+    "editProfileBtn": "[ EDITAR PERFIL ]",
+    "bioTitle": "[ BIO_DEL_USUARIO ]",
+    "noBioError": "> ERROR: USUARIO_SIN_DESCRIPCIÓN.",
+    "publicGroupsTitle": "GRUPOS_PÚBLICOS",
+    "joiningBtn": "UNIENDO...",
+    "joinBtn": "UNIRSE",
+    "goToGroupBtn": "IR A GRUPO",
+    "noGroupsMsg": "> ESTE_USUARIO_NO_PERTENECE_A_NINGÚN_GRUPO_PÚBLICO.",
+    "inviteToGroupBtn": "[ INVITAR A GRUPO ]"
+  },
+  "editUserProfile": {
+    "success": "[OK] PERFIL ACTUALIZADO",
+    "serverError": "[ERROR DEL SERVIDOR]",
+    "criticalError": "[ERROR CRITICO] No se pudo completar la operación",
+    "title": "[ EDITAR_PERFIL ]",
+    "usernameLabel": "USERNAME",
+    "descriptionLabel": "DESCRIPCIÓN (BIO)",
+    "passwordHint": "DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA",
+    "oldPasswordLabel": "CONTRASEÑA ACTUAL",
+    "newPasswordLabel": "NUEVA CONTRASEÑA",
+    "imageHint": "ACTUALIZAR IMAGEN DE PERFIL",
+    "selectImageBtn": "SELECCIONAR_NUEVA_IMAGEN",
+    "cancelBtn": "CANCELAR",
+    "savingBtn": "GUARDANDO...",
+    "executeBtn": "GUARDAR CAMBIOS"
+  },
+  "inviteModal": {
+    "title": "[ INVITAR A GRUPO ]",
+    "inviteBtn": "INVITAR",
+    "alreadyMemberBtn": "YA ES MIEMBRO",
+    "closeBtn": "CERRAR",
+    "noGroupsMsg": "> NO_TIENES_GRUPOS_DISPONIBLES_PARA_INVITAR."
   }
 
   

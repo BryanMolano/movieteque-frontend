@@ -12,35 +12,13 @@ import { movietequeApi } from '../../api/MovietequeApi';
 import { useUser } from '../../hooks/useUser';
 import { ChangeMemberNicknameModal } from './ChangeNicknameModal';
 import type { Member } from '../../interfaces/Member';
+import { EditGroupModal } from './EditGroupModal';
 
 interface GroupInfoSidebarProps {
   group: Group;
   isAdmin: boolean;
   currentMember: Member | undefined;
 }
-
-const mechanicalButtonStyle = {
-  borderRadius: 0,
-  border: `2px solid ${COLORS.primaryLight}`,
-  backgroundColor: COLORS.primaryDark,
-  color: COLORS.primaryLight,
-  fontFamily: 'sans-serif',
-  fontWeight: 900,
-  fontSize: '1rem',
-  letterSpacing: '-1.5px',
-  padding: '12px 16px',
-  boxShadow: `4px 4px 0px ${COLORS.accentMid}`,
-  transition: 'all 0.05s linear',
-  justifyContent: 'flex-start', // Texto alineado a la izquierda para toque de consola
-  '&:hover': {
-    backgroundColor: COLORS.primaryDark,
-    filter: 'brightness(1.2)',
-  },
-  '&:active': {
-    transform: 'translate(4px, 4px)',
-    boxShadow: `0px 0px 0px transparent`,
-  },
-};
 
 const formatTerminalDate = (isoString?: string) => {
   if (!isoString) return 'DESCONOCIDO';
@@ -58,6 +36,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
   const memberCount = group.members?.length || 0;
   const { data: currentUser } = useUser();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
   // --- INICIO CAMBIOS: Inicialización de Hooks para eliminación ---
   const { t } = useTranslation();
@@ -168,11 +147,28 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
           onClose={() => setIsModalOpen(false)}
           groupId={group.id}
         />
+
+
       </Stack>
       {/* --- FIN CAMBIOS --- */}
 
+      {isAdmin && (
+        <Button
+          disableRipple sx={mechanicalButtonStyle}
+          onClick={() => setIsEditModalOpen(true)}
+        >
+          {t('groupSidebar.editGroup')}
+        </Button>
+      )}
+      <EditGroupModal
+        open={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        group={group}
+      />
       {/* BOTÓN DE ELIMINAR (SÓLO ADMIN) */}
       {isAdmin && (
+
+
         <Button
           disableRipple
           // --- INICIO CAMBIOS: Conectando el botón de eliminar al Modal ---
@@ -258,3 +254,25 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
     </Box>
   );
 }
+const mechanicalButtonStyle = {
+  borderRadius: 0,
+  border: `2px solid ${COLORS.primaryLight}`,
+  backgroundColor: COLORS.primaryDark,
+  color: COLORS.primaryLight,
+  fontFamily: 'sans-serif',
+  fontWeight: 900,
+  fontSize: '1rem',
+  letterSpacing: '-1.5px',
+  padding: '12px 16px',
+  boxShadow: `4px 4px 0px ${COLORS.accentMid}`,
+  transition: 'all 0.05s linear',
+  justifyContent: 'flex-start', // Texto alineado a la izquierda para toque de consola
+  '&:hover': {
+    backgroundColor: COLORS.primaryDark,
+    filter: 'brightness(1.2)',
+  },
+  '&:active': {
+    transform: 'translate(4px, 4px)',
+    boxShadow: `0px 0px 0px transparent`,
+  },
+};

@@ -13,7 +13,13 @@ movietequeApi.interceptors.request.use(
       return config;
     },
     (error)=>{
-      return Promise.reject(error);
-    },
+    if (error.response && error.response.status === 401) {
+      console.warn('>>> [AUTH] JWT_EXPIRADO_O_INVÁLIDO. INICIANDO_PURGA..._');
+      localStorage.removeItem('token'); 
+      window.location.href = '/login'; 
+    }
+    return Promise.reject(error);
 
+  }
   );
+

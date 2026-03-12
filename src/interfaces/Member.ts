@@ -1,3 +1,4 @@
+import type { Group } from "./Group";
 import type { User } from "./User";
 
 export interface Member {
@@ -7,4 +8,5 @@ export interface Member {
   nickname: string | null;
   isBanned: boolean;
   user: User;
+  group:Group;
 }

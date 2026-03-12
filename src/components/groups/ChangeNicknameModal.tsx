@@ -5,6 +5,8 @@ import { Box, Button, Dialog, DialogActions, DialogContent, MenuItem, TextField,
 import { COLORS } from "../../theme/AppTheme";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { useToast } from "../../contexts/ToastContext";
 
 interface Props {
   open: boolean;
@@ -38,6 +40,7 @@ const mechanicalBtnSx = {
 };
 
 export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
+  const { showToast } = useToast();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [nickname, setNickname] = useState('');
@@ -54,10 +57,11 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
       queryClient.invalidateQueries({ queryKey: ['group', groupId] });
       onClose();
     },
-    onError: (error: any) => {
-      alert(error.message)
-      const serverErrors = error.response?.data?.message;
-
+    onError: (error) => {
+      let serverErrors = {}
+      if (axios.isAxiosError(error)) {
+        serverErrors = (error.response?.data)?.message;
+      }
       if (Array.isArray(serverErrors)) {
         const newErrors: FormErrors = {}
         serverErrors.forEach((msg: string) => {
@@ -65,6 +69,14 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
             newErrors.nickname = msg;
         });
         setFormErrors(newErrors)
+      }
+      else if (typeof serverErrors === 'string') {
+        showToast(`${t('editUserProfile.serverError', '[ERROR DEL SERVIDOR]')} ${serverErrors}`, 'error')
+        // showToast(`[ERROR DEL SERVIDOR] ${serverErrors}`, 'error')
+      }
+      else {
+        showToast(t('editUserProfile.criticalError', '[ERROR CRITICO] No se pudo completar la operacion'), 'error')
+        // showToast(`[ERROR CRIRICO] No se pudo completar la operacion`, 'error')
       }
     }
   });

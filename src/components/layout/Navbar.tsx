@@ -12,7 +12,6 @@ export function Navbar() {
     { path: '/dashboard', label: 'GRUPOS' },
     { path: '/movies', label: 'PELÍCULAS' },
     { path: '/users', label: 'USUARIOS' },
-    { path: '/notifications', label: 'NOTIFICACIONES' },
   ];
 
   const handleLogout = () => {

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useToast } from '../../contexts/ToastContext';
 import { useNavigate } from 'react-router-dom';
+import { BansModal } from './BansModal';
 
 interface GroupMembersListProps {
   members: Member[];
@@ -30,12 +31,14 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
 
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const sortedMembers = [...(members || [])].sort((a, b) => {
-    if (a.role.toLowerCase() === 'admin' && b.role.toLowerCase() !== 'admin') return -1;
-    if (a.role.toLowerCase() !== 'admin' && b.role.toLowerCase() === 'admin') return 1;
-    return 0;
-  });
+  const sortedMembers = [...(members || [])]
+    .sort((a, b) => {
+      if (a.role.toLowerCase() === 'admin' && b.role.toLowerCase() !== 'admin') return -1;
+      if (a.role.toLowerCase() !== 'admin' && b.role.toLowerCase() === 'admin') return 1;
+      return 0;
+    });
 
 
 
@@ -96,6 +99,37 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
         {t('groupMembers.title')}
       </Typography>
 
+      {isAdmin && (
+        <Tooltip title="Administrar Baneados" placement="top" disableInteractive>
+          <Button
+            disableRipple
+            onClick={() => setIsModalOpen(true)} // Tu futura lógica aquí
+            sx={{
+              ...squareBtnStyle,
+              minWidth: '28px',
+              height: '28px',
+              fontSize: '0.9rem',
+              borderColor: COLORS.primaryMid,
+              color: COLORS.primaryMid,
+              boxShadow: `2px 2px 0px ${COLORS.accentDark}`,
+              '&:hover': {
+                borderColor: '#ff5555',
+                color: '#ff5555',
+                backgroundColor: 'transparent'
+              }
+            }}
+          >
+            X
+          </Button>
+        </Tooltip>
+      )}
+
+      <BansModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        sortedMembers={sortedMembers}
+        group={group}
+      />
       {/* LISTA DE MIEMBROS */}
       {sortedMembers.length === 0 && (
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
@@ -104,6 +138,10 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       )}
 
       {sortedMembers.map((member) => {
+
+        if (member.isBanned) return null;
+
+
         const isMemberAdmin = member.role.toLowerCase() === 'admin';
 
         return (
