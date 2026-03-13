@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Typography, Container } from '@mui/material';
 import { COLORS } from '../theme/AppTheme';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +8,7 @@ import { useUser } from '../hooks/useUser';
 import { useGroup } from '../hooks/useGroup';
 import { GroupInfoSidebar } from '../components/groups/GroupInfoSidebar';
 import { GroupMembersList } from '../components/groups/GroupMembersList';
+import { useEffect } from 'react';
 
 export function Group() {
   const { id } = useParams();
@@ -15,8 +16,17 @@ export function Group() {
   const { data: group, isLoading } = useGroup(id);
   const isAdmin = (group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id));
   const currentMember = (group?.members.find(member => member.user.id === currentUser?.id));
+  const navigate = useNavigate();
 
+  const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
 
+  useEffect(() => {
+    if (!isLoading && group && currentUser) {
+      if (!isValidMember) {
+        navigate('/dashboard', { replace: true })
+      }
+    }
+  }, [isLoading, group, currentUser, isValidMember, navigate])
 
   if (isLoading) {
     return (
@@ -28,6 +38,7 @@ export function Group() {
     );
   }
   if (!group) return null;
+  if (!isValidMember) return null;
   // return (
   //   <Box sx={{
   //     minHeight: '100vh',

@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { CreateGroupModal } from '../components/groups/CreateGroupModal';
 import axios from 'axios';
 import { useToast } from '../contexts/ToastContext';
+import { useUser } from '../hooks/useUser';
+import { InvitationsModal } from '../components/groups/InvitationsModal';
 
 // --- INTERFACES ---
 interface Group {
@@ -27,8 +29,10 @@ export function Dashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation(); // Iniciamos el traductor
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isInvitationsModalOpen, setIsInvitationsModalOpen] = useState<boolean>(false)
   const queryClient = useQueryClient()
   const { showToast } = useToast();
+  const { data: currentUser } = useUser();
 
 
   const [pendingToken, setPendingToken] = useState<string | null>(
@@ -83,7 +87,7 @@ export function Dashboard() {
   const { data: groups, isLoading, isError } = useQuery({
     queryKey: ['user-groups'],
     queryFn: async () => {
-      const response = await movietequeApi.get('/group');
+      const response = await movietequeApi.get(`/group/${currentUser?.id}/userGroups`);
       return response.data as Group[];
     }
   });
@@ -96,6 +100,33 @@ export function Dashboard() {
           <Typography variant="h4" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}>
             {t('dashboard.title')}
           </Typography>
+          {/* PEGA EL BOTÓN AQUÍ */}
+          <Button
+            disableRipple
+            onClick={() => setIsInvitationsModalOpen(true)}
+            sx={{
+              py: 1, px: 3,
+              backgroundColor: 'transparent',
+              color: COLORS.primaryLight,
+              borderRadius: 0,
+              border: `2px solid ${COLORS.primaryLight}`,
+              boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
+              fontWeight: '900',
+              fontFamily: 'monospace',
+              fontSize: '0.9rem',
+              transition: 'all 0.05s linear',
+              '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' },
+              '&:active': { boxShadow: `0px 0px 0px transparent`, transform: 'translate(3px, 3px)' }
+            }}
+          >
+            {t('dashboard.invitations', '[ INVITACIONES ]')}
+          </Button>
+
+          <InvitationsModal
+            open={isInvitationsModalOpen}
+            onClose={() => setIsInvitationsModalOpen(false)}
+            user={currentUser}
+          />
         </Box>
 
         {isLoading && (

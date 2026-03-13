@@ -3,23 +3,26 @@ import axios from 'axios';
 export const movietequeApi = axios.create({
   baseURL: 'http://localhost:3000/api', 
 });
+
 movietequeApi.interceptors.request.use(
-  (config)=>
-    {
-    const token = localStorage.getItem('movieteque-token');
-    if(token){
-      config.headers['Authorization']=`Bearer ${token}`;
+  (config) => {
+    const token = localStorage.getItem('movieteque-token'); 
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
-      return config;
-    },
-    (error)=>{
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+movietequeApi.interceptors.response.use(
+  (response) => response, 
+  (error) => {
     if (error.response && error.response.status === 401) {
-      console.warn('>>> [AUTH] JWT_EXPIRADO_O_INVÁLIDO. INICIANDO_PURGA..._');
-      localStorage.removeItem('token'); 
+      // console.warn('>>> [AUTH] JWT_EXPIRADO_O_INVÁLIDO._REDIRECCIONANDO...');
+      localStorage.removeItem('movieteque-token');
       window.location.href = '/login'; 
     }
     return Promise.reject(error);
-
   }
-  );
-
+);

@@ -27,7 +27,8 @@
     "createGroupBtn": "+ CREATE NEW GROUP",
     "type": "TYP",
     "users": "USR",
-    "created": "CRE"
+    "created": "CRE",
+    "invitations": "INVITATIONS"
   },
   "createGroup": {
     "title": ">>> CREATE_GROUP",
@@ -117,7 +118,15 @@
     "inviteBtn": "INVITE",
     "alreadyMemberBtn": "ALREADY MEMBER",
     "closeBtn": "CLOSE",
-    "noGroupsMsg": "> NO_GROUPS_AVAILABLE_TO_INVITE."
+    "noGroupsMsg": "> NO_GROUPS_AVAILABLE_TO_INVITE.",
+    "alreadyInvitedBtn": "ALREADY INVITED"
+  },
+    "invitationsModal": {
+    "title": "[ MY INVITATIONS ]",
+    "acceptBtn": "ACCEPT",
+    "rejectBtn": "REJECT",
+    "closeBtn": "CLOSE",
+    "noInvitationsMsg": "> NO_PENDING_INVITATIONS."
   }
 
 }

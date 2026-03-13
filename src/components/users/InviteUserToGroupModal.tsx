@@ -3,26 +3,78 @@ import { COLORS } from "../../theme/AppTheme"; // Ajusta la ruta
 import type { Group } from "../../interfaces/Group"; // Ajusta la ruta
 import { useTranslation } from "react-i18next";
 import type { User } from "../../interfaces/User";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import type { id } from "zod/v4/locales";
+import { movietequeApi } from "../../api/MovietequeApi";
+import { useToast } from "../../contexts/ToastContext";
+import axios from "axios";
+import { url } from "zod";
 
 // Interfaz para las props del modal
 interface InviteUserModalProps {
   open: boolean;
   onClose: () => void;
-  user: User | undefined;
+  currentUser: User | undefined;
   invitedUser: User | undefined;
 }
 
-export function InviteUserModal({ open, onClose, user, invitedUser }: InviteUserModalProps) {
+export function InviteUserModal({ open, onClose, currentUser, invitedUser }: InviteUserModalProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient()
+
+  const { data: groupsToInvite, isLoading, isError } = useQuery({
+    queryKey: ['groups', currentUser?.id],
+    queryFn: async () => {
+      const response = await movietequeApi.get(`/group/${currentUser?.id}/userGroups`);
+      return response.data as Group[];
+    }, enabled: open && !!currentUser?.id
+  });
+  const { data: groupsAlreadyMember, isLoading: InvitedUserIsLoading, isError: InvitedUserIsError } = useQuery({
+    queryKey: ['groups', invitedUser?.id],
+    queryFn: async () => {
+      const response = await movietequeApi.get(`/group/${invitedUser?.id}/userGroups`);
+      return response.data as Group[];
+    }, enabled: open && !!invitedUser?.id
+  });
+  const { data: groupsAlreadyInvited, isLoading: AlreadyInvitedIsLoading, isError: AlreadyInviitedIsError } = useQuery({
+    queryKey: ['groups-invited', invitedUser?.id],
+    queryFn: async () => {
+      const response = await movietequeApi.get(`/group/${invitedUser?.id}/userInvitedGroups`);
+      return response.data as Group[];
+    }, enabled: open && !!invitedUser?.id
+  });
 
 
+
+  const inviteUser = useMutation({
+    mutationFn: async (groupId: string) => {
+      const response = await movietequeApi.post(`/group/${groupId}/invite`, { id: invitedUser?.id })
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['groups', invitedUser?.id] });
+      queryClient.invalidateQueries({ queryKey: ['groups', currentUser?.id] });
+      queryClient.invalidateQueries({ queryKey: ['groups-invited', invitedUser?.id] });
+      showToast('[OK]', 'success')
+    },
+    onError: (error) => {
+      let serverMessage = "ERROR_DE_SISTEMA";
+      if (axios.isAxiosError(error)) {
+        serverMessage = error.response?.data?.message || serverMessage;
+        if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
+      }
+      showToast(`[ ERROR ] ${serverMessage}`, 'error');
+    }
+  })
   return (
     <Dialog
       open={open}
       onClose={onClose}
       PaperProps={{
         sx: {
-          border: `2px solid ${COLORS.primaryLight}`,
+          border: `2px solid ${COLORS.primaryLight
+            }`,
           boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
           backgroundColor: COLORS.primaryDark,
           borderRadius: 0,
@@ -42,27 +94,23 @@ export function InviteUserModal({ open, onClose, user, invitedUser }: InviteUser
       {/* CONTENIDO DEL MODAL (LISTA DE GRUPOS) */}
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 3, p: 2 }}>
 
-        {groups.length === 0 ? (
+        {groupsToInvite?.length === 0 ? (
           <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace', fontSize: '0.9rem' }}>
             {t('inviteModal.noGroupsMsg')}
           </Typography>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            {groups.map((group) => {
-
-              // 🧠 LÓGICA REQUERIDA AQUÍ: 
-              // Determina si el usuario que estamos viendo ya está en 'group.members'
-              const isAlreadyMember = false; // <-- Cambia esto por tu validación real
-
+            {groupsToInvite?.map((group) => {
+              const isAlreadyMember = groupsAlreadyMember?.some(gm => gm.id === group.id) ?? false;
+              const isAlreadyInvited = groupsAlreadyInvited?.some(gm => gm.id === group.id) ?? false;
               return (
                 <GroupRow
                   key={group.id}
                   group={group}
                   isAlreadyMember={isAlreadyMember}
+                  isAlreadyInvited={isAlreadyInvited}
                   onInvite={() => {
-                    // 🧠 LÓGICA REQUERIDA AQUÍ: 
-                    // Ejecuta tu mutación para invitar a este groupId
-                    console.log('Invitar al grupo:', group.id);
+                    inviteUser.mutate(group?.id)
                   }}
                 />
               );
@@ -92,8 +140,11 @@ export function InviteUserModal({ open, onClose, user, invitedUser }: InviteUser
 }
 
 // --- SUB-COMPONENTE PARA LA FILA DEL GRUPO ---
-function GroupRow({ group, isAlreadyMember, onInvite }: { group: Group, isAlreadyMember: boolean, onInvite: () => void }) {
+function GroupRow({ group, isAlreadyMember, isAlreadyInvited, onInvite }: { group: Group, isAlreadyMember: boolean, isAlreadyInvited: boolean, onInvite: () => void }) {
   const { t } = useTranslation();
+
+  // Agrupamos la condición para que si ya es miembro o ya está invitado, el botón se desactive y cambie el estilo
+  const isDisabled = isAlreadyMember || isAlreadyInvited;
 
   return (
     <Box
@@ -105,7 +156,7 @@ function GroupRow({ group, isAlreadyMember, onInvite }: { group: Group, isAlread
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: 'transparent',
         transition: 'border-color 0.1s linear',
-        '&:hover': { borderColor: isAlreadyMember ? COLORS.primaryMid : COLORS.primaryLight }
+        '&:hover': { borderColor: isDisabled ? COLORS.primaryMid : COLORS.primaryLight }
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden', flexGrow: 1, mr: 2 }}>
@@ -120,13 +171,13 @@ function GroupRow({ group, isAlreadyMember, onInvite }: { group: Group, isAlread
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             mr: 2,
-            opacity: isAlreadyMember ? 0.5 : 1 // Efecto visual si ya es miembro
+            opacity: isDisabled ? 0.5 : 1 // Efecto visual desactivado
           }}
         />
         {/* Nombre del grupo */}
         <Typography noWrap sx={{
           fontFamily: 'monospace',
-          color: isAlreadyMember ? COLORS.primaryMid : COLORS.primaryLight,
+          color: isDisabled ? COLORS.primaryMid : COLORS.primaryLight,
           fontSize: '1rem',
           fontWeight: 'bold'
         }}>
@@ -134,11 +185,11 @@ function GroupRow({ group, isAlreadyMember, onInvite }: { group: Group, isAlread
         </Typography>
       </Box>
 
-      {/* Botón de Acción (Invitar / Ya es miembro) */}
+      {/* Botón de Acción (Invitar / Ya es miembro / Ya está invitado) */}
       <Button
         disableRipple
         onClick={onInvite}
-        disabled={isAlreadyMember}
+        disabled={isDisabled}
         sx={{
           minWidth: 'auto',
           p: '4px 8px',
@@ -167,12 +218,16 @@ function GroupRow({ group, isAlreadyMember, onInvite }: { group: Group, isAlread
           }
         }}
       >
-        {isAlreadyMember ? t('inviteModal.alreadyMemberBtn') : t('inviteModal.inviteBtn')}
+        {isAlreadyMember
+          ? t('inviteModal.alreadyMemberBtn')
+          : isAlreadyInvited
+            ? t('inviteModal.alreadyInvitedBtn')
+            : t('inviteModal.inviteBtn')
+        }
       </Button>
     </Box>
   );
 }
-
 // --- ESTILO BASE PARA BOTONES ---
 const mechanicalBtnSx = {
   borderRadius: 0,

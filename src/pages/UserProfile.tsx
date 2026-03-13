@@ -190,9 +190,9 @@ export function UserProfile() {
               </Button>
             )}
             <InviteUserModal
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              user={currentUser}
+              open={isInviteUserModalOpen}
+              onClose={() => setIsInviteUserModalOpen(false)}
+              currentUser={currentUser}
               invitedUser={user}
             />
           </Box>
