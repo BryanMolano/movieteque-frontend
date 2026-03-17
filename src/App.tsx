@@ -8,6 +8,7 @@ import { ToastProvider } from './contexts/ToastContext';
 import { UserProfile } from './pages/UserProfile';
 import { Users } from './pages/Users';
 import { Movies } from './pages/Movies';
+import { MovieDetails } from './pages/MovieDetails';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/userProfile/:id" element={<UserProfile />} />
               <Route path="/users" element={<Users />} />
               <Route path="/movies" element={<Movies />} />
+              <Route path="/movie/:id" element={<MovieDetails />} />
 
               {/* Agrega aquí /movies, /users, etc. */}
             </Route>

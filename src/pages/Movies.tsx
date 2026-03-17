@@ -118,7 +118,7 @@ export function Movies() {
               {/* Botón ">" Explícito y Brutalista */}
               <Button
                 disableRipple
-                onClick={() => navigate(`/movies/${movie.id}`)}
+                onClick={() => navigate(`/movie/${movie.id}`)}
                 sx={{
                   minWidth: 'auto',
                   width: 44,

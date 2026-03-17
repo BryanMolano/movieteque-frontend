@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { movietequeApi } from "../api/MovietequeApi";
-import type { User } from "../interfaces/User";
 import type { MovieBasic } from "../interfaces/MovieBasic";
 
 

@@ -8,12 +8,19 @@ export interface MovieDetails {
   backdrop_path: string|null;
   release_date: string;
   overview: string;
+  
 
   budget: number,
   revenue: number,
   runtime: number,
   origin_country: string,
   original_language: string,
+
+  popularity: number,
+  vote_average: number,
+  vote_count: number,
+
+
 
   genres: MovieDetailsGenre[],
   cast:MovieCast[],
