@@ -8,8 +8,6 @@ import type { Group } from '../interfaces/Group';
 import type { User } from '../interfaces/User';
 import { useSearchUser } from '../hooks/useSearchUser';
 
-// Datos falsos solo para previsualizar el diseño
-
 
 export function Users() {
   const navigate = useNavigate();
@@ -28,15 +26,6 @@ export function Users() {
     }
   }, [searchBar])
 
-  // if (isError) {
-  //   return (
-  //     <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-  //       <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '2rem' }}>
-  //         {`>>> ERROR_404: NOT FOUND..._`}
-  //       </Typography>
-  //     </Box>
-  //   );
-  // }
   return (
     <Box sx={{
       minHeight: '100vh',
