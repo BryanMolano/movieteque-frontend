@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { COLORS } from '../theme/AppTheme'; // Ajusta la ruta a tu archivo de colores
 import { MovieMainInfo } from '../components/movies/MovieMainInfo';
 import { MovieCredits } from '../components/movies/MovieCredits';
+import { MovieStats } from '../components/movies/MovieStats';
 
 export function MovieDetails() {
   const { id } = useParams();
@@ -64,6 +65,7 @@ export function MovieDetails() {
 
         <MovieMainInfo movie={movie} />
         <MovieCredits movie={movie} />
+        <MovieStats movie={movie} />
 
       </Box>
     </Box >

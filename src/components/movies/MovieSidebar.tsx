@@ -1,6 +1,9 @@
 import { Box, Button } from '@mui/material';
 import type { MovieDetails } from '../../interfaces/MovieDetails';
 import { COLORS } from '../../theme/AppTheme';
+import { useState } from 'react';
+import { PostersGallery } from './PosterGalleryModal';
+import { BackdropsGallery } from './BackdropGalleryModal';
 
 interface Props {
   movie: MovieDetails;
@@ -14,6 +17,9 @@ export function MovieSidebar({ movie }: Props) {
   const logoUrl = movie?.logos?.[0]?.file_path
     ? `https://image.tmdb.org/t/p/w300${movie.logos[0].file_path}`
     : null;
+  const [isPostersModalOpen, setIsPostersModalOpen] = useState<boolean>(false)
+
+  const [isBackdropsModalOpen, setIsBackdropsModalOpen] = useState<boolean>(false)
 
   return (
     <Box
@@ -39,7 +45,7 @@ export function MovieSidebar({ movie }: Props) {
         {/* Botón 1: Posters */}
         <Button
           disableRipple
-          onClick={() => console.log('Abrir modal de más pósters')}
+          onClick={() => setIsPostersModalOpen(true)}
           sx={{
             minWidth: 'auto',
             p: '2px 4px',
@@ -56,10 +62,16 @@ export function MovieSidebar({ movie }: Props) {
           [ VER_PÓSTERS ]
         </Button>
 
+        <PostersGallery
+          open={isPostersModalOpen}
+          onClose={() => setIsPostersModalOpen(false)}
+          posters={movie.posters}
+
+        />
         {/* Botón 2: Imágenes */}
         <Button
           disableRipple
-          onClick={() => console.log('Abrir modal de más imágenes')}
+          onClick={() => setIsBackdropsModalOpen(true)}
           sx={{
             minWidth: 'auto',
             p: '2px 4px',
@@ -75,6 +87,12 @@ export function MovieSidebar({ movie }: Props) {
         >
           [ VER_STILLS ]
         </Button>
+        <BackdropsGallery
+          open={isBackdropsModalOpen}
+          onClose={() => setIsBackdropsModalOpen(false)}
+          backdrops={movie.backdrops}
+
+        />
       </Box>
       {/* 2. Póster Controlado */}
       <Box
