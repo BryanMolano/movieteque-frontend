@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import type { MovieDetails, MovieCast, CrewMember } from '../../interfaces/MovieDetails';
 import { COLORS } from '../../theme/AppTheme';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 interface Props {
   movie: MovieDetails;
@@ -16,6 +18,7 @@ interface CreditCardProps {
 }
 
 function CreditCard({ name, subtitle, profilePath }: CreditCardProps) {
+  const { t } = useTranslation();
   const imageUrl = profilePath
     ? `https://image.tmdb.org/t/p/w185${profilePath}`
     : 'https://via.placeholder.com/150x225/0B2833/617B85?text=NO+PIC'; // Placeholder brutalista
@@ -152,20 +155,19 @@ export function MovieCredits({ movie }: Props) {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: 2 }}>
 
       {/* 1. Cast (Foto, Nombre, Personaje) */}
-      <CreditRow title="CAST" items={movie.cast} isCast={true} />
+      <CreditRow title={t('movieCredits.cast')} items={movie.cast} isCast={true} />
 
       {/* 2. Directores (Foto, Nombre) */}
-      <CreditRow title="DIRECTORS" items={movie.directors} />
+      <CreditRow title={t('movieCredits.directors')} items={movie.directors} />
 
       {/* 3. Escritores (Foto, Nombre) */}
-      <CreditRow title="WRITERS" items={movie.writers} />
+      <CreditRow title={t('movieCredits.writers')} items={movie.writers} />
 
       {/* 4. Compositores (Foto, Nombre) */}
-      <CreditRow title="COMPOSERS" items={movie.composers} />
+      <CreditRow title={t('movieCredits.composers')} items={movie.composers} />
 
       {/* 5. Crew General (Foto, Nombre, Trabajo) */}
-      <CreditRow title="CREW" items={movie.crew} showJob={true} />
-
+      <CreditRow title={t('movieCredits.crew')} items={movie.crew} showJob={true} />
     </Box>
   );
 }

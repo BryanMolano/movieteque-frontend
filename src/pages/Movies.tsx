@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSearchMovie } from '../hooks/useSearchMovie';
 import type { MovieBasic } from '../interfaces/MovieBasic';
+import { useTranslation } from 'react-i18next';
 
 export function Movies() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchBar, setSearchBar] = useState('');
   const [textToSearch, setTextToSearch] = useState('');
@@ -28,12 +30,12 @@ export function Movies() {
         {/* ENCABEZADO Y BUSCADOR */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
-            [ BUSCAR_PELÍCULAS ]
+            {t('movies.title')}
           </Typography>
 
           <TextField
             fullWidth
-            placeholder="INGRESE TÍTULO..."
+            placeholder={t('movies.placeholder')}
             value={searchBar}
             onChange={(e) => setSearchBar(e.target.value)} // <-- Conectado al estado
             InputProps={{
@@ -52,12 +54,12 @@ export function Movies() {
 
           {isLoading && (
             <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', py: 2 }}>
-              {`>>> ESCANEANDO_BASE_DE_DATOS..._`}
+              {t('movies.scanning')}
             </Typography>
           )}
 
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 1 }}>
-            {`>>> COINCIDENCIAS_ENCONTRADAS [ ${movies?.length || 0} ]`}
+            {`${t('movies.matches')} [ ${movies?.length || 0} ]`}
           </Typography>
 
           {/* LISTA DE PELÍCULAS */}
@@ -110,7 +112,7 @@ export function Movies() {
                   )}
 
                   <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '1rem', mt: 0.5 }}>
-                    AÑO: [{movie.release_date ? movie.release_date.substring(0, 4) : '????'}]
+                    {t('movies.year')}: [{movie.release_date ? movie.release_date.substring(0, 4) : '????'}]
                   </Typography>
                 </Box>
               </Box>

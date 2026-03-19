@@ -5,12 +5,14 @@ import { useState } from 'react';
 import { PostersGallery } from './PosterGalleryModal';
 import { BackdropsGallery } from './BackdropGalleryModal';
 import { RecommendationMovieModal } from './RecommendationMovieModal';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   movie: MovieDetails;
 }
 
 export function MovieSidebar({ movie }: Props) {
+  const { t } = useTranslation();
   const posterUrl = movie?.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : 'https://via.placeholder.com/500x750/0B2833/CBD3D6?text=NO+POSTER';
@@ -61,7 +63,7 @@ export function MovieSidebar({ movie }: Props) {
             }
           }}
         >
-          [ VER_PÓSTERS ]
+          {t('movieSidebar.viewPosters')}
         </Button>
 
         <PostersGallery
@@ -87,7 +89,7 @@ export function MovieSidebar({ movie }: Props) {
             }
           }}
         >
-          [ VER_STILLS ]
+          {t('movieSidebar.viewStills')}
         </Button>
         <BackdropsGallery
           open={isBackdropsModalOpen}
@@ -137,7 +139,7 @@ export function MovieSidebar({ movie }: Props) {
           }
         }}
       >
-        {`> RECOMENDAR_PELÍCULA`}
+        {t('movieSidebar.recommendBtn')}
       </Button>
 
       <RecommendationMovieModal

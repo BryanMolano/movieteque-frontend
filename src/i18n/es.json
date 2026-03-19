@@ -129,6 +129,69 @@
     "rejectBtn": "RECHAZAR",
     "closeBtn": "CERRAR",
     "noInvitationsMsg": "> NO_TIENES_INVITACIONES_PENDIENTES."
+  },
+  "movies": {
+    "title": "[ BUSCAR_PELÍCULAS ]",
+    "placeholder": "INGRESE TÍTULO...",
+    "scanning": ">>> ESCANEANDO_BASE_DE_DATOS..._",
+    "matches": ">>> COINCIDENCIAS_ENCONTRADAS",
+    "year": "AÑO"
+  },
+  "movieSidebar": {
+    "viewPosters": "[ VER_PÓSTERS ]",
+    "viewStills": "[ VER_STILLS ]",
+    "recommendBtn": "> RECOMENDAR_PELÍCULA"
+  },
+  "movieMain": {
+    "status": "ESTADO",
+    "releaseDate": "ESTRENO",
+    "noSynopsis": ">>> SINOPSIS_NO_ENCONTRADA_",
+    "streaming": "[ STREAMING ]",
+    "trailer": "[ TRAILER ]"
+  },
+  "movieCredits": {
+    "cast": "ELENCO",
+    "directors": "DIRECTORES",
+    "writers": "GUIONISTAS",
+    "composers": "COMPOSITORES",
+    "crew": "EQUIPO TÉCNICO"
+  },
+  "movieStats": {
+    "title": "[ MÉTRICAS_Y_DATOS_TÉCNICOS ]",
+    "unknown": "DESCONOCIDO",
+    "budget": "PRESUPUESTO",
+    "revenue": "RECAUDACIÓN",
+    "originalLanguage": "IDIOMA_ORIGINAL",
+    "popularity": "POPULARIDAD",
+    "score": "PUNTUACIÓN(TMDB)",
+    "totalVotes": "VOTOS_TOTALES"
+  },
+  "galleryModals": {
+    "postersTitle": "[ PÓSTERS_ARCHIVADOS",
+    "backdropsTitle": "[ ARCHIVOS_DE_IMAGEN"
+  },
+  "recommendationModal": {
+    "titleStep1": "[ SELECCIONAR_GRUPO ]",
+    "titleStep2": "[ REDACTAR_RECOMENDACIÓN ]",
+    "loadingGroups": "Cargando grupos...",
+    "noGroups": "No tienes grupos disponibles.",
+    "messageLabel": "[ MENSAJE_RESEÑA ]",
+    "messagePlaceholder": "¿Por qué recomiendas esta película?(opcional)",
+    "priorityLabel": "[ NIVEL_PRIORIDAD : 1-10 ]",
+    "priorityMax": "(MÁXIMA)",
+    "btnCancel": "[ CANCELAR ]",
+    "btnBack": "< VOLVER",
+    "btnExecuting": "[ EJECUTANDO... ]",
+    "btnConfirm": "[ CONFIRMAR ]",
+    "btnChoose": "[ ELEGIR ]",
+    "systemError": "ERROR_DE_SISTEMA"
+  },
+  "usersSearch": {
+    "title": "[ BUSCAR_USUARIOS ]",
+    "placeholder": "INGRESE USERNAME...",
+    "searching": ">>> BUSCANDO..._",
+    "resultsFound": ">>> RESULTADOS_ENCONTRADOS",
+    "viewProfile": "VER PERFIL"
   }
 
   

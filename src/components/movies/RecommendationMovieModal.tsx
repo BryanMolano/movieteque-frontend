@@ -54,7 +54,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
       handleClose();
     },
     onError: (error) => {
-      let serverMessage = "ERROR_DE_SISTEMA";
+      let serverMessage = t('recommendationModal.systemError');
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
@@ -88,7 +88,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
       {/* ENCABEZADO DINÁMICO */}
       <Box sx={{ p: 3, pb: 2, borderBottom: `2px solid ${COLORS.primaryLight}` }}>
         <Typography sx={{ fontWeight: 900, letterSpacing: '-1px', fontSize: '1.5rem', fontFamily: 'sans-serif', color: COLORS.primaryLight }}>
-          {step === 1 ? '[ SELECCIONAR_GRUPO ]' : '[ REDACTAR_RECOMENDACIÓN ]'}
+          {step === 1 ? t('recommendationModal.titleStep1') : t('recommendationModal.titleStep2')}
         </Typography>
       </Box>
 
@@ -99,9 +99,9 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
         {step === 1 && (
           <>
             {isLoading ? (
-              <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace' }}>Cargando grupos...</Typography>
+              <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace' }}>{t('recommendationModal.loadingGroups')}</Typography>
             ) : groupsToRecommend?.length === 0 ? (
-              <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace' }}>No tienes grupos disponibles.</Typography>
+              <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace' }}>{t('recommendationModal.noGroups')}</Typography>
             ) : (
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {groupsToRecommend?.map((group) => (
@@ -147,13 +147,13 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
             {/* INPUT: Mensaje */}
             <Box>
               <Typography sx={{ color: COLORS.primaryLight, fontFamily: 'monospace', mb: 1, fontSize: '0.9rem' }}>
-                [ MENSAJE_RESEÑA ]
+                {t('recommendationModal.messageLabel')}
               </Typography>
               <TextField
                 fullWidth
                 multiline
                 rows={3}
-                placeholder="¿Por qué recomiendas esta película?"
+                placeholder={t('recommendationModal.messagePlaceholder')}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 sx={neobrutalistInputSx}
@@ -163,7 +163,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
             {/* INPUT: Prioridad */}
             <Box>
               <Typography sx={{ color: COLORS.primaryLight, fontFamily: 'monospace', mb: 1, fontSize: '0.9rem' }}>
-                [ NIVEL_PRIORIDAD : 1-10 ]
+                {t('recommendationModal.priorityLabel')}
               </Typography>
               <Select
                 value={priority}
@@ -174,7 +174,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
               >
                 {[...Array(10)].map((_, i) => (
                   <MenuItem key={i + 1} value={i + 1} sx={{ fontFamily: 'monospace', color: COLORS.primaryLight }}>
-                    {i + 1} {i + 1 === 10 && '(MÁXIMA)'}
+                    {i + 1} {i + 1 === 10 && t('recommendationModal.priorityMax')}
                   </MenuItem>
                 ))}
               </Select>
@@ -187,12 +187,12 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
       <DialogActions sx={{ p: 2, borderTop: `2px solid ${COLORS.primaryMid}`, justifyContent: 'space-between' }}>
         {step === 1 ? (
           <Button disableRipple onClick={handleClose} sx={{ ...mechanicalBtnSx, width: '100%', borderColor: COLORS.primaryMid, color: COLORS.primaryMid }}>
-            [ CANCELAR ]
+            {t('recommendationModal.btnCancel')}
           </Button>
         ) : (
           <>
             <Button disableRipple onClick={() => setStep(1)} sx={{ ...mechanicalBtnSx, borderColor: COLORS.primaryMid, color: COLORS.primaryMid }}>
-              {'< VOLVER'}
+              {t('recommendationModal.btnBack')}
             </Button>
             <Button
               disableRipple
@@ -202,7 +202,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
               }}
               sx={{ ...mechanicalBtnSx, backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark, '&:hover': { backgroundColor: '#fff' } }}
             >
-              {createRecommendationMutation.isPending ? '[ EJECUTANDO... ]' : '[ CONFIRMAR ]'}
+              {createRecommendationMutation.isPending ? t('recommendationModal.btnExecuting') : t('recommendationModal.btnConfirm')}
             </Button>
           </>
         )}
@@ -213,6 +213,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
 
 // --- SUB-COMPONENTE PARA LA FILA DEL GRUPO (PASO 1) ---
 function GroupSelectionRow({ group, onSelect }: { group: Group, onSelect: () => void }) {
+  const { t } = useTranslation(); // <-- AÑADIR ESTO AQUÍ
   return (
     <Box
       sx={{
@@ -234,7 +235,7 @@ function GroupSelectionRow({ group, onSelect }: { group: Group, onSelect: () => 
         </Typography>
       </Box>
       <Button disableRipple onClick={onSelect} sx={{ ...mechanicalBtnSx, p: '4px 8px', fontSize: '0.8rem' }}>
-        [ ELEGIR ]
+        {t('recommendationModal.btnChoose')}
       </Button>
     </Box>
   );

@@ -1,12 +1,15 @@
 import { Box, Button, Typography } from '@mui/material';
 import type { MovieDetails } from '../../interfaces/MovieDetails';
 import { COLORS } from '../../theme/AppTheme';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   movie: MovieDetails;
 }
 
 export function MovieMainInfo({ movie }: Props) {
+
+  const { t } = useTranslation();
   // 1. Construir Backdrop
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/w1920${movie.backdrop_path}`
@@ -75,6 +78,19 @@ export function MovieMainInfo({ movie }: Props) {
               {`AKA: ${movie.original_title}`}
             </Typography>
           )}
+          {/* 👇 NUEVA ADICIÓN: Estado y Fecha de Estreno (Estilo etiquetas de sistema) */}
+          <Box sx={{ display: 'flex', gap: 1.5, mt: 1, flexWrap: 'wrap' }}>
+            {movie.status && (
+              <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '0.85rem', border: `1px solid ${COLORS.primaryMid}`, px: 1, backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                {t('movieMain.status')}: [{movie.status.toUpperCase()}]
+              </Typography>
+            )}
+            {movie.release_date && (
+              <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '0.85rem', border: `1px solid ${COLORS.primaryMid}`, px: 1, backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                {t('movieMain.releaseDate')}: [{movie.release_date}]
+              </Typography>
+            )}
+          </Box>
         </Box>
 
         {/* Derecha: Datos Técnicos (Runtime y País) */}
@@ -108,7 +124,7 @@ export function MovieMainInfo({ movie }: Props) {
             overflow: 'hidden'
           }}
         >
-          {movie.overview || '>>> SINOPSIS_NO_ENCONTRADA_'}
+          {movie.overview || t('movieMain.noSynopsis')}
         </Typography>
       </Box>
 
@@ -138,7 +154,7 @@ export function MovieMainInfo({ movie }: Props) {
       {movie.watch_providers?.flatrate && movie.watch_providers.flatrate.length > 0 && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem', fontWeight: 900 }}>
-            {`[ STREAMING ]`}
+            {t('movieMain.streaming')}
           </Typography>
 
           <Box
@@ -187,7 +203,7 @@ export function MovieMainInfo({ movie }: Props) {
       {movie.videos && movie.videos.length > 0 && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem', fontWeight: 900 }}>
-            {`[ TRAILER ]`}
+            {t('movieMain.trailer')}
           </Typography>
 
           <Box

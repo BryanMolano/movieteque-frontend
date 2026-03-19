@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import type { MovieDetails } from '../../interfaces/MovieDetails';
 import { COLORS } from '../../theme/AppTheme';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   movie: MovieDetails;
@@ -31,9 +32,10 @@ function StatBlock({ label, value }: { label: string; value: string | number }) 
 }
 
 export function MovieStats({ movie }: Props) {
+  const { t } = useTranslation();
   // Formateador de dinero (Ej: 1500000 -> $1,500,000)
   const formatCurrency = (amount: number) => {
-    if (!amount || amount === 0) return 'DESCONOCIDO';
+    if (!amount || amount === 0) return t('movieStats.unknown');
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -61,7 +63,7 @@ export function MovieStats({ movie }: Props) {
           pb: 0.5
         }}
       >
-        {`[ MÉTRICAS_Y_DATOS_TÉCNICOS ]`}
+        {t('movieStats.title')}
       </Typography>
 
       {/* Grid de Estadísticas (Se adapta automáticamente al tamaño de la pantalla) */}
@@ -72,20 +74,20 @@ export function MovieStats({ movie }: Props) {
           gap: 2
         }}
       >
-        <StatBlock label="PRESUPUESTO (BUDGET)" value={formatCurrency(movie.budget)} />
-        <StatBlock label="RECAUDACIÓN (REVENUE)" value={formatCurrency(movie.revenue)} />
-        <StatBlock label="IDIOMA_ORIGINAL" value={movie.original_language || 'N/A'} />
+        <StatBlock label={t('movieStats.budget')} value={formatCurrency(movie.budget)} />
+        <StatBlock label={t('movieStats.revenue')} value={formatCurrency(movie.revenue)} />
+        <StatBlock label={t('movieStats.originalLanguage')} value={movie.original_language || 'N/A'} />
 
         <StatBlock
-          label="POPULARIDAD"
+          label={t('movieStats.popularity')}
           value={movie.popularity ? movie.popularity.toFixed(1) : '0.0'}
         />
         <StatBlock
-          label="PUNTUACIÓN"
+          label={t('movieStats.score')}
           value={movie.vote_average ? `${movie.vote_average.toFixed(1)} / 10` : 'N/A'}
         />
         <StatBlock
-          label="VOTOS_TOTALES"
+          label={t('movieStats.totalVotes')}
           value={formatNumber(movie.vote_count)}
         />
       </Box>

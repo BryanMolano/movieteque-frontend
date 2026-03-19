@@ -127,6 +127,69 @@
     "rejectBtn": "REJECT",
     "closeBtn": "CLOSE",
     "noInvitationsMsg": "> NO_PENDING_INVITATIONS."
+  },
+  "movies": {
+    "title": "[ SEARCH_MOVIES ]",
+    "placeholder": "ENTER TITLE...",
+    "scanning": ">>> SCANNING_DATABASE..._",
+    "matches": ">>> MATCHES_FOUND",
+    "year": "YEAR"
+  },
+  "movieSidebar": {
+    "viewPosters": "[ VIEW_POSTERS ]",
+    "viewStills": "[ VIEW_STILLS ]",
+    "recommendBtn": "> RECOMMEND_MOVIE"
+  },
+  "movieMain": {
+    "status": "STATUS",
+    "releaseDate": "RELEASED",
+    "noSynopsis": ">>> SYNOPSIS_NOT_FOUND_",
+    "streaming": "[ STREAMING ]",
+    "trailer": "[ TRAILER ]"
+  },
+  "movieCredits": {
+    "cast": "CAST",
+    "directors": "DIRECTORS",
+    "writers": "WRITERS",
+    "composers": "COMPOSERS",
+    "crew": "CREW"
+  },
+  "movieStats": {
+    "title": "[ METRICS_&_TECHNICAL_DATA ]",
+    "unknown": "UNKNOWN",
+    "budget": "BUDGET",
+    "revenue": "REVENUE",
+    "originalLanguage": "ORIGINAL_LANGUAGE",
+    "popularity": "POPULARITY",
+    "score": "SCORE(TMDB)",
+    "totalVotes": "TOTAL_VOTES"
+  },
+  "galleryModals": {
+    "postersTitle": "[ ARCHIVED_POSTERS",
+    "backdropsTitle": "[ IMAGE_ARCHIVES"
+  },
+  "recommendationModal": {
+    "titleStep1": "[ SELECT_GROUP ]",
+    "titleStep2": "[ DRAFT_RECOMMENDATION ]",
+    "loadingGroups": "Loading groups...",
+    "noGroups": "No groups available.",
+    "messageLabel": "[ REVIEW_MESSAGE ]",
+    "messagePlaceholder": "Why do you recommend this movie?(optional)",
+    "priorityLabel": "[ PRIORITY_LEVEL : 1-10 ]",
+    "priorityMax": "(MAXIMUM)",
+    "btnCancel": "[ CANCEL ]",
+    "btnBack": "< BACK",
+    "btnExecuting": "[ EXECUTING... ]",
+    "btnConfirm": "[ CONFIRM ]",
+    "btnChoose": "[ CHOOSE ]",
+    "systemError": "SYSTEM_ERROR"
+  },
+  "usersSearch": {
+    "title": "[ SEARCH_USERS ]",
+    "placeholder": "ENTER USERNAME...",
+    "searching": ">>> SEARCHING..._",
+    "resultsFound": ">>> RESULTS_FOUND",
+    "viewProfile": "VIEW PROFILE"
   }
 
 }

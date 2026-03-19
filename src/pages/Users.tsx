@@ -7,9 +7,11 @@ import { movietequeApi } from '../api/MovietequeApi';
 import type { Group } from '../interfaces/Group';
 import type { User } from '../interfaces/User';
 import { useSearchUser } from '../hooks/useSearchUser';
+import { useTranslation } from 'react-i18next';
 
 
 export function Users() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient()
   const [searchBar, setSearchBar] = useState('')
@@ -42,12 +44,12 @@ export function Users() {
         {/* ENCABEZADO Y BUSCADOR */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
-            [ BUSCAR_USUARIOS ]
+            {t('usersSearch.title')}
           </Typography>
 
           <TextField
             fullWidth
-            placeholder="INGRESE USERNAME..."
+            placeholder={t('usersSearch.placeholder')}
             value={searchBar} // Lo conectaremos en la lógica
             onChange={(e) => setSearchBar(e.target.value)}
             InputProps={{
@@ -66,12 +68,12 @@ export function Users() {
 
           {isLoading && (
             <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', py: 2 }}>
-              {`>>> BUSCANDO..._`}
+              {t('usersSearch.searching')}
             </Typography>
           )}
           {/* Mensaje de estado (Cargando / Sin resultados / Escriba para buscar) */}
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 1 }}>
-            {`>>> RESULTADOS_ENCONTRADOS [ ${users?.length || 0} ]`}
+            {`${t('usersSearch.resultsFound')} [ ${users?.length || 0} ]`}
           </Typography>
 
           {/* LISTA DE USUARIOS */}
@@ -117,7 +119,7 @@ export function Users() {
                 onClick={() => navigate(`/userProfile/${user.id}`)}
                 sx={mechanicalBtnSx}
               >
-                VER PERFIL
+                {t('usersSearch.viewProfile')}
               </Button>
             </Box>
           ))}

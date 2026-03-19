@@ -2,6 +2,7 @@ import { Box, Button, Modal, Typography } from '@mui/material';
 import { COLORS } from '../../theme/AppTheme';
 import type { MovieImages } from '../../interfaces/MovieDetails';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   open: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function BackdropsGallery({ open, backdrops, onClose }: Props) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentBackdrop = backdrops[currentIndex];
 
@@ -63,7 +65,7 @@ export function BackdropsGallery({ open, backdrops, onClose }: Props) {
         {/* HEADER DEL MODAL */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `2px solid ${COLORS.primaryMid}`, pb: 1 }}>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900 }}>
-            {`[ ARCHIVOS_DE_IMAGEN : ${currentIndex + 1} / ${backdrops.length} ]`}
+            {`${t('galleryModals.backdropsTitle')} : ${currentIndex + 1} / ${backdrops.length} ]`}
           </Typography>
 
           <Button

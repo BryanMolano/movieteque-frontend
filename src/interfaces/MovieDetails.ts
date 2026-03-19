@@ -8,6 +8,7 @@ export interface MovieDetails {
   backdrop_path: string|null;
   release_date: string;
   overview: string;
+  status: string;
   
 
   budget: number,
@@ -15,6 +16,7 @@ export interface MovieDetails {
   runtime: number,
   origin_country: string,
   original_language: string,
+
 
   popularity: number,
   vote_average: number,
