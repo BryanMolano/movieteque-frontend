@@ -4,6 +4,7 @@ import { COLORS } from '../../theme/AppTheme';
 import { useState } from 'react';
 import { PostersGallery } from './PosterGalleryModal';
 import { BackdropsGallery } from './BackdropGalleryModal';
+import { RecommendationMovieModal } from './RecommendationMovieModal';
 
 interface Props {
   movie: MovieDetails;
@@ -21,6 +22,7 @@ export function MovieSidebar({ movie }: Props) {
 
   const [isBackdropsModalOpen, setIsBackdropsModalOpen] = useState<boolean>(false)
 
+  const [isRecommendationModalOpen, setIsRecommendationModalOpen] = useState<boolean>(false)
   return (
     <Box
       sx={{
@@ -112,7 +114,7 @@ export function MovieSidebar({ movie }: Props) {
       {/* 3. Botón Principal (El único protagonista) */}
       <Button
         disableRipple
-        onClick={() => console.log('Abrir modal de recomendación')}
+        onClick={() => setIsRecommendationModalOpen(true)}
         sx={{
           width: '100%',
           p: 1.5,
@@ -137,6 +139,12 @@ export function MovieSidebar({ movie }: Props) {
       >
         {`> RECOMENDAR_PELÍCULA`}
       </Button>
+
+      <RecommendationMovieModal
+        open={isRecommendationModalOpen}
+        onClose={() => setIsRecommendationModalOpen(false)}
+        movie={movie}
+      />
 
       {/* 4. Logo Flotante */}
       {logoUrl && (

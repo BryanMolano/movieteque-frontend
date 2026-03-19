@@ -47,13 +47,9 @@ export function MovieMainInfo({ movie }: Props) {
         }}
       />
 
-      {/* =======================================================
-          BLOQUE 2: INFO PRINCIPAL (TÍTULO Y RUNTIME)
-      ======================================================= */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
-
         {/* Izquierda: Títulos y Datos */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, minWidth: 0, width: '100%' }}>
           {/* Título Principal (Sans-serif brutalista) */}
           <Typography
             variant="h1"
@@ -65,40 +61,35 @@ export function MovieMainInfo({ movie }: Props) {
               fontSize: { xs: '2.5rem', md: '4rem' }, // Gigante
               lineHeight: 1,
               color: COLORS.primaryLight,
-              textShadow: `3px 3px 0px ${COLORS.accentDark}` // Sombra dura al texto
+              textShadow: `3px 3px 0px ${COLORS.accentDark}`, // Sombra dura al texto
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word', // Previene el desbordamiento en pantallas muy pequeñas
             }}
           >
             {movie.title}
           </Typography>
 
-          {/* Subtítulo: Original Title (solo si es diferente) */}
+          {/* 👇 ADICIÓN: Título Original (Solo si es diferente al principal) */}
           {movie.title !== movie.original_title && (
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontStyle: 'italic', fontSize: '1.2rem' }}>
               {`AKA: ${movie.original_title}`}
             </Typography>
           )}
-
-          {/* Año y País */}
-          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem', mt: 0.5 }}>
-            {`[ ${movie.release_date} ] 
-            - País de Origen: ${country}`}
-          </Typography>
         </Box>
 
-        {/* Derecha: Runtime */}
-        <Box
-          sx={{
-            border: `2px solid ${COLORS.primaryMid}`,
-            p: 0.5,
-            backgroundColor: 'rgba(97, 123, 133, 0.1)', // Fondo muy sutil
-            flexShrink: 0 // Evita que se aplaste si el título es muy largo
-          }}
-        >
-          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900, fontSize: '1.2rem' }}>
+        {/* Derecha: Datos Técnicos (Runtime y País) */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'flex-end' }, minWidth: { xs: 'auto', sm: 'max-content' } }}>
+          <Typography sx={{ fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 900, color: COLORS.accentMid, letterSpacing: '2px' }}>
             {formatRuntime(movie.runtime)}
+          </Typography>
+          <Typography sx={{ fontFamily: 'monospace', fontSize: '0.9rem', color: COLORS.primaryMid, letterSpacing: '1px' }}>
+            {`[ ${country} ]`}
           </Typography>
         </Box>
       </Box>
+
+
+
 
       {/* =======================================================
           BLOQUE 3: OVERVIEW
