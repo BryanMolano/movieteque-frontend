@@ -75,12 +75,15 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
+        height: '100%', // 👈 CAMBIO CRÍTICO: height estricto
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
         gap: 2,
-        overflowY: 'auto'
+        overflowY: 'auto', // 👈 SCROLL ADENTRO DEL BORDE
+        '&::-webkit-scrollbar': { width: '6px' },
+        '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
+        '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
       }}
     >
       {/* TÍTULO */}

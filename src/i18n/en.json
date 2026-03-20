@@ -190,6 +190,12 @@
     "searching": ">>> SEARCHING..._",
     "resultsFound": ">>> RESULTS_FOUND",
     "viewProfile": "VIEW PROFILE"
+  },
+  "recommendationGroup": {
+    "noActive": ">>> NO_ACTIVE_RECOMMENDATIONS_",
+    "priority": "[ PRIORITY ]",
+    "recent": "[ RECENT ]",
+    "level": "Lvl."
   }
 
 }

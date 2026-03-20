@@ -3,7 +3,7 @@ import type { User } from "./User";
 import type { Movie } from "./Movie";
 import type { Group } from "./Group";
 
-export interface Recommendation {
+export interface RecommendationComplete {
   id: string;
   createdAt: string;
   priority: number;

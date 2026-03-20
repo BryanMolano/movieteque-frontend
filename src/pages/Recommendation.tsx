@@ -10,24 +10,24 @@ import { GroupInfoSidebar } from '../components/groups/GroupInfoSidebar';
 import { GroupMembersList } from '../components/groups/GroupMembersList';
 import { useEffect } from 'react';
 import { RecommendationGroup } from '../components/groups/RecommendationGroup';
+import { useRecommendation } from '../hooks/useRecommendation';
 
-export function Group() {
+export function Recommendation() {
   const { id } = useParams();
   const { data: currentUser } = useUser();
-  const { data: group, isLoading } = useGroup(id);
-  const isAdmin = (group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id));
-  const currentMember = (group?.members.find(member => member.user.id === currentUser?.id));
+  const { data: recommendation, isLoading } = useRecommendation(id);
+  const isAdmin = (recommendation?.group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id));
+  const currentMember = (recommendation?.group?.members.find(member => member.user.id === currentUser?.id));
   const navigate = useNavigate();
-
   const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
 
   useEffect(() => {
-    if (!isLoading && group && currentUser) {
+    if (!isLoading && recommendation && currentUser) {
       if (!isValidMember) {
         navigate('/dashboard', { replace: true })
       }
     }
-  }, [isLoading, group, currentUser, isValidMember, navigate])
+  }, [isLoading, recommendation, currentUser, isValidMember, navigate])
 
   if (isLoading) {
     return (
@@ -38,7 +38,7 @@ export function Group() {
       </Box>
     );
   }
-  if (!group) return null;
+  if (!recommendation) return null;
   if (!isValidMember) return null;
   return (
     <Box sx={{
@@ -51,17 +51,17 @@ export function Group() {
       overflow: 'hidden'
     }}>
 
-      {/* COLUMNAS LIMPIAS */}
+      {/* COLUMNAS LIMPIAS: Solo pasan la altura a sus hijos */}
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        <GroupInfoSidebar group={group} isAdmin={isAdmin} currentMember={currentMember} />
+        {/* <GroupInfoSidebar group={group} isAdmin={isAdmin} currentMember={currentMember} /> */}
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        <RecommendationGroup currentUser={currentUser} group={group} members={group.members} isAdmin={Boolean(isAdmin)} />
+        {/* <RecommendationGroup currentUser={currentUser} group={group} members={group.members} isAdmin={Boolean(isAdmin)} /> */}
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        <GroupMembersList group={group} members={group.members} isAdmin={Boolean(isAdmin)} />
+        {/* <GroupMembersList group={group} members={group.members} isAdmin={Boolean(isAdmin)} /> */}
       </Box>
 
     </Box>

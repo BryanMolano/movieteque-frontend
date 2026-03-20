@@ -16,7 +16,7 @@ import { EditGroupModal } from './EditGroupModal';
 
 interface GroupInfoSidebarProps {
   group: Group;
-  isAdmin: boolean;
+  isAdmin: boolean | undefined;
   currentMember: Member | undefined;
 }
 
@@ -38,7 +38,6 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
-  // --- INICIO CAMBIOS: Inicialización de Hooks para eliminación ---
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -58,7 +57,6 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       alert(t('groupSidebar.deleteError'));
     }
   });
-  // --- FIN CAMBIOS ---
 
   const [isCopied, setIsCopied] = useState(false);
   const handleCopyInvite = async () => {
@@ -80,11 +78,15 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
+        height: '100%', // 👈 CAMBIO CRÍTICO: height estricto, no minHeight
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
-        gap: 3
+        gap: 3,
+        overflowY: 'auto', // 👈 SCROLL ADENTRO DEL BORDE
+        '&::-webkit-scrollbar': { width: '6px' },
+        '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
+        '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
       }}
     >
       {/* IMAGEN DEL GRUPO */}

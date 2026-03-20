@@ -192,6 +192,12 @@
     "searching": ">>> BUSCANDO..._",
     "resultsFound": ">>> RESULTADOS_ENCONTRADOS",
     "viewProfile": "VER PERFIL"
+  },
+  "recommendationGroup": {
+    "noActive": ">>> NO_HAY_RECOMENDACIONES_ACTIVAS_",
+    "priority": "[ PRIORIDAD ]",
+    "recent": "[ RECIENTES ]",
+    "level": "Lvl."
   }
 
   

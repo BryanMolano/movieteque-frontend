@@ -9,6 +9,7 @@ import { UserProfile } from './pages/UserProfile';
 import { Users } from './pages/Users';
 import { Movies } from './pages/Movies';
 import { MovieDetails } from './pages/MovieDetails';
+import { Recommendation } from './pages/Recommendation';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/movies" element={<Movies />} />
               <Route path="/movie/:id" element={<MovieDetails />} />
+              <Route path="/recommendation/:id" element={<Recommendation />} />
 
               {/* Agrega aquí /movies, /users, etc. */}
             </Route>
