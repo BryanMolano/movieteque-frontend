@@ -1,22 +1,17 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Typography, Container } from '@mui/material';
 import { COLORS } from '../theme/AppTheme';
-import { useQuery } from '@tanstack/react-query';
-import { movietequeApi } from '../api/MovietequeApi';
-import type { User } from '../interfaces/User';
 import { useUser } from '../hooks/useUser';
-import { useGroup } from '../hooks/useGroup';
-import { GroupInfoSidebar } from '../components/groups/GroupInfoSidebar';
-import { GroupMembersList } from '../components/groups/GroupMembersList';
 import { useEffect } from 'react';
-import { RecommendationGroup } from '../components/groups/RecommendationGroup';
 import { useRecommendation } from '../hooks/useRecommendation';
+import { RecommendationSidebar } from '../components/recommendations/RecommendationSidebar';
 
 export function Recommendation() {
   const { id } = useParams();
   const { data: currentUser } = useUser();
   const { data: recommendation, isLoading } = useRecommendation(id);
-  const isAdmin = (recommendation?.group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id));
+  const isAdminOrOwner = (recommendation?.group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id ||
+    member.user.id === currentUser?.id && recommendation.user.id === member.user.id));
   const currentMember = (recommendation?.group?.members.find(member => member.user.id === currentUser?.id));
   const navigate = useNavigate();
   const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
@@ -53,7 +48,7 @@ export function Recommendation() {
 
       {/* COLUMNAS LIMPIAS: Solo pasan la altura a sus hijos */}
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        {/* <GroupInfoSidebar group={group} isAdmin={isAdmin} currentMember={currentMember} /> */}
+        <RecommendationSidebar recommendation={recommendation} isAdminOrOwner={isAdminOrOwner} currentMember={currentMember} />
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>

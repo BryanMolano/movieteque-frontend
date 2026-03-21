@@ -20,16 +20,22 @@ interface GroupInfoSidebarProps {
   currentMember: Member | undefined;
 }
 
-const formatTerminalDate = (isoString?: string) => {
-  if (!isoString) return 'DESCONOCIDO';
-  try {
-    const date = new Date(isoString);
-    // Devuelve formato YYYY-MM-DD para un look técnico
-    return date.toISOString().split('T')[0];
-  } catch (error) {
-    return 'ERROR_DE_SISTEMA';
-  }
-};
+const formatTerminalDate = (dateString: string) => {
+  if (!dateString) return "??/??/????";
+  const datePart = dateString.substring(0, 10);
+  const [year, month, day] = datePart.split('-');
+  return `${day}/${month}/${year}`;
+}
+// const formatTerminalDate = (isoString?: string) => {
+//   if (!isoString) return 'DESCONOCIDO';
+//   try {
+//     const date = new Date(isoString);
+//     // Devuelve formato YYYY-MM-DD para un look técnico
+//     return date.toISOString().split('T')[0];
+//   } catch (error) {
+//     return 'ERROR_DE_SISTEMA';
+//   }
+// };
 
 export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSidebarProps) {
   const rawDate = group.created_at || group.created_at;
@@ -78,15 +84,11 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%', // 👈 CAMBIO CRÍTICO: height estricto, no minHeight
+        minHeight: '100%', // 👈 CAMBIADO de height a minHeight
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
-        gap: 3,
-        overflowY: 'auto', // 👈 SCROLL ADENTRO DEL BORDE
-        '&::-webkit-scrollbar': { width: '6px' },
-        '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
-        '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
+        gap: 3
       }}
     >
       {/* IMAGEN DEL GRUPO */}

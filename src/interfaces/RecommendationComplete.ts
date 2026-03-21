@@ -7,8 +7,11 @@ export interface RecommendationComplete {
   id: string;
   createdAt: string;
   priority: number;
+  movie: Movie;
   user: User;
   group: Group;
-  movie: Movie;
   recommendationState: 'Active' | 'Inactive';
+  interactions: Interaction[];
+  messages: Message[];
+
 }
