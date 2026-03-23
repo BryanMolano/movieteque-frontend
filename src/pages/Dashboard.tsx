@@ -89,7 +89,7 @@ export function Dashboard() {
     queryFn: async () => {
       const response = await movietequeApi.get(`/group/${currentUser?.id}/userGroups`);
       return response.data as Group[];
-    }
+    }, enabled: !!currentUser
   });
 
   return (

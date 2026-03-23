@@ -10,9 +10,10 @@ export function Recommendation() {
   const { id } = useParams();
   const { data: currentUser } = useUser();
   const { data: recommendation, isLoading } = useRecommendation(id);
-  const isAdminOrOwner = (recommendation?.group?.members.some(member => member.role === 'Admin' && member.user.id === currentUser?.id ||
-    member.user.id === currentUser?.id && recommendation.user.id === member.user.id));
-  const currentMember = (recommendation?.group?.members.find(member => member.user.id === currentUser?.id));
+  const isAdminOrOwner = (recommendation?.group?.members?.some(member =>
+    (member.role === 'Admin' && member.user.id === currentUser?.id) ||
+    (member.user.id === currentUser?.id && recommendation.user.id === member.user.id)));
+  const currentMember = (recommendation?.group?.members?.find(member => member.user.id === currentUser?.id));
   const navigate = useNavigate();
   const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
 
