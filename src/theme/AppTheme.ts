@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme, type SxProps, type Theme } from '@mui/material';
 
 export const COLORS = {
   primaryDark: '#0B2833',
@@ -39,3 +39,53 @@ export const appTheme = createTheme({
     },
   },
 });
+export const mechanicalButtonStyle: SxProps<Theme> = {
+  borderRadius: 0,
+  border: `2px solid ${COLORS.primaryLight}`,
+  backgroundColor: COLORS.primaryDark,
+  color: COLORS.primaryLight,
+  fontFamily: 'sans-serif',
+  fontWeight: 900,
+  fontSize: '1rem',
+  letterSpacing: '-1.5px',
+  transition: 'all 0.05s linear',
+  '&:active': {
+    transform: 'translate(4px, 4px)',
+    boxShadow: `0px 0px 0px transparent`,
+  },
+  '&:hover': {
+    backgroundColor: COLORS.primaryDark,
+    filter: 'brightness(1.2)',
+  },
+};
+
+// Estilo para los inputs tipo terminal
+export const terminalInputStyle: SxProps<Theme> = {
+  '& .MuiOutlinedInput-root': {
+    borderRadius: 0,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    fontFamily: 'monospace',
+    color: COLORS.primaryLight,
+    '& fieldset': {
+      border: `2px solid ${COLORS.primaryMid}`,
+    },
+    '&:hover fieldset': {
+      borderColor: COLORS.primaryLight,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: COLORS.primaryLight,
+      borderWidth: '2px',
+    },
+  },
+  '& .MuiInputBase-input': {
+    padding: '12px',
+  },
+  '& .MuiFormHelperText-root': {
+    fontFamily: 'monospace',
+    color: COLORS.primaryMid,
+    marginLeft: 0,
+  },
+  '& .MuiSelect-icon': {
+    color: COLORS.primaryLight,
+  }
+};

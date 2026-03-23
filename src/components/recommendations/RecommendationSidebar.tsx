@@ -155,6 +155,7 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
         open={isInteractionModalOpen}
         onClose={() => setIsInteractionModalOpen(false)}
         recommendation={recommendation}
+        currentMember={currentMember}
       />
 
 
