@@ -13,6 +13,8 @@ export function Recommendation() {
   const isAdminOrOwner = (recommendation?.group?.members?.some(member =>
     (member.role === 'Admin' && member.user.id === currentUser?.id) ||
     (member.user.id === currentUser?.id && recommendation.user.id === member.user.id)));
+  const isOwner = (recommendation?.group?.members?.some(member =>
+    (member.user.id === currentUser?.id && recommendation.user.id === member.user.id)));
   const currentMember = (recommendation?.group?.members?.find(member => member.user.id === currentUser?.id));
   const navigate = useNavigate();
   const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
@@ -57,7 +59,7 @@ export function Recommendation() {
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        {/* <GroupMembersList group={group} members={group.members} isAdmin={Boolean(isAdmin)} /> */}
+        {/* <RecommendationInteractions recommendation={recommendation} isOwner={isOwner} currentMember={currentMember} /> */}
       </Box>
 
     </Box>

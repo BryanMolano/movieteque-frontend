@@ -14,7 +14,7 @@ interface Props {
   open: boolean;
   onClose: () => void;
   recommendation: RecommendationComplete | null;
-  currentMember: Member | null;
+  currentMember: Member | undefined;
 }
 interface FormErrors {
   rating?: string;
@@ -36,8 +36,9 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
   const [interactionType, setInteractionType] = useState<'PUBLIC' | 'PRIVATE'>('PRIVATE');
 
   const createInteraction = useMutation({
+
     mutationFn: async () => {
-      const response = await movietequeApi.post(`/interaction/${recommendation?.group?.id}`,
+      const response = await movietequeApi.post(`/interaction/${recommendation?.group?.id}/create`,
         {
           response: message ? message : null,
           rating: rating ? parseFloat(rating) : null,
@@ -122,7 +123,8 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
               max: 5,
               step: 0.01 // Permite hasta 2 decimales en el input nativo
             }}
-            helperText={t('interactionModal.ratingHelper', 'Valor entre 1 y 5 (máximo 2 decimales).')}
+            error={Boolean(formErrors.rating)}
+            helperText={formErrors.rating || t('interactionModal.ratingHelper', 'Valor entre 1 y 5 (máximo 2 decimales).')}
             sx={terminalInputStyle}
           />
         </Box>
@@ -140,8 +142,10 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
             onChange={(e) => setMessage(e.target.value)}
             placeholder={t('interactionModal.messagePlaceholder', 'Escribe tu reseña o comentario aquí..._')}
             inputProps={{ maxLength: 2500 }} // Límite generoso para la BD
-            helperText={`${message.length}/2500`}
             sx={terminalInputStyle}
+
+            error={Boolean(formErrors.message)}
+            helperText={formErrors.message || `${message.length}/2500`}
           />
         </Box>
 
@@ -207,7 +211,8 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
           {t('interactionModal.cancel', 'CANCELAR')}
         </Button>
         <Button
-          // onClick={() => tuMutacion.mutate({ rating, message, state: interactionState, type: interactionType })}
+          onClick={() => createInteraction.mutate()}
+          disabled={createInteraction.isPending}
           disableRipple
           sx={{
             ...mechanicalButtonStyle,
@@ -215,10 +220,18 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
             color: COLORS.primaryDark,
             boxShadow: `4px 4px 0px ${COLORS.accentDark}`,
             p: '8px 16px',
-            '&:hover': { filter: 'brightness(1.1)' }
+            '&:hover': { filter: 'brightness(1.1)' },
+            '&:disabled': {
+              bgcolor: COLORS.primaryMid,
+              cursor: 'not-allowed',
+              boxShadow: 'none',
+              transform: 'translate(2px, 2px)'
+            }
           }}
         >
-          {t('interactionModal.confirm', 'CREAR INTERACCIÓN')}
+          {createInteraction.isPending
+            ? t('interactionModal.loading', 'PROCESANDO...')
+            : t('interactionModal.confirm', 'CREAR INTERACCIÓN')}
         </Button>
       </DialogActions>
     </Dialog>
