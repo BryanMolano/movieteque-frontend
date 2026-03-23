@@ -18,14 +18,18 @@ interface GroupedUserRecommendations {
   member: Member;
   recommendations: Recommendation[];
 }
-
 export function RecommendationGroup({ members, isAdmin, group, currentUser }: RecommendationGroupProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const activeRecommendations = group.recommendations.filter(rec => rec.recommendationState === 'Active');
+  const [viewMode, setViewMode] = useState<'ACTIVE' | 'INACTIVE'>('ACTIVE');
 
-  const groupedByUser = activeRecommendations.reduce<GroupedUserRecommendations[]>((acc, rec) => {
+  const activeRecommendations = group.recommendations.filter(rec => rec.recommendationState === 'Active');
+  const inactiveRecommendations = group.recommendations.filter(rec => rec.recommendationState === 'Inactive');
+
+  const currentRecommendations = viewMode === 'ACTIVE' ? activeRecommendations : inactiveRecommendations;
+
+  const groupedByUser = currentRecommendations.reduce<GroupedUserRecommendations[]>((acc, rec) => {
     const existingUser = acc.find(item => item.member.user.id === rec.user.id);
     if (existingUser) {
       existingUser.recommendations.push(rec);
@@ -40,7 +44,6 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
 
   const toggleSortPreference = (userId: string) => {
     const currentPreference = sortPreferences[userId] || 'TIME';
-
     setSortPreferences(prev => ({
       ...prev,
       [userId]: currentPreference === 'TIME' ? 'PRIORITY' : 'TIME'
@@ -54,59 +57,92 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
     return `${day}/${month}/${year}`;
   }
 
-  if (!group.recommendations || group.recommendations.length === 0) {
-    return (
-      <Box sx={{
-        p: 4,
-        border: `2px solid ${COLORS.primaryMid}`,
-        textAlign: 'center',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
-          {`>>> NO_HAY_RECOMENDACIONES_ACTIVAS_`}
-        </Typography>
-      </Box>
-    );
-  }
-
   return (
-    // ESTE ES EL CONTENEDOR PRINCIPAL: Aquí va el border, la altura 100% y el scroll vertical (Y)
     <Box sx={{
       display: 'flex',
       flexDirection: 'column',
-      gap: 4,
       width: '100%',
       height: '100%',
       border: `2px solid ${COLORS.primaryMid}`,
-      p: { xs: 2, lg: 3 },
       overflowY: 'auto',
       overflowX: 'hidden',
       '&::-webkit-scrollbar': { width: '6px' },
       '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
       '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
     }}>
-      {/* Iteramos sobre los usuarios que tienen recomendaciones */}
-      {groupedByUser.map((userGroup: GroupedUserRecommendations) => (
-        <UserRecommendationRow
-          key={userGroup.member.user.id}
-          user={userGroup.member.user}
-          memberInfo={userGroup.member}
-          recommendations={userGroup.recommendations}
-          sortPreference={sortPreferences[userGroup.member.user.id] || 'TIME'}
-          onToggleSort={() => toggleSortPreference(userGroup.member.user.id)}
-          formatDate={formatDate}
-          navigate={navigate}
-        />
-      ))}
+
+      {/* HEADER FIJO CON EL SWITCH BRUTALISTA */}
+      <Box sx={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        backgroundColor: COLORS.primaryDark,
+        borderBottom: `2px solid ${COLORS.primaryMid}`,
+        p: 2,
+        display: 'flex',
+        justifyContent: 'center' // Centramos el switch
+      }}>
+        <Box sx={{ display: 'flex', border: `2px solid ${COLORS.primaryLight}`, boxShadow: `3px 3px 0px ${COLORS.accentDark}` }}>
+          <Button
+            disableRipple
+            onClick={() => setViewMode('ACTIVE')}
+            sx={{
+              ...tabBtnSx,
+              backgroundColor: viewMode === 'ACTIVE' ? COLORS.primaryLight : 'transparent',
+              color: viewMode === 'ACTIVE' ? COLORS.primaryDark : COLORS.primaryLight,
+            }}
+          >
+            {t('recommendationGroup.activeTab', 'ACTIVAS')}
+          </Button>
+          <Button
+            disableRipple
+            onClick={() => setViewMode('INACTIVE')}
+            sx={{
+              ...tabBtnSx,
+              backgroundColor: viewMode === 'INACTIVE' ? COLORS.primaryLight : 'transparent',
+              color: viewMode === 'INACTIVE' ? COLORS.primaryDark : COLORS.primaryLight,
+              borderLeft: `2px solid ${COLORS.primaryLight}`
+            }}
+          >
+            {t('recommendationGroup.inactiveTab', 'INACTIVAS')}
+          </Button>
+        </Box>
+      </Box>
+
+      {/* CONTENIDO DESLIZABLE */}
+      <Box sx={{ p: { xs: 2, lg: 3 }, display: 'flex', flexDirection: 'column', gap: 4 }}>
+
+        {/* ESTADO VACÍO DINÁMICO */}
+        {groupedByUser.length === 0 && (
+          <Box sx={{ p: 4, border: `2px dashed ${COLORS.primaryMid}`, textAlign: 'center', mt: 4 }}>
+            <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
+              {viewMode === 'ACTIVE'
+                ? `>>> NO_HAY_RECOMENDACIONES_ACTIVAS_`
+                : `>>> NO_HAY_RECOMENDACIONES_INACTIVAS_`}
+            </Typography>
+          </Box>
+        )}
+
+        {/* ITERACIÓN DE USUARIOS */}
+        {groupedByUser.map((userGroup: GroupedUserRecommendations) => (
+          <UserRecommendationRow
+            key={userGroup.member.user.id}
+            user={userGroup.member.user}
+            memberInfo={userGroup.member}
+            recommendations={userGroup.recommendations}
+            sortPreference={sortPreferences[userGroup.member.user.id] || 'TIME'}
+            onToggleSort={() => toggleSortPreference(userGroup.member.user.id)}
+            formatDate={formatDate}
+            navigate={navigate}
+            viewMode={viewMode} // 👈 Pasamos el modo de vista para aplicarle el filtro gris a las películas inactivas
+          />
+        ))}
+      </Box>
+
     </Box>
   );
 }
 
-// --- SUB-COMPONENTE PARA CADA FILA DE USUARIO ---
 interface RowProps {
   user: User;
   memberInfo: Member | undefined;
@@ -115,9 +151,10 @@ interface RowProps {
   onToggleSort: () => void;
   formatDate: (d: string) => string;
   navigate: (path: string) => void;
+  viewMode: 'ACTIVE' | 'INACTIVE'; // 👈 Nueva prop
 }
 
-function UserRecommendationRow({ user, memberInfo, recommendations, sortPreference, onToggleSort, formatDate, navigate }: RowProps) {
+function UserRecommendationRow({ user, memberInfo, recommendations, sortPreference, onToggleSort, formatDate, navigate, viewMode }: RowProps) {
   const { t } = useTranslation();
   const displayName = memberInfo?.nickname || user.username;
 
@@ -152,7 +189,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
           </Typography>
         </Box>
 
-        {/* Switch Brutalista */}
+        {/* Switch Brutalista de Orden */}
         <Box sx={{ display: 'flex', border: `2px solid ${COLORS.primaryMid}`, flexShrink: 0 }}>
           <Button
             disableRipple
@@ -210,10 +247,13 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
                 transition: 'all 0.1s linear',
                 boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
                 mb: 1,
+                // 👈 FILTRO VISUAL: Grises si la pestaña es de inactivas
+                filter: viewMode === 'ACTIVE' ? 'none' : 'grayscale(80%) opacity(0.7)',
                 '&:hover': {
                   borderColor: COLORS.primaryLight,
                   transform: 'translate(-2px, -2px)',
                   boxShadow: `5px 5px 0px ${COLORS.primaryLight}`,
+                  filter: 'none', // Quita el filtro gris al pasar el mouse por encima
                 },
                 '&:active': {
                   transform: 'translate(2px, 2px)',
@@ -256,7 +296,16 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
     </Box>
   );
 }
-
+const tabBtnSx = {
+  minWidth: '120px',
+  borderRadius: 0,
+  p: '8px 16px',
+  fontFamily: 'monospace',
+  fontSize: '0.9rem',
+  fontWeight: 900,
+  transition: 'none',
+  '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' }
+};
 const filterBtnSx = {
   minWidth: 'auto',
   borderRadius: 0,

@@ -10,6 +10,7 @@ import { movietequeApi } from '../../api/MovietequeApi';
 import axios from 'axios';
 import { useToast } from '../../contexts/ToastContext';
 import { InteractionModal } from './InteractionModal';
+import type { Recommendation } from '../../interfaces/Recommendation';
 
 interface RecommendationSidebarProps {
   recommendation: RecommendationComplete;
@@ -30,12 +31,22 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
 
   const ActivateDesactivateRecommendation = useMutation({
     mutationFn: async () => {
-      await movietequeApi.post(`/recommendation/${recommendation.group.id}/activateDesactivate`);
+      const response = await movietequeApi.post(`/recommendation/${recommendation.group.id}/activate-desactivate`, { id: recommendation.id })
+      return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user-groups'] });
-      setIsActivationDesactivationModalOpen(false);
-      navigate(`/group/${recommendation.group.id}`);
+    onSuccess: (data) => {
+      if (data === 'activated') {
+        showToast(`[ Activated ] `, 'success');
+        queryClient.invalidateQueries({ queryKey: ['recommendation', recommendation.id] });
+        setIsActivationDesactivationModalOpen(false);
+        navigate(`/recommendation/${recommendation.id}`);
+      }
+      else if (data === 'deactivated') {
+        showToast(`[ Deactivated ] `, 'success');
+        queryClient.invalidateQueries({ queryKey: ['user-groups'] });
+        setIsActivationDesactivationModalOpen(false);
+        navigate(`/groups/${recommendation.group.id}`);
+      }
     },
     onError: (error) => {
       let serverMessage = "ERROR_DE_SISTEMA";
