@@ -52,6 +52,7 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
     onSuccess: () => {
       onClose()
       //invalidar querys de interacciones
+      queryClient.invalidateQueries({ queryKey: ['recommendation', recommendation?.id] });
       showToast('[ OK ]', 'success')
     },
     onError: (error) => {

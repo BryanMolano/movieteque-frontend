@@ -11,6 +11,8 @@ export interface Interaction {
   member: Member;
   recommendation: Recommendation;
   updatedAt: string;
+  createdAt: string;
   state: InteractionState;
   type: InteractionType;
+  number: number | null;
 }

@@ -5,6 +5,7 @@ import { useUser } from '../hooks/useUser';
 import { useEffect } from 'react';
 import { useRecommendation } from '../hooks/useRecommendation';
 import { RecommendationSidebar } from '../components/recommendations/RecommendationSidebar';
+import { RecommendationInteractions } from '../components/recommendations/RecommendationInteractions';
 
 export function Recommendation() {
   const { id } = useParams();
@@ -59,7 +60,7 @@ export function Recommendation() {
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        {/* <RecommendationInteractions recommendation={recommendation} isOwner={isOwner} currentMember={currentMember} /> */}
+        <RecommendationInteractions recommendation={recommendation} isOwner={isOwner} currentMember={currentMember} />
       </Box>
 
     </Box>
