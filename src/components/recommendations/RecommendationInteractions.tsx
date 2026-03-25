@@ -66,7 +66,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
       return response.data;
     },
     onSuccess: (data) => {
-      showToast(`[ Activated ] `, 'success');
+      showToast(`[ OK ] `, 'success');
       queryClient.invalidateQueries({ queryKey: ['recommendation', recommendation?.id] });
       setInteractionToDelete(null);
     },
