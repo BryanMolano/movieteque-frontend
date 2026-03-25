@@ -11,6 +11,7 @@ import axios from "axios";
 import { movietequeApi } from "../../api/MovietequeApi";
 import { useToast } from "../../contexts/ToastContext";
 import { EditInteractionModal } from "./EditInteractionModal";
+import { ViewInteractionModal } from "./ViewInteractionModal";
 
 interface RecommendationInteractionsProps {
   recommendation: RecommendationComplete | null;
@@ -256,6 +257,15 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         onClose={() => setInteractionToEdit(null)}
         interaction={interactionToEdit}
         currentMember={currentMember}
+        recommendation={recommendation}
+      />
+      <ViewInteractionModal
+        key={interactionToView ? interactionToView.id : 'no-interaction-to-view'}
+        open={Boolean(interactionToView)}
+        onClose={() => setInteractionToView(null)}
+        interaction={interactionToView}
+        currentMember={currentMember}
+        recommendation={recommendation}
       />
       <Dialog
         open={Boolean(interactionToDelete)}

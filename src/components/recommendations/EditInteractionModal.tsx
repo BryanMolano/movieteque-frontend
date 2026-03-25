@@ -8,12 +8,14 @@ import axios from "axios";
 import { movietequeApi } from "../../api/MovietequeApi";
 import type { Member } from "../../interfaces/Member";
 import { useToast } from "../../contexts/ToastContext";
+import type { RecommendationComplete } from "../../interfaces/RecommendationComplete";
 
 interface EditInteractionModalProps {
   open: boolean;
   onClose: () => void;
   interaction: Interaction | null;
   currentMember: Member | undefined;
+  recommendation: RecommendationComplete | null;
 }
 
 interface FormErrors {
@@ -23,7 +25,7 @@ interface FormErrors {
   type?: string;
 }
 
-export function EditInteractionModal({ open, onClose, interaction, currentMember }: EditInteractionModalProps) {
+export function EditInteractionModal({ open, onClose, interaction, currentMember, recommendation }: EditInteractionModalProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { showToast } = useToast();
@@ -38,7 +40,7 @@ export function EditInteractionModal({ open, onClose, interaction, currentMember
   const editInteractionMutation = useMutation({
 
     mutationFn: async () => {
-      const response = await movietequeApi.patch(`/interaction/${interaction?.recommendation.group.id}/${interaction?.id}`,
+      const response = await movietequeApi.patch(`/interaction/${recommendation?.group?.id}/${interaction?.id}`,
         {
           response: message ? message : null,
           rating: rating ? parseFloat(rating) : null,
@@ -51,7 +53,7 @@ export function EditInteractionModal({ open, onClose, interaction, currentMember
     },
     onSuccess: () => {
       onClose()
-      queryClient.invalidateQueries({ queryKey: ['recommendation', interaction?.recommendation?.id] });
+      queryClient.invalidateQueries({ queryKey: ['recommendation', recommendation?.id] });
       showToast('[ OK ]', 'success')
     },
     onError: (error) => {
