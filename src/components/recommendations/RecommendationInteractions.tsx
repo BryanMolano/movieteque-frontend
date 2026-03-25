@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { movietequeApi } from "../../api/MovietequeApi";
 import { useToast } from "../../contexts/ToastContext";
+import { EditInteractionModal } from "./EditInteractionModal";
 
 interface RecommendationInteractionsProps {
   recommendation: RecommendationComplete | null;
@@ -77,6 +78,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
       showToast(`[ ERROR ] ${serverMessage}`, 'error');
     }
   });
+
   return (
     <Box
       sx={{
@@ -248,6 +250,13 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
       })}
 
       {/* ===== MODAL DE ELIMINACIÓN ===== */}
+      <EditInteractionModal
+        key={interactionToEdit ? interactionToEdit.id : 'no-interaction-to-edit'}
+        open={Boolean(interactionToEdit)}
+        onClose={() => setInteractionToEdit(null)}
+        interaction={interactionToEdit}
+        currentMember={currentMember}
+      />
       <Dialog
         open={Boolean(interactionToDelete)}
         onClose={() => setInteractionToDelete(null)}
