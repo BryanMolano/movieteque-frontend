@@ -193,11 +193,66 @@
     "resultsFound": ">>> RESULTADOS_ENCONTRADOS",
     "viewProfile": "VER PERFIL"
   },
-  "recommendationGroup": {
-    "noActive": ">>> NO_HAY_RECOMENDACIONES_ACTIVAS_",
+    "recommendationGroup": {
+    "activeTab": "ACTIVAS",
+    "inactiveTab": "INACTIVAS",
     "priority": "[ PRIORIDAD ]",
     "recent": "[ RECIENTES ]",
-    "level": "Lvl."
+    "noActiveRecs": ">>> NO_HAY_RECOMENDACIONES_ACTIVAS_",
+    "noInactiveRecs": ">>> NO_HAY_RECOMENDACIONES_INACTIVAS_"
+  },
+  "recSidebar": {
+    "date": "FECHA",
+    "priority": "PRIORIDAD",
+    "goToMovie": "> IR A PELÍCULA",
+    "interact": "> CREAR INTERACCIÓN",
+    "deactivate": "DESACTIVAR RECOMENDACIÓN",
+    "activate": "ACTIVAR RECOMENDACIÓN",
+    "deactivateTitle": "¿DESACTIVAR RECOMENDACIÓN?",
+    "activateTitle": "¿ACTIVAR RECOMENDACIÓN?",
+    "deactivateBody": "Esta acción ocultará la recomendación del grupo. ¿Deseas proceder?",
+    "activateBody": "Esta acción activará la recomendación y permitirá interactuar con ella. ¿Estás seguro?",
+    "cancel": "CANCELAR",
+    "processing": "PROCESANDO...",
+    "confirmAction": "CONFIRMAR"
+  },
+  "interactions": {
+    "title": "> INTERACCIONES",
+    "filterAll": "TODAS",
+    "filterMine": "MÍAS",
+    "sortDate": "RECIENTES",
+    "sortRating": "PUNTUACIÓN",
+    "typePublic": "PÚBLICAS",
+    "typePrivate": "PRIVADAS",
+    "empty": ">>> NO_HAY_INTERACCIONES_",
+    "btnView": "> VER",
+    "btnEdit": "EDITAR",
+    "btnDelete": "ELIMINAR",
+    "deleteTitle": "¿ELIMINAR INTERACCIÓN?",
+    "deleteBody": "Esta acción es irreversible. ¿Deseas borrar tu interacción de esta recomendación?",
+    "cancel": "CANCELAR",
+    "confirmDelete": "ELIMINAR",
+    "deleting": "BORRANDO..."
+  },
+  "interactionModal": {
+    "title": "> REGISTRAR INTERACCIÓN",
+    "subtitle": "PELÍCULA: {{movieName}}",
+    "ratingLabel": "1. PUNTUACIÓN (OPCIONAL)",
+    "ratingHelper": "Valor entre 1 y 5 (máximo 2 decimales).",
+    "messageLabel": "2. MENSAJE (OPCIONAL)",
+    "messagePlaceholder": "Escribe tu reseña o comentario aquí..._",
+    "stateLabel": "3. ESTADO *",
+    "stateUnseen": "UNSEEN (No vista)",
+    "stateSeen": "SEEN (Vista)",
+    "stateSkipped": "SKIPPED (Omitida)",
+    "typeLabel": "4. TIPO DE VISIBILIDAD *",
+    "typePublicDesc": "Todos los usuarios del grupo podrán ver esta interacción.",
+    "typePrivateDesc": "Solo el usuario que hizo la recomendación podrá verla.",
+    "typePrivate": "PRIVATE (Privado)",
+    "typePublic": "PUBLIC (Público)",
+    "cancel": "CANCELAR",
+    "loading": "PROCESANDO...",
+    "confirm": "CREAR INTERACCIÓN"
   }
 
   

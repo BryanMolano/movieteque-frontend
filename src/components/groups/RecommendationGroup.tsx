@@ -117,12 +117,11 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
           <Box sx={{ p: 4, border: `2px dashed ${COLORS.primaryMid}`, textAlign: 'center', mt: 4 }}>
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
               {viewMode === 'ACTIVE'
-                ? `>>> NO_HAY_RECOMENDACIONES_ACTIVAS_`
-                : `>>> NO_HAY_RECOMENDACIONES_INACTIVAS_`}
+                ? t('recommendationGroup.noActiveRecs', '>>> NO_HAY_RECOMENDACIONES_ACTIVAS_')
+                : t('recommendationGroup.noInactiveRecs', '>>> NO_HAY_RECOMENDACIONES_INACTIVAS_')}
             </Typography>
           </Box>
         )}
-
         {/* ITERACIÓN DE USUARIOS */}
         {groupedByUser.map((userGroup: GroupedUserRecommendations) => (
           <UserRecommendationRow

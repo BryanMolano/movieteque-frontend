@@ -303,7 +303,9 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
             disableRipple
             sx={{ ...mechanicalButtonStyle, bgcolor: '#ff5555', color: COLORS.primaryDark, borderColor: '#ff5555', boxShadow: `4px 4px 0px ${COLORS.accentDark}`, '&:hover': { bgcolor: '#ff7777' } }}
           >
-            {DeleteInteractionMutation.isPending ? 'BORRANDO...' : t('interactions.confirmDelete', 'ELIMINAR')}
+            {DeleteInteractionMutation.isPending
+              ? t('interactions.deleting', 'BORRANDO...')
+              : t('interactions.confirmDelete', 'ELIMINAR')}
           </Button>
         </DialogActions>
       </Dialog>

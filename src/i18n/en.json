@@ -192,10 +192,65 @@
     "viewProfile": "VIEW PROFILE"
   },
   "recommendationGroup": {
-    "noActive": ">>> NO_ACTIVE_RECOMMENDATIONS_",
+    "activeTab": "ACTIVE",
+    "inactiveTab": "INACTIVE",
     "priority": "[ PRIORITY ]",
     "recent": "[ RECENT ]",
-    "level": "Lvl."
+    "noActiveRecs": ">>> NO_ACTIVE_RECOMMENDATIONS_",
+    "noInactiveRecs": ">>> NO_INACTIVE_RECOMMENDATIONS_"
+  },
+  "recSidebar": {
+    "date": "DATE",
+    "priority": "PRIORITY",
+    "goToMovie": "> GO TO MOVIE",
+    "interact": "> CREATE INTERACTION",
+    "deactivate": "DEACTIVATE RECOMMENDATION",
+    "activate": "ACTIVATE RECOMMENDATION",
+    "deactivateTitle": "DEACTIVATE RECOMMENDATION?",
+    "activateTitle": "ACTIVATE RECOMMENDATION?",
+    "deactivateBody": "This action will hide the recommendation from the group. Do you wish to proceed?",
+    "activateBody": "This action will activate the recommendation and allow users to interact with it. Are you sure?",
+    "cancel": "CANCEL",
+    "processing": "PROCESSING...",
+    "confirmAction": "CONFIRM"
+  },
+  "interactions": {
+    "title": "> INTERACTIONS",
+    "filterAll": "ALL",
+    "filterMine": "MINE",
+    "sortDate": "RECENT",
+    "sortRating": "RATING",
+    "typePublic": "PUBLIC",
+    "typePrivate": "PRIVATE",
+    "empty": ">>> NO_INTERACTIONS_FOUND_",
+    "btnView": "> VIEW",
+    "btnEdit": "EDIT",
+    "btnDelete": "DELETE",
+    "deleteTitle": "DELETE INTERACTION?",
+    "deleteBody": "This action is irreversible. Do you want to delete your interaction from this recommendation?",
+    "cancel": "CANCEL",
+    "confirmDelete": "DELETE",
+    "deleting": "DELETING..."
+  },
+  "interactionModal": {
+    "title": "> LOG INTERACTION",
+    "subtitle": "MOVIE: {{movieName}}",
+    "ratingLabel": "1. RATING (OPTIONAL)",
+    "ratingHelper": "Value between 1 and 5 (max 2 decimals).",
+    "messageLabel": "2. MESSAGE (OPTIONAL)",
+    "messagePlaceholder": "Write your review or comment here..._",
+    "stateLabel": "3. STATE *",
+    "stateUnseen": "UNSEEN",
+    "stateSeen": "SEEN",
+    "stateSkipped": "SKIPPED",
+    "typeLabel": "4. VISIBILITY TYPE *",
+    "typePublicDesc": "All users in the group will be able to see this interaction.",
+    "typePrivateDesc": "Only the user who made the recommendation will be able to see it.",
+    "typePrivate": "PRIVATE",
+    "typePublic": "PUBLIC",
+    "cancel": "CANCEL",
+    "loading": "PROCESSING...",
+    "confirm": "CREATE INTERACTION"
   }
 
 }

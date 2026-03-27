@@ -101,7 +101,7 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
           {t('interactionModal.title', '> REGISTRAR INTERACCIÓN')}
         </Typography>
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.9rem', mt: 0.5 }}>
-          {t('interactionModal.subtitle', `PELÍCULA: ${recommendation.movie.name}`)}
+          {t('interactionModal.subtitle', { movieName: recommendation.movie.name, defaultValue: `PELÍCULA: ${recommendation.movie.name}` })}
         </Typography>
       </Box>
 
