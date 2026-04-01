@@ -10,6 +10,7 @@ import { movietequeApi } from '../../api/MovietequeApi';
 import { io, Socket } from 'socket.io-client';
 import type { RecommendationComplete } from '../../interfaces/RecommendationComplete';
 import type { User } from '../../interfaces/User';
+import { isSameDay, getDateDividerLabel, formatTime } from '../../utils/DateUtils';
 
 interface RecommendationChatProps {
   currentMember: Member | undefined;
@@ -37,13 +38,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
 
     socketRef.current = socket;
 
-    // socket.on('connect', () => {
-    //   console.log('Conectado al servidor con ID:', socket.id);
-    //
-    //   socket.emit('join-room', recommendation?.id);
-    // });
-    // 4. ESCUCHAR MENSAJES NUEVOS (El truco ninja de React Query)
-    //
 
     socket.on('connection-ready', () => {
       console.log('Conexión establecida, uniendo a la sala:', recommendation?.id);
@@ -64,7 +58,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
     socket.on('connect_error', (err) => {
       console.error('Error de conexión:', err.message);
     });
-
     return () => {
       socket.emit('leave-room', recommendation?.id);
       socket.disconnect();
@@ -108,46 +101,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
       imgUrl: messageUser.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=?'
     };
   };
-
-  const formatTime = (dateString: string) => {
-    if (!dateString) return '';
-    const date = getSafeDate(dateString);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
-  const isSameDay = (dateString1: string, dateString2: string) => {
-    const d1 = getSafeDate(dateString1).toDateString();
-    const d2 = getSafeDate(dateString2).toDateString();
-    return d1 === d2;
-  };
-
-
-  const getDateDividerLabel = (dateString: string) => {
-    const date = getSafeDate(dateString);
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-
-    if (date.toDateString() === today.toDateString()) {
-      return t('chat.today', '[ HOY ]');
-    }
-    if (date.toDateString() === yesterday.toDateString()) {
-      return t('chat.yesterday', '[ AYER ]');
-    }
-
-    return `[ ${date.toLocaleDateString()} ]`;
-  };
-
-  const getSafeDate = (dateString: string) => {
-    if (dateString.includes('Z') || dateString.includes('+') || (dateString.includes('-') && dateString.length > 10)) {
-      return new Date(dateString);
-    }
-    let safeString = dateString.replace(' ', 'T');
-    if (!safeString.endsWith('Z')) safeString += 'Z';
-
-    return new Date(safeString);
-  };
-
   if (!recommendation) return null;
 
   return (
@@ -212,7 +165,7 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
                     py: 0.5
                   }}>
                     <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryDark, fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                      {getDateDividerLabel(msg.createdAt)}
+                      {getDateDividerLabel(msg.createdAt, t)}
                     </Typography>
                   </Box>
                 </Box>

@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import type { MovieDetails } from '../../interfaces/MovieDetails';
 import { COLORS } from '../../theme/AppTheme';
 import { useTranslation } from 'react-i18next';
+import { formatTerminalDate } from '../../utils/DateUtils';
 
 interface Props {
   movie: MovieDetails;
@@ -87,7 +88,7 @@ export function MovieMainInfo({ movie }: Props) {
             )}
             {movie.release_date && (
               <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '0.85rem', border: `1px solid ${COLORS.primaryMid}`, px: 1, backgroundColor: 'rgba(0,0,0,0.2)' }}>
-                {t('movieMain.releaseDate')}: [{movie.release_date}]
+                {t('movieMain.releaseDate')}: [{formatTerminalDate(movie.release_date)}]
               </Typography>
             )}
           </Box>

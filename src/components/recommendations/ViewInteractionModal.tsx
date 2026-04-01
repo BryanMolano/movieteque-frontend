@@ -5,6 +5,7 @@ import type { Member } from "../../interfaces/Member";
 import type { RecommendationComplete } from "../../interfaces/RecommendationComplete";
 import { Dialog, Box, Typography, DialogContent, DialogActions, Button } from "@mui/material";
 import { COLORS, mechanicalButtonStyle } from "../../theme/AppTheme";
+import { formatTerminalDate } from "../../utils/DateUtils";
 
 interface ViewInteractionModalProps {
   open: boolean;
@@ -42,7 +43,7 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
             {t('viewInteraction.title', '> DETALLE DE INTERACCIÓN')}
           </Typography>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem', mt: 0.5 }}>
-            {recommendation?.movie.name || 'PELÍCULA DESCONOCIDA'}
+            {recommendation?.movie.name || t('viewInteraction.unknownMovie', 'PELÍCULA DESCONOCIDA')}
           </Typography>
         </Box>
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1.5rem', fontWeight: 900 }}>
@@ -82,7 +83,7 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
 
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900, fontSize: '1.2rem', textTransform: 'uppercase' }}>
-              {interaction.member?.nickname || interaction.member?.user?.username || 'ANONYMOUS'}
+              {interaction.member?.nickname || interaction.member?.user?.username || t('viewInteraction.anonymousUser', 'ANÓNIMO')}
             </Typography>
 
             {/* Botón sutil para ir al perfil */}
@@ -144,12 +145,12 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
         {/* SECCIÓN 3: METADATOS TÉCNICOS */}
         <Box sx={{ p: 2, border: `1px solid ${COLORS.primaryMid}`, display: 'flex', flexWrap: 'wrap', gap: 2 }}>
           <Box sx={{ flex: 1, minWidth: '150px' }}>
-            <MetadataItem label="ESTADO" value={interaction.state} />
-            <MetadataItem label="TIPO" value={interaction.type} />
+            <MetadataItem label={t('viewInteraction.metadata.state', 'ESTADO')} value={interaction.state} />
+            <MetadataItem label={t('viewInteraction.metadata.type', 'TIPO')} value={interaction.type} />
           </Box>
           <Box sx={{ flex: 1, minWidth: '150px' }}>
-            <MetadataItem label="CREADO" value={formatTerminalDate(interaction.createdAt)} />
-            <MetadataItem label="EDITADO" value={formatTerminalDate(interaction.updatedAt)} />
+            <MetadataItem label={t('viewInteraction.metadata.created', 'CREADO')} value={formatTerminalDate(interaction.createdAt)} />
+            <MetadataItem label={t('viewInteraction.metadata.edited', 'EDITADO')} value={formatTerminalDate(interaction.updatedAt)} />
           </Box>
         </Box>
 
@@ -187,10 +188,3 @@ const MetadataItem = ({ label, value }: { label: string, value: string }) => (
     </Typography>
   </Box>
 );
-
-const formatTerminalDate = (dateString: string) => {
-  if (!dateString) return "??/??/????";
-  const datePart = dateString.substring(0, 10);
-  const [year, month, day] = datePart.split('-');
-  return `${day}/${month}/${year}`;
-};

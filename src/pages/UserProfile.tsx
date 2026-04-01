@@ -12,16 +12,17 @@ import { useState } from "react";
 import { EditUserProfile } from '../components/users/EditUserProfile';
 import { useTranslation } from "react-i18next";
 import { InviteUserModal } from "../components/users/InviteUserToGroupModal";
+import { formatTerminalDate } from "../utils/DateUtils";
 
-const formatTerminalDate = (isoString?: string) => {
-  if (!isoString) return 'DESCONOCIDO';
-  try {
-    const date = new Date(isoString);
-    return date.toISOString().split('T')[0];
-  } catch (error) {
-    return 'ERROR_DE_SISTEMA';
-  }
-};
+// const formatTerminalDate = (isoString?: string) => {
+//   if (!isoString) return 'DESCONOCIDO';
+//   try {
+//     const date = new Date(isoString);
+//     return date.toISOString().split('T')[0];
+//   } catch (error) {
+//     return 'ERROR_DE_SISTEMA';
+//   }
+// };
 export function UserProfile() {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -137,7 +138,7 @@ export function UserProfile() {
             </Typography>
             <Typography color={COLORS.primaryMid} sx={{ mb: 2 }}>
               {/* {`> MIEMBRO_DES{DE: ${formatTerminalDate(user?.createdAt)}`} */}
-              {`> ${t('userProfile.memberSince', 'MIEMBRO_DESDE')}: ${formatTerminalDate(user?.createdAt)}`}
+              {`> ${t('userProfile.memberSince', 'MIEMBRO_DESDE')}: ${formatTerminalDate(user?.createdAt, 'UNKNOWN')}`}
             </Typography>
 
             {/* BOTÓN EDITAR (Condicional) */}

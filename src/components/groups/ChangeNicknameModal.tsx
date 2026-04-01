@@ -103,14 +103,14 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
         {/* ENCABEZADO */}
         <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid ${COLORS.primaryMid}` }}>
           <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif' }}>
-            {t('createGroup.title')}
+            {t('changeNickname.title')}
           </Typography>
         </Box>
 
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 3, pt: 4 }}>
 
           <TextField
-            label={t('createGroup.nameLabel')}
+            label={t('changeNickname.nameLabel')}
             fullWidth
             value={nickname}
             onChange={(e) => {
@@ -127,7 +127,7 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
         {/* ACCIONES */}
         <DialogActions sx={{ p: 3, pt: 1, gap: 2 }}>
           <Button onClick={onClose} sx={{ ...mechanicalBtnSx, color: COLORS.primaryMid }}>
-            {t('createGroup.cancel')}
+            {t('changeNickname.cancel')}
           </Button>
           <Button
             type="submit"
@@ -140,7 +140,7 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
               '&:hover': { bgcolor: '#ffffff' }
             }}
           >
-            {createGroupMutation.isPending ? t('createGroup.processing') : t('createGroup.execute')}
+            {createGroupMutation.isPending ? t('changeNickname.processing') : t('changeNickname.execute')}
           </Button>
         </DialogActions>
 

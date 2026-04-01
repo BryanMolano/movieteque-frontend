@@ -7,6 +7,7 @@ import type { User } from '../../interfaces/User';
 import type { Recommendation } from '../../interfaces/Recommendation';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { formatTerminalDate } from '../../utils/DateUtils';
 
 interface RecommendationGroupProps {
   currentUser: User | undefined;
@@ -50,12 +51,12 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
     }))
   };
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return "??/??/????";
-    const datePart = dateString.substring(0, 10);
-    const [year, month, day] = datePart.split('-');
-    return `${day}/${month}/${year}`;
-  }
+  // const formatDate = (dateString: string) => {
+  //   if (!dateString) return "??/??/????";
+  //   const datePart = dateString.substring(0, 10);
+  //   const [year, month, day] = datePart.split('-');
+  //   return `${day}/${month}/${year}`;
+  // }
 
   return (
     <Box sx={{
@@ -131,9 +132,9 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
             recommendations={userGroup.recommendations}
             sortPreference={sortPreferences[userGroup.member.user.id] || 'TIME'}
             onToggleSort={() => toggleSortPreference(userGroup.member.user.id)}
-            formatDate={formatDate}
+            formatDate={formatTerminalDate}
             navigate={navigate}
-            viewMode={viewMode} // 👈 Pasamos el modo de vista para aplicarle el filtro gris a las películas inactivas
+            viewMode={viewMode}
           />
         ))}
       </Box>
@@ -246,7 +247,6 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
                 transition: 'all 0.1s linear',
                 boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
                 mb: 1,
-                // 👈 FILTRO VISUAL: Grises si la pestaña es de inactivas
                 filter: viewMode === 'ACTIVE' ? 'none' : 'grayscale(80%) opacity(0.7)',
                 '&:hover': {
                   borderColor: COLORS.primaryLight,

@@ -11,7 +11,6 @@ import { useToast } from '../contexts/ToastContext';
 import { useUser } from '../hooks/useUser';
 import { InvitationsModal } from '../components/groups/InvitationsModal';
 
-// --- INTERFACES ---
 interface Group {
   id: string;
   name: string;
@@ -20,11 +19,6 @@ interface Group {
   membersCount: number;
   imgUrl: string;
 }
-// Función auxiliar para leer el JWT de forma nativa
-// --- COMPONENTE AISLADO PARA LA TARJETA ---
-// Recibe la función 't' como prop para no llamar múltiples hooks
-
-// --- COMPONENTE PRINCIPAL ---
 export function Dashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation(); // Iniciamos el traductor

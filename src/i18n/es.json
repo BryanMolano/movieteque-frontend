@@ -253,7 +253,48 @@
     "cancel": "CANCELAR",
     "loading": "PROCESANDO...",
     "confirm": "CREAR INTERACCIÓN"
+  },
+  "navbar": {
+    "groups": "GRUPOS",
+    "movies": "PELÍCULAS",
+    "users": "USUARIOS",
+    "logoutDesktop": "SALIR",
+    "menu": "[ MENU ]",
+    "logoutMobile": "! SALIR DEL SISTEMA"
+  },
+  "viewInteraction": {
+    "title": "> DETALLE DE INTERACCIÓN",
+    "unknownMovie": "PELÍCULA DESCONOCIDA",
+    "anonymousUser": "ANÓNIMO",
+    "goToProfile": "[ IR AL PERFIL ]",
+    "ratingLabel": "CALIFICACIÓN:",
+    "noRating": "SIN CALIFICAR",
+    "noResponse": ">>> NO SE DEJÓ NINGÚN COMENTARIO_",
+    "metadata": {
+      "state": "ESTADO",
+      "type": "TIPO",
+      "created": "CREADO",
+      "edited": "EDITADO"
+    },
+    "okButton": "OK"
+  },
+  "chat": {
+    "title": "> TERMINAL DE COMUNICACIÓN",
+    "loading": ">>> CARGANDO_HISTORIAL_",
+    "inputPlaceholder": "Escribe un mensaje..._",
+    "send": "ENVIAR",
+    "today": "[ HOY ]",
+    "yesterday": "[ AYER ]"
+  },
+  "changeNickname":{
+    "title": ">>> CAMBIAR_NICKNAME",
+    "nameLabel": "[ NOMBRE ]",
+    "cancel": "CANCELAR",
+    "execute": "CAMBIAR",
+    "processing": "PROCESANDO...",
+    "errors": {
+      "nameRequired": "EL NICKNAME ES REQUERIDO [!]"
+    }
   }
-
   
 }

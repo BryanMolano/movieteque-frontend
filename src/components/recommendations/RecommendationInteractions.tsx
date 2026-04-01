@@ -12,6 +12,7 @@ import { movietequeApi } from "../../api/MovietequeApi";
 import { useToast } from "../../contexts/ToastContext";
 import { EditInteractionModal } from "./EditInteractionModal";
 import { ViewInteractionModal } from "./ViewInteractionModal";
+import { formatTerminalDate } from "../../utils/DateUtils";
 
 interface RecommendationInteractionsProps {
   recommendation: RecommendationComplete | null;
@@ -359,9 +360,9 @@ const interactionBtnStyle = {
   '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' }
 };
 
-const formatTerminalDate = (dateString: string) => {
-  if (!dateString) return "??/??/????";
-  const datePart = dateString.substring(0, 10);
-  const [year, month, day] = datePart.split('-');
-  return `${day}/${month}/${year}`;
-}
+// const formatTerminalDate = (dateString: string) => {
+//   if (!dateString) return "??/??/????";
+//   const datePart = dateString.substring(0, 10);
+//   const [year, month, day] = datePart.split('-');
+//   return `${day}/${month}/${year}`;
+// }

@@ -251,6 +251,49 @@
     "cancel": "CANCEL",
     "loading": "PROCESSING...",
     "confirm": "CREATE INTERACTION"
+  },
+  "navbar": {
+    "groups": "GROUPS",
+    "movies": "MOVIES",
+    "users": "USERS",
+    "logoutDesktop": "LOGOUT",
+    "menu": "[ MENU ]",
+    "logoutMobile": "! SYSTEM LOGOUT"
+  },
+  "viewInteraction": {
+    "title": "> INTERACTION DETAIL",
+    "unknownMovie": "UNKNOWN MOVIE",
+    "anonymousUser": "ANONYMOUS",
+    "goToProfile": "[ GO TO PROFILE ]",
+    "ratingLabel": "RATING:",
+    "noRating": "NOT RATED",
+    "noResponse": ">>> NO COMMENT LEFT_",
+    "metadata": {
+      "state": "STATE",
+      "type": "TYPE",
+      "created": "CREATED",
+      "edited": "EDITED"
+    },
+    "okButton": "OK"
+  },
+  "chat": {
+    "title": "> COMMUNICATION TERMINAL",
+    "loading": ">>> LOADING_HISTORY_",
+    "inputPlaceholder": "Type a message..._",
+    "send": "SEND",
+    "today": "[ TODAY ]",
+    "yesterday": "[ YESTERDAY ]"
+  },
+    "changeNickname":{
+    "title": ">>> CHANGE_NICKNAME",
+    "nameLabel": "[ NICKNAME ]",
+    "cancel": "CANCEL",
+    "execute": "CHANGE",
+    "processing": "PROCESSING...",
+    "errors": {
+      "nameRequired": "THE NICKNAME IS REQUIRED[!]"
+    }
   }
+
 
 }

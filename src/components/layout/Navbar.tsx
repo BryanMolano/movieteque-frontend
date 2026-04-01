@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { AppBar, Box, Button, Toolbar, Typography, Drawer, Stack } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { COLORS } from '../../theme/AppTheme';
 
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false); // Estado para el menú móvil
 
   const navItems = [
-    { path: '/dashboard', label: 'GRUPOS' },
-    { path: '/movies', label: 'PELÍCULAS' },
-    { path: '/users', label: 'USUARIOS' },
+    { path: '/dashboard', label: t('navbar.groups', 'GRUPOS') },
+    { path: '/movies', label: t('navbar.movies', 'PELÍCULAS') },
+    { path: '/users', label: t('navbar.users', 'USUARIOS') },
   ];
 
   const handleLogout = () => {
@@ -96,7 +98,7 @@ export function Navbar() {
               '&:active': { transform: 'translate(3px, 3px)', boxShadow: `1px 1px 0px ${COLORS.accentMid}` }
             }}
           >
-            SALIR
+            {t('navbar.logoutDesktop', 'SALIR')}
           </Button>
         </Box>
 
@@ -115,7 +117,7 @@ export function Navbar() {
               '&:active': { transform: 'translate(2px, 2px)', boxShadow: 'none' }
             }}
           >
-            [ MENU ]
+            {t('navbar.menu', '[ MENU ]')}
           </Button>
         </Box>
       </Toolbar>
@@ -170,7 +172,7 @@ export function Navbar() {
               '&:active': { transform: 'translate(3px, 3px)', boxShadow: `0px 0px 0px ${COLORS.accentMid}` }
             }}
           >
-            ! SALIR DEL SISTEMA
+            {t('navbar.logoutMobile', '! SALIR DEL SISTEMA')}
           </Button>
         </Box>
       </Drawer>
