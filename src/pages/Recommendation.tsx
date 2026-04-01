@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useRecommendation } from '../hooks/useRecommendation';
 import { RecommendationSidebar } from '../components/recommendations/RecommendationSidebar';
 import { RecommendationInteractions } from '../components/recommendations/RecommendationInteractions';
+import { RecommendationChat } from '../components/recommendations/RecommendationChat';
 
 export function Recommendation() {
   const { id } = useParams();
@@ -56,7 +57,7 @@ export function Recommendation() {
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
-        {/* <RecommendationGroup currentUser={currentUser} group={group} members={group.members} isAdmin={Boolean(isAdmin)} /> */}
+        <RecommendationChat currentMember={currentMember} recommendation={recommendation} />
       </Box>
 
       <Box sx={{ height: '100%', minHeight: 0 }}>
