@@ -4,7 +4,7 @@ import type { User } from "./User";
 export interface Member {
   id: string;
   entryDate: string;
-  role: 'Admin' | 'User';
+  role: 'Admin' | 'User' | 'Invited';
   nickname: string | null;
   isBanned: boolean;
   user: User;

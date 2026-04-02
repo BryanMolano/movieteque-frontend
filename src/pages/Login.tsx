@@ -8,10 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { useMutation } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
+import axios from 'axios';
 import { movietequeApi } from '../api/MovietequeApi';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useToast } from '../contexts/ToastContext';
 
 const loginSchema = z.object({
   email: z.string()
@@ -24,26 +25,30 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function Login() {
+  const { showToast } = useToast();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const toggleView = () => setIsLoginView(!isLoginView)
+
   const [isLoginView, setIsLoginView] = useState(true);
+  const [searchParams] = useSearchParams();
 
-  const [searchParams] = useSearchParams()
+  const toggleView = () => {
+    setIsLoginView(!isLoginView);
+    clearErrors();
+  };
 
-  const { register, handleSubmit, formState: { errors }, setError } = useForm<LoginFormData>({
+  const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
   useEffect(() => {
-    const movietequeAuthToken = localStorage.getItem('movieteque-token')
+    const movietequeAuthToken = localStorage.getItem('movieteque-token');
     if (movietequeAuthToken) navigate('/dashboard', { replace: true });
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     const inviteToken = searchParams.get('invite');
     if (inviteToken) {
-      // Lo guardamos en localStorage para usarlo luego del login/registro
       localStorage.setItem('pending-invite', inviteToken);
     }
   }, [searchParams]);
@@ -63,14 +68,54 @@ export function Login() {
       localStorage.setItem('movieteque-user', JSON.stringify({ id: data.id, email: data.email }));
       navigate('/dashboard', { replace: true });
     },
-    onError: (error: unknown) => {
-      let mensajeBackend = 'Error de conexión con el servidor';
-      if (isAxiosError(error)) {
-        mensajeBackend = error.response?.data?.message || mensajeBackend;
+    onError: (error) => {
+      let isSpecificFieldError = false;
+      let generalErrorMessage = 'Error de conexión con el servidor';
+
+      if (axios.isAxiosError(error) && error.response) {
+        const backendMessage = error.response.data.message;
+
+        // Caso 1: El backend devuelve un arreglo de errores de validación (NestJS ValidationPipe)
+        if (Array.isArray(backendMessage)) {
+          backendMessage.forEach((msg: string) => {
+            const lowerMsg = msg.toLowerCase();
+            if (lowerMsg.includes('email')) {
+              setError('email', { type: 'server', message: msg });
+              isSpecificFieldError = true;
+            }
+            if (lowerMsg.includes('password')) {
+              setError('password', { type: 'server', message: msg });
+              isSpecificFieldError = true;
+            }
+            if (lowerMsg.includes('username')) {
+              setError('username', { type: 'server', message: msg });
+              isSpecificFieldError = true;
+            }
+          });
+        }
+        // Caso 2: El backend devuelve un string (ej: "Invalid credentials" o "Email already exists")
+        else if (typeof backendMessage === 'string') {
+          const lowerMsg = backendMessage.toLowerCase();
+          if (lowerMsg.includes('email')) {
+            setError('email', { type: 'server', message: backendMessage });
+            isSpecificFieldError = true;
+          } else if (lowerMsg.includes('password')) {
+            setError('password', { type: 'server', message: backendMessage });
+            isSpecificFieldError = true;
+          } else if (lowerMsg.includes('username')) {
+            setError('username', { type: 'server', message: backendMessage });
+            isSpecificFieldError = true;
+          } else {
+            generalErrorMessage = backendMessage;
+          }
+        }
       } else if (error instanceof Error) {
-        mensajeBackend = error.message;
+        generalErrorMessage = error.message;
       }
-      alert(`Error: ${mensajeBackend}`);
+
+      if (!isSpecificFieldError) {
+        showToast(generalErrorMessage, 'error');
+      }
     }
   });
 
@@ -111,7 +156,8 @@ export function Login() {
                 label={t('login.usernameLabel')}
                 {...register('username')}
                 error={!!errors.username}
-                helperText={errors.username?.message ? t(errors.username.message) : undefined}
+                // Si incluye espacios, asumimos que viene del backend en duro y lo mostramos tal cual.
+                helperText={errors.username?.message ? (errors.username.message.includes(' ') ? errors.username.message : t(errors.username.message)) : undefined}
                 disabled={authMutation.isPending}
               />
             )}
@@ -120,7 +166,7 @@ export function Login() {
               label={t('login.emailLabel')} type="email"
               {...register('email')}
               error={!!errors.email}
-              helperText={errors.email?.message ? t(errors.email.message) : undefined}
+              helperText={errors.email?.message ? (errors.email.message.includes(' ') ? errors.email.message : t(errors.email.message)) : undefined}
               disabled={authMutation.isPending}
             />
 
@@ -128,7 +174,7 @@ export function Login() {
               label={t('login.passwordLabel')} type="password"
               {...register('password')}
               error={!!errors.password}
-              helperText={errors.password?.message ? t(errors.password.message) : undefined}
+              helperText={errors.password?.message ? (errors.password.message.includes(' ') ? errors.password.message : t(errors.password.message)) : undefined}
               disabled={authMutation.isPending}
             />
 

@@ -143,6 +143,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       {sortedMembers.map((member) => {
 
         if (member.isBanned) return null;
+        if (member.role === 'Invited') return null;
 
 
         const isMemberAdmin = member.role.toLowerCase() === 'admin';
