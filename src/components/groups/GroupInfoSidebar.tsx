@@ -1,9 +1,7 @@
-// --- INICIO CAMBIOS: Importaciones necesarias ---
 import { Box, Typography, Button, Stack, Dialog, DialogContent, DialogActions } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-// --- FIN CAMBIOS ---
 
 import { COLORS } from '../../theme/AppTheme'; // Ajusta la ruta según tu estructura
 import type { Group } from '../../interfaces/Group'; // Ajusta la ruta
@@ -120,7 +118,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
           backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          flexShrink: 0, // Asegura que la imagen no se aplaste al hacer scroll
+          flexShrink: 0,
         }}
       />
 
@@ -155,7 +153,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       </Box>
 
       {/* BOTONES DE ACCIÓN (ESTILO TERMINAL) */}
-      <Stack spacing={2} sx={{ pb: 2 /* Padding bottom extra para que el scroll termine limpio */ }}>
+      <Stack spacing={2} sx={{ pb: 2 }}>
         <Button disableRipple sx={mechanicalButtonStyle}
           onClick={handleCopyInvite}>
           {isCopied ? t('groupSidebar.inviteCopied') : t('groupSidebar.copyInvite')}
@@ -363,7 +361,7 @@ const mechanicalButtonStyle = {
   padding: '12px 16px',
   boxShadow: `4px 4px 0px ${COLORS.accentMid}`,
   transition: 'all 0.05s linear',
-  justifyContent: 'flex-start', // Texto alineado a la izquierda para toque de consola
+  justifyContent: 'flex-start',
   '&:hover': {
     backgroundColor: COLORS.primaryDark,
     filter: 'brightness(1.2)',

@@ -11,12 +11,12 @@ export const COLORS = {
 
 export const appTheme = createTheme({
   palette: {
-    mode: 'dark', // Establece una base oscura
+    mode: 'dark', 
     primary: { main: COLORS.primaryLight },
     background: { default: COLORS.primaryDark, paper: COLORS.primaryDark },
   },
   typography: {
-    fontFamily: 'monospace', // Aplicamos monospace a TODA la app
+    fontFamily: 'monospace', 
   },
   components: {
     MuiButton: {
@@ -33,7 +33,7 @@ export const appTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          backgroundImage: 'none', // Quita el degradado grisáceo de MUI en modo oscuro
+          backgroundImage: 'none', 
         },
       },
     },
@@ -59,7 +59,6 @@ export const mechanicalButtonStyle: SxProps<Theme> = {
   },
 };
 
-// Estilo para los inputs tipo terminal
 export const terminalInputStyle: SxProps<Theme> = {
   '& .MuiOutlinedInput-root': {
     borderRadius: 0,

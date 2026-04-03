@@ -7,7 +7,6 @@ interface Props {
   movie: MovieDetails;
 }
 
-// Sub-componente para cada bloque de métrica
 function StatBlock({ label, value }: { label: string; value: string | number }) {
   return (
     <Box
@@ -33,17 +32,15 @@ function StatBlock({ label, value }: { label: string; value: string | number }) 
 
 export function MovieStats({ movie }: Props) {
   const { t } = useTranslation();
-  // Formateador de dinero (Ej: 1500000 -> $1,500,000)
   const formatCurrency = (amount: number) => {
     if (!amount || amount === 0) return t('movieStats.unknown');
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-      maximumFractionDigits: 0, // Sin centavos para que se vea más limpio
+      maximumFractionDigits: 0,
     }).format(amount);
   };
 
-  // Formateador de números grandes (Ej: 15420 -> 15,420)
   const formatNumber = (num: number) => {
     if (!num) return '0';
     return new Intl.NumberFormat('en-US').format(num);
@@ -52,7 +49,6 @@ export function MovieStats({ movie }: Props) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
 
-      {/* Título de la Sección */}
       <Typography
         sx={{
           fontFamily: 'monospace',
@@ -66,11 +62,10 @@ export function MovieStats({ movie }: Props) {
         {t('movieStats.title')}
       </Typography>
 
-      {/* Grid de Estadísticas (Se adapta automáticamente al tamaño de la pantalla) */}
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)' }, // 2 columnas en móvil, 3 en PC
+          gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)' },
           gap: 2
         }}
       >

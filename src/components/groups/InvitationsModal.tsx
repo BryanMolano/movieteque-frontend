@@ -163,7 +163,7 @@ function InvitationRow({ group, onAccept, onReject }: { group: Group, onAccept: 
 
       {/* CONTENEDOR DE BOTONES */}
       <Box sx={{ display: 'flex', gap: 1 }}>
-        {/* BOTÓN RECHAZAR (Estilo error/peligro) */}
+        {/* BOTÓN RECHAZAR (Estilo error) */}
         <Button
           disableRipple
           onClick={onReject}

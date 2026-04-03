@@ -95,7 +95,6 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
       {/* CONTENIDO DEL MODAL */}
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 3, pt: 3, p: { xs: 2, md: 3 } }}>
 
-        {/* ================= PASO 1: LISTA DE GRUPOS ================= */}
         {step === 1 && (
           <>
             {isLoading ? (
@@ -119,13 +118,10 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
           </>
         )}
 
-        {/* ================= PASO 2: FORMULARIO ================= */}
         {step === 2 && movie && selectedGroup && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
 
-            {/* INFO VISUAL: Película y Grupo */}
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', p: 2, border: `2px solid ${COLORS.primaryMid}`, backgroundColor: 'rgba(0,0,0,0.2)' }}>
-              {/* Poster miniatura */}
               <Box
                 component="img"
                 src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/assets/placeholder-movie.png'}
@@ -211,9 +207,8 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
   );
 }
 
-// --- SUB-COMPONENTE PARA LA FILA DEL GRUPO (PASO 1) ---
 function GroupSelectionRow({ group, onSelect }: { group: Group, onSelect: () => void }) {
-  const { t } = useTranslation(); // <-- AÑADIR ESTO AQUÍ
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -241,7 +236,6 @@ function GroupSelectionRow({ group, onSelect }: { group: Group, onSelect: () => 
   );
 }
 
-// --- ESTILOS BASE ---
 const mechanicalBtnSx = {
   borderRadius: 0, border: `2px solid ${COLORS.primaryLight}`, backgroundColor: 'transparent',
   fontFamily: 'sans-serif', fontWeight: 900, fontSize: '1rem', letterSpacing: '-1px',
@@ -261,5 +255,5 @@ const neobrutalistInputSx = {
     '&:hover fieldset': { borderColor: COLORS.primaryLight },
     '&.Mui-focused fieldset': { borderColor: COLORS.primaryLight, borderWidth: '2px' },
   },
-  '& .MuiSvgIcon-root': { color: COLORS.primaryLight } // Para la flecha del Select
+  '& .MuiSvgIcon-root': { color: COLORS.primaryLight }
 }

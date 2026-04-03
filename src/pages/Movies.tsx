@@ -27,7 +27,6 @@ export function Movies() {
     <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: { xs: 2, md: 4 }, display: 'flex', justifyContent: 'center' }}>
       <Box sx={{ width: '100%', maxWidth: '700px', display: 'flex', flexDirection: 'column', gap: 4 }}>
 
-        {/* ENCABEZADO Y BUSCADOR */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
             {t('movies.title')}
@@ -82,14 +81,12 @@ export function Movies() {
             >
               <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden', flexGrow: 1, mr: 2 }}>
 
-                {/* 🎞️ PÓSTER GIGANTE */}
                 <Box
                   sx={{
                     width: 90,
                     height: 135,
                     flexShrink: 0,
                     border: `2px solid ${COLORS.primaryMid}`,
-                    // 👇 Lógica visual para armar la URL de TMDB o usar placeholder
                     backgroundImage: movie.poster_path
                       ? `url('https://image.tmdb.org/t/p/w342${movie.poster_path}')`
                       : `url('/assets/placeholder-movie.png')`,
@@ -104,7 +101,6 @@ export function Movies() {
                     {movie.title}
                   </Typography>
 
-                  {/* 👇 Título original sutil (Solo se muestra si es diferente al título principal) */}
                   {movie.original_title !== movie.title && (
                     <Typography noWrap sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.85rem', fontStyle: 'italic' }}>
                       AKA: {movie.original_title}
@@ -117,7 +113,6 @@ export function Movies() {
                 </Box>
               </Box>
 
-              {/* Botón ">" Explícito y Brutalista */}
               <Button
                 disableRipple
                 onClick={() => navigate(`/movie/${movie.id}`)}
@@ -130,20 +125,20 @@ export function Movies() {
                   fontFamily: 'monospace',
                   fontWeight: 900,
                   fontSize: '1.5rem',
-                  border: `2px solid ${COLORS.primaryMid}`, // Borde visible
+                  border: `2px solid ${COLORS.primaryMid}`,
                   color: COLORS.primaryLight,
-                  boxShadow: `3px 3px 0px ${COLORS.primaryMid}`, // Sombra rígida
+                  boxShadow: `3px 3px 0px ${COLORS.primaryMid}`,
                   transition: 'all 0.05s linear',
                   '&:hover': {
                     borderColor: COLORS.primaryLight,
                     backgroundColor: COLORS.primaryLight,
                     color: COLORS.primaryDark,
-                    boxShadow: `3px 3px 0px transparent`, // Al hacer hover se "hunde" un poco
+                    boxShadow: `3px 3px 0px transparent`,
                     transform: 'translate(1px, 1px)'
                   },
                   '&:active': {
                     transform: 'translate(3px, 3px)',
-                    boxShadow: `0px 0px 0px transparent`, // Al hacer click se hunde del todo
+                    boxShadow: `0px 0px 0px transparent`,
                   }
                 }}
               >

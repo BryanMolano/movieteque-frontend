@@ -39,14 +39,10 @@ export function Users() {
       justifyContent: 'center'
     }}>
 
-      {/* 1. Mientras carga, mostramos el mensaje pero el input sigue ahí arriba */}
-      {/* Contenedor central limitado a 600px para que parezca una terminal limpia */}
       <Box sx={{ width: '100%', maxWidth: '600px', display: 'flex', flexDirection: 'column', gap: 4 }}>
 
-        {/* ENCABEZADO Y BUSCADOR */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-          {/* --- INICIO CAMBIOS: Contenedor flex para alinear título y botón --- */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
               {t('usersSearch.title', '[ BUSCAR_USUARIOS ]')}
@@ -104,12 +100,10 @@ export function Users() {
               {t('usersSearch.searching', 'BUSCANDO...')}
             </Typography>
           )}
-          {/* Mensaje de estado (Cargando / Sin resultados / Escriba para buscar) */}
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 1 }}>
             {`${t('usersSearch.resultsFound', 'RESULTADOS ENCONTRADOS')} [ ${users?.length || 0} ]`}
           </Typography>
 
-          {/* LISTA DE USUARIOS */}
           {users?.map((user) => (
             <Box
               key={user.id}

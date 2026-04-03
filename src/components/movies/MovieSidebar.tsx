@@ -31,19 +31,18 @@ export function MovieSidebar({ movie }: Props) {
         display: 'flex',
         flexDirection: 'column',
         gap: 2,
-        maxWidth: '350px', // 👈 Pone un límite estricto al ancho de toda la columna
+        maxWidth: '350px',
         width: '100%',
-        margin: '0 auto' // Centra el contenido dentro del tercio izquierdo
+        margin: '0 auto'
       }}
     >
-      {/* Contenedor de botones técnicos */}
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between', // Uno a cada extremo
+          justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
-          mb: 0.5 // Un pequeño respiro antes del póster
+          mb: 0.5
         }}
       >
         {/* Botón 1: Posters */}
@@ -53,13 +52,13 @@ export function MovieSidebar({ movie }: Props) {
           sx={{
             minWidth: 'auto',
             p: '2px 4px',
-            fontSize: '0.7rem', // Un poco más pequeño para que quepan bien
+            fontSize: '0.7rem',
             color: COLORS.primaryMid,
             fontFamily: 'monospace',
             '&:hover': {
               color: COLORS.primaryLight,
               backgroundColor: 'transparent',
-              textDecoration: 'underline' // Estilo link de terminal
+              textDecoration: 'underline'
             }
           }}
         >
@@ -106,14 +105,13 @@ export function MovieSidebar({ movie }: Props) {
         sx={{
           width: '100%',
           height: 'auto',
-          aspectRatio: '2 / 3', // 👈 Garantiza proporción perfecta 
+          aspectRatio: '2 / 3',
           objectFit: 'cover',
           border: `2px solid ${COLORS.primaryMid}`,
           display: 'block'
         }}
       />
 
-      {/* 3. Botón Principal (El único protagonista) */}
       <Button
         disableRipple
         onClick={() => setIsRecommendationModalOpen(true)}
@@ -157,7 +155,7 @@ export function MovieSidebar({ movie }: Props) {
             alt={`Logo de ${movie.title}`}
             sx={{
               maxWidth: '80%',
-              maxHeight: '90px', // Limitado para no estorbar visualmente
+              maxHeight: '90px',
               objectFit: 'contain',
               filter: 'drop-shadow(2px 2px 0px rgba(0,0,0,0.5))'
             }}

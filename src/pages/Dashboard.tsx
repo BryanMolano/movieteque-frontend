@@ -22,7 +22,7 @@ interface Group {
 
 export function Dashboard() {
   const navigate = useNavigate();
-  const { t } = useTranslation(); // Iniciamos el traductor
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [isInvitationsModalOpen, setIsInvitationsModalOpen] = useState<boolean>(false)
   const queryClient = useQueryClient()
@@ -49,7 +49,6 @@ export function Dashboard() {
     retry: false
   })
 
-  // Mutación para unirse al grupo
   const joinGroupMutation = useMutation({
     mutationFn: async () => {
       return await movietequeApi.post('/group/joinbylink', { jwt: pendingToken });
@@ -76,7 +75,6 @@ export function Dashboard() {
     localStorage.removeItem('pending-invite');
     setPendingToken(null);
   };
-  //FIN TOKEN
 
   const { data: groups, isLoading, isError } = useQuery({
     queryKey: ['user-groups'],
@@ -94,7 +92,6 @@ export function Dashboard() {
           <Typography variant="h4" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}>
             {t('dashboard.title')}
           </Typography>
-          {/* PEGA EL BOTÓN AQUÍ */}
           <Button
             disableRipple
             onClick={() => setIsInvitationsModalOpen(true)}
@@ -142,10 +139,8 @@ export function Dashboard() {
                 {t('dashboard.empty')}
               </Typography>
             ) : (
-              // alignItems="stretch" asegura que las columnas de una misma fila tengan el mismo alto
               <Grid container spacing={3} alignItems="stretch">
                 {groups.map((group) => (
-                  // Aquí definimos la matriz 2x2: en móviles es 1 columna (xs=12), en PC son 2 columnas (md=6)
                   <Grid size={{ xs: 12, md: 6 }} key={group.id}>
                     <GroupCard group={group} onClick={() => navigate(`/groups/${group.id}`)} t={t} />
                   </Grid>
@@ -218,7 +213,7 @@ const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t
     onClick={onClick}
     sx={{
       p: 2, display: 'flex', gap: 2, alignItems: 'flex-start',
-      height: '100%', boxSizing: 'border-box', // <-- ESTO OBLIGA A QUE TODAS MIDAN IGUAL
+      height: '100%', boxSizing: 'border-box',
       backgroundColor: COLORS.primaryDark, borderRadius: 0,
       border: `2px solid ${COLORS.primaryMid}`, boxShadow: `6px 6px 0px ${COLORS.accentDark}`,
       cursor: 'pointer', transition: 'all 0.1s linear',
@@ -230,19 +225,17 @@ const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t
     }}
   >
     <Avatar
-      src={group.imgUrl || '/assets/placeholder-group.png'} // <-- CAMBIO AQUÍ: Implementación de la imagen local de respaldo
+      src={group.imgUrl || '/assets/placeholder-group.png'}
       alt={group.name}
       variant="square"
-      sx={{ width: 70, height: 70, border: `2px solid ${COLORS.primaryLight}`, flexShrink: 0 }} // flexShrink evita que la imagen se aplaste
+      sx={{ width: 70, height: 70, border: `2px solid ${COLORS.primaryLight}`, flexShrink: 0 }}
     />
 
-    {/* minWidth: 0 es un truco de flexbox para que el truncamiento (noWrap) funcione */}
     <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
       <Typography variant="h6" color={COLORS.primaryLight} noWrap sx={{ fontWeight: 'bold', fontFamily: 'monospace', textTransform: 'uppercase' }}>
         {group.name}
       </Typography>
 
-      {/* flexWrap permite que las etiquetas bajen de línea si la pantalla es muy pequeña */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 1 }}>
         <Typography variant="body2" color={COLORS.primaryMid} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
           {t('dashboard.type')}: [{group.type}]

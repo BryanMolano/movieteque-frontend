@@ -78,14 +78,13 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
       <Box
         sx={{
           width: '100%',
-          aspectRatio: '2 / 3', // Formato clásico de póster de cine
+          aspectRatio: '2 / 3',
           border: `2px solid ${COLORS.primaryLight}`,
           boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
           // backgroundImage: `url('https://image.tmdb.org/t/p/w500${recommendation.movie.posterUrl}')`,
           backgroundImage: recommendation.movie.posterUrl ? `url('https://image.tmdb.org/t/p/w500${recommendation.movie.posterUrl}')` : 'url(/assets/placeholder-movie.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          // Filtro visual si está inactiva
           filter: isActive ? 'none' : 'grayscale(80%) opacity(0.7)'
         }}
       />
@@ -120,7 +119,7 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
           <Box sx={{
             backgroundColor: 'rgba(0,0,0,0.3)',
             border: `1px solid ${COLORS.primaryMid}`,
-            px: 1.5, // Un poco más ancho para que el número respire
+            px: 1.5,
             py: 0.2,
             boxShadow: `2px 2px 0px ${COLORS.primaryMid}`,
             display: 'flex',
@@ -194,7 +193,6 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
         onClose={() => setIsActivationDesactivationModalOpen(false)}
         PaperProps={{
           sx: {
-            // Modal rojo para desactivar, modal verde/secundario para activar
             border: `2px solid ${isActive ? '#ff5555' : '#55ff55'}`,
             boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
             backgroundColor: COLORS.primaryDark,

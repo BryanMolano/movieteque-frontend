@@ -8,12 +8,9 @@ interface Props {
   movie: MovieDetails;
 }
 
-// ==========================================
-// COMPONENTE 1: LA TARJETA INDIVIDUAL
-// ==========================================
 interface CreditCardProps {
   name: string;
-  subtitle?: string; // character para cast, job para crew
+  subtitle?: string;
   profilePath: string | null;
 }
 
@@ -78,14 +75,11 @@ function CreditCard({ name, subtitle, profilePath }: CreditCardProps) {
   );
 }
 
-// ==========================================
-// COMPONENTE 2: LA FILA SCROLLEABLE
-// ==========================================
 interface CreditRowProps {
   title: string;
   items: (MovieCast | CrewMember)[];
-  isCast?: boolean; // Para saber si mostramos 'character' o 'job'
-  showJob?: boolean; // Para el crew general
+  isCast?: boolean;
+  showJob?: boolean;
 }
 
 function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
@@ -113,8 +107,7 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
           display: 'flex',
           gap: 2,
           overflowX: 'auto',
-          pb: 2, // Espacio para la barra de scroll
-          // Scrollbar brutalista (Solo para Webkit: Chrome, Safari, Edge)
+          pb: 2,
           '&::-webkit-scrollbar': { height: '8px' },
           '&::-webkit-scrollbar-track': {
             backgroundColor: COLORS.primaryDark,
@@ -122,7 +115,7 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: COLORS.primaryMid,
-            borderRadius: 0, // Cero curvas
+            borderRadius: 0,
             '&:hover': { backgroundColor: COLORS.primaryLight }
           },
         }}
@@ -134,7 +127,6 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
 
           return (
             <CreditCard
-              // 2. Modifica la llave para incluir el index al final
               key={`${person.id}-${subtitle || 'no-sub'}-${index}`}
               name={person.name}
               profilePath={person.profile_path}
@@ -150,19 +142,14 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
 export function MovieCredits({ movie }: Props) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: 2 }}>
-      {/* 1. Cast */}
       <CreditRow title={t('movieCredits.cast')} items={movie.cast} isCast={true} />
 
-      {/* 2. Directores - AGREGAR showJob={true} */}
       <CreditRow title={t('movieCredits.directors')} items={movie.directors} showJob={true} />
 
-      {/* 3. Escritores - AGREGAR showJob={true} */}
       <CreditRow title={t('movieCredits.writers')} items={movie.writers} showJob={true} />
 
-      {/* 4. Compositores - AGREGAR showJob={true} */}
       <CreditRow title={t('movieCredits.composers')} items={movie.composers} showJob={true} />
 
-      {/* 5. Crew General */}
       <CreditRow title={t('movieCredits.crew')} items={movie.crew} showJob={true} />
     </Box>
   );

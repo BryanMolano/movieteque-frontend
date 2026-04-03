@@ -19,7 +19,6 @@ export default function App() {
           <Route path="/login" element={<Login />} />
 
           <Route element={<ProtectedRoute />}>
-            {/* Todas las rutas dentro de MainLayout tendrán el Navbar automáticamente */}
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/groups/:id" element={<Group />} />
@@ -29,7 +28,6 @@ export default function App() {
               <Route path="/movie/:id" element={<MovieDetails />} />
               <Route path="/recommendation/:id" element={<Recommendation />} />
 
-              {/* Agrega aquí /movies, /users, etc. */}
             </Route>
           </Route>
 

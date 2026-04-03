@@ -102,7 +102,6 @@ export function PostersGallery({ open, posters, onClose }: Props) {
               transition: 'all 0.05s linear',
               '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.05)', borderColor: COLORS.primaryLight },
               '&:active': { transform: 'translate(4px, 4px)', boxShadow: '0px 0px 0px transparent' },
-              // Puedes usar el pseudo-clase :disabled cuando conectes la lógica
               '&:disabled': { opacity: 0.3, boxShadow: 'none', cursor: 'not-allowed' }
             }}
           >
@@ -114,17 +113,16 @@ export function PostersGallery({ open, posters, onClose }: Props) {
             component="img"
             src={imageUrl ? imageUrl : '/assets/placeholder-movie.png'}
             alt={`Póster ${currentIndex + 1}`}
-            // Usamos el loading lazy nativo de HTML por si acaso
             loading="lazy"
             sx={{
               width: 'auto',
-              maxWidth: '100%', // Evita que crezca monstruosamente
+              maxWidth: '100%',
               height: 'auto',
               maxHeight: '70vh',
               aspectRatio: '2 / 3',
               objectFit: 'contain',
               border: `2px solid ${COLORS.primaryMid}`,
-              backgroundColor: COLORS.primaryDark, // Fondo mientras carga
+              backgroundColor: COLORS.primaryDark,
               mx: 'auto'
             }}
           />

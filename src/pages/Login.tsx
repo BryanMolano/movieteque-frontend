@@ -75,7 +75,6 @@ export function Login() {
       if (axios.isAxiosError(error) && error.response) {
         const backendMessage = error.response.data.message;
 
-        // Caso 1: El backend devuelve un arreglo de errores de validación (NestJS ValidationPipe)
         if (Array.isArray(backendMessage)) {
           backendMessage.forEach((msg: string) => {
             const lowerMsg = msg.toLowerCase();
@@ -93,7 +92,6 @@ export function Login() {
             }
           });
         }
-        // Caso 2: El backend devuelve un string (ej: "Invalid credentials" o "Email already exists")
         else if (typeof backendMessage === 'string') {
           const lowerMsg = backendMessage.toLowerCase();
           if (lowerMsg.includes('email')) {

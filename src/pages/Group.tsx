@@ -51,7 +51,6 @@ export function Group() {
       overflow: 'hidden'
     }}>
 
-      {/* COLUMNAS LIMPIAS */}
       <Box sx={{ height: '100%', minHeight: 0 }}>
         <GroupInfoSidebar group={group} isAdmin={isAdmin} currentMember={currentMember} />
       </Box>

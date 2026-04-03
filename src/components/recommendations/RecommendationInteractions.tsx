@@ -177,13 +177,10 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
               '&:hover': { borderColor: COLORS.primaryLight }
             }}
           >
-            {/* Cabecera de la interacción */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
 
-              {/* --- INICIO CAMBIO 1: Contenedor Izquierdo con Foto y Textos --- */}
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
 
-                {/* Cuadro de la Foto del Usuario */}
                 <Box
                   sx={{
                     width: 40,
@@ -202,16 +199,12 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
                     {interaction.member?.nickname || interaction.member?.user?.username || 'ANONYMOUS'}
                   </Typography>
 
-                  {/* --- INICIO CAMBIO 2: Inclusión del número de interacción --- */}
                   <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem', mt: 0.5 }}>
                     #{interaction.number ?? '?'} | {formatTerminalDate(interaction.createdAt)} | [{interaction.state}] | [{interaction.type}]
                   </Typography>
-                  {/* --- FIN CAMBIO 2 --- */}
                 </Box>
               </Box>
-              {/* --- FIN CAMBIO 1 --- */}
 
-              {/* Rating Box */}
               {interaction.rating && (
                 <Box sx={{ border: `1px solid ${COLORS.primaryMid}`, px: 1, py: 0.5, backgroundColor: 'rgba(0,0,0,0.3)', ml: 1, flexShrink: 0 }}>
                   <Typography sx={{ fontFamily: 'monospace', color: '#ffcc00', fontWeight: 900 }}>★ {interaction.rating}</Typography>
@@ -219,7 +212,6 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
               )}
             </Box>
 
-            {/* BOTONES DE LA INTERACCIÓN */}
             <Box sx={{ display: 'flex', gap: 1, mt: 1, flexWrap: 'wrap' }}>
               <Button
                 disableRipple
@@ -252,7 +244,6 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         );
       })}
 
-      {/* ===== MODAL DE ELIMINACIÓN ===== */}
       <EditInteractionModal
         key={interactionToEdit ? interactionToEdit.id : 'no-interaction-to-edit'}
         open={Boolean(interactionToEdit)}
@@ -316,9 +307,6 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
   );
 }
 
-// ==========================================
-// SUB-COMPONENTES
-// ==========================================
 
 const FilterRow = ({ children }: { children: React.ReactNode }) => (
   <Box sx={{ display: 'flex', width: '100%', border: `1px solid ${COLORS.primaryMid}` }}>

@@ -72,7 +72,6 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
       '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
     }}>
 
-      {/* HEADER FIJO CON EL SWITCH BRUTALISTA */}
       <Box sx={{
         position: 'sticky',
         top: 0,
@@ -81,7 +80,7 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
         borderBottom: `2px solid ${COLORS.primaryMid}`,
         p: 2,
         display: 'flex',
-        justifyContent: 'center' // Centramos el switch
+        justifyContent: 'center'
       }}>
         <Box sx={{ display: 'flex', border: `2px solid ${COLORS.primaryLight}`, boxShadow: `3px 3px 0px ${COLORS.accentDark}` }}>
           <Button
@@ -151,7 +150,7 @@ interface RowProps {
   onToggleSort: () => void;
   formatDate: (d: string) => string;
   navigate: (path: string) => void;
-  viewMode: 'ACTIVE' | 'INACTIVE'; // 👈 Nueva prop
+  viewMode: 'ACTIVE' | 'INACTIVE';
 }
 
 function UserRecommendationRow({ user, memberInfo, recommendations, sortPreference, onToggleSort, formatDate, navigate, viewMode }: RowProps) {
@@ -175,7 +174,6 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, width: '100%' }}>
 
-      {/* 1. HEADER DE LA FILA (Usuario a la izquierda, Switch a la derecha) */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `2px solid ${COLORS.primaryMid}`, pb: 1, width: '100%' }}>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
@@ -189,7 +187,6 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
           </Typography>
         </Box>
 
-        {/* Switch Brutalista de Orden */}
         <Box sx={{ display: 'flex', border: `2px solid ${COLORS.primaryMid}`, flexShrink: 0 }}>
           <Button
             disableRipple
@@ -217,12 +214,12 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
         </Box>
       </Box>
 
-      {/* 2. CONTENEDOR HORIZONTAL DE RECOMENDACIONES (Restaurado a scroll X) */}
+      {/* 2. CONTENEDOR HORIZONTAL DE RECOMENDACIONES  */}
       <Box
         sx={{
           display: 'flex',
           gap: 2,
-          overflowX: 'auto', // Solo scroll horizontal aquí
+          overflowX: 'auto',
           width: '100%',
           pb: 2,
           '&::-webkit-scrollbar': { height: '8px' },
@@ -252,7 +249,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
                   borderColor: COLORS.primaryLight,
                   transform: 'translate(-2px, -2px)',
                   boxShadow: `5px 5px 0px ${COLORS.primaryLight}`,
-                  filter: 'none', // Quita el filtro gris al pasar el mouse por encima
+                  filter: 'none',
                 },
                 '&:active': {
                   transform: 'translate(2px, 2px)',
@@ -268,7 +265,6 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 0.5 }}>
 
-              {/* Nuevo diseño para el número de prioridad */}
               <Box sx={{
                 border: `1px solid ${COLORS.primaryMid}`,
                 backgroundColor: 'rgba(0,0,0,0.3)',

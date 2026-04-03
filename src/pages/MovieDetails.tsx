@@ -36,15 +36,14 @@ export function MovieDetails() {
       sx={{
         minHeight: '100vh',
         backgroundColor: COLORS.primaryDark,
-        width: '100%', // Ocupa todo el ancho real
-        p: { xs: 2, md: 4 }, // Padding brutalista
+        width: '100%',
+        p: { xs: 2, md: 4 },
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, // 1/3 y 2/3 en escritorio
+        gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' },
         gap: 4,
         alignItems: 'start'
       }}
     >
-      {/* Columna Izquierda (1/3 EXACTO) */}
       <Box
         component="aside"
         sx={{
@@ -60,7 +59,6 @@ export function MovieDetails() {
         <MovieSidebar movie={movie} />
       </Box>
 
-      {/* Columna Derecha (2/3 EXACTO) */}
       <Box component="main" sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
 
         <MovieMainInfo movie={movie} />

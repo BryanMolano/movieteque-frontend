@@ -75,7 +75,6 @@ export function UserProfile() {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '2rem' }}>
-          {/* {`>>> CARGANDO_USER..._`} */}
           {t('userProfile.loadingUser')}
         </Typography>
       </Box>
@@ -103,10 +102,8 @@ export function UserProfile() {
       justifyContent: 'center'
     }}>
 
-      {/* CONTENEDOR PRINCIPAL: Limitamos el ancho para que no se estire infinito en PC */}
       <Box sx={{ width: '100%', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: 4 }}>
 
-        {/* 1. TARJETA DE CABECERA (Foto, Username, Fecha y Botón Editar) */}
         <Box sx={{
           display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
@@ -114,39 +111,35 @@ export function UserProfile() {
           p: 3,
           backgroundColor: COLORS.primaryDark,
           border: `2px solid ${COLORS.primaryLight}`,
-          boxShadow: `6px 6px 0px ${COLORS.accentMid}`, // Sombra brutalista cálida
+          boxShadow: `6px 6px 0px ${COLORS.accentMid}`,
         }}>
 
           {/* FOTO */}
           <Box
             component="img"
-            src={user?.imgUrl || '/assets/placeholder-avatar.png'} // Cambia profileImage por tu variable real
+            src={user?.imgUrl || '/assets/placeholder-avatar.png'}
             alt="Profile"
             sx={{
               width: { xs: '100%', sm: 150 },
               height: 150,
               objectFit: 'cover',
               border: `2px solid ${COLORS.primaryMid}`,
-              backgroundColor: 'rgba(0,0,0,0.5)' // Por si la imagen tarda en cargar
+              backgroundColor: 'rgba(0,0,0,0.5)'
             }}
           />
 
-          {/* INFO Y BOTÓN */}
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Typography color={COLORS.primaryLight} sx={{ fontWeight: 900, fontSize: '2rem', letterSpacing: '-1.5px', textTransform: 'uppercase' }}>
               {user?.username}
             </Typography>
             <Typography color={COLORS.primaryMid} sx={{ mb: 2 }}>
-              {/* {`> MIEMBRO_DES{DE: ${formatTerminalDate(user?.createdAt)}`} */}
               {`> ${t('userProfile.memberSince', 'MIEMBRO_DESDE')}: ${formatTerminalDate(user?.createdAt, 'UNKNOWN')}`}
             </Typography>
 
-            {/* BOTÓN EDITAR (Condicional) */}
             {isCurrentUserProfile && (
               <Button
                 onClick={() => setIsModalOpen(true)}
                 disableRipple
-                // onClick={handleEditProfile} // Tu función aquí
                 sx={{
                   alignSelf: 'flex-start',
                   color: COLORS.primaryLight,
@@ -157,7 +150,6 @@ export function UserProfile() {
                   '&:active': { transform: 'translate(3px, 3px)', boxShadow: 'none' }
                 }}
               >
-                {/* [ EDITAR PERFIL ] */}
                 {t('userProfile.editProfileBtn', '[ EDITAR PERFIL ]')}
               </Button>
             )}
@@ -170,7 +162,6 @@ export function UserProfile() {
 
 
 
-            {/* BOTÓN INVITAR A GRUPO (Solo si NO es el usuario actual) */}
             {!isCurrentUserProfile && currentUser && (
               <Button
                 disableRipple

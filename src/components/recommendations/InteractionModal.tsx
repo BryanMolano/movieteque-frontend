@@ -51,7 +51,6 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
     },
     onSuccess: () => {
       onClose()
-      //invalidar querys de interacciones
       queryClient.invalidateQueries({ queryKey: ['recommendation', recommendation?.id] });
       showToast('[ OK ]', 'success')
     },
@@ -108,7 +107,6 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
       {/* CONTENIDO (FORMULARIO) */}
       <DialogContent sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
 
-        {/* 1. PUNTUACIÓN (Opcional, 1-5, 2 decimales max) */}
         <Box>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, mb: 1, fontWeight: 'bold' }}>
             {t('interactionModal.ratingLabel', '1. PUNTUACIÓN (OPCIONAL)')}
@@ -122,7 +120,7 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
             inputProps={{
               min: 1,
               max: 5,
-              step: 0.01 // Permite hasta 2 decimales en el input nativo
+              step: 0.01
             }}
             error={Boolean(formErrors.rating)}
             helperText={formErrors.rating || t('interactionModal.ratingHelper', 'Valor entre 1 y 5 (máximo 2 decimales).')}
@@ -130,7 +128,6 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
           />
         </Box>
 
-        {/* 2. MENSAJE (Textarea, límite alto) */}
         <Box>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, mb: 1, fontWeight: 'bold' }}>
             {t('interactionModal.messageLabel', '2. MENSAJE (OPCIONAL)')}
@@ -142,7 +139,7 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder={t('interactionModal.messagePlaceholder', 'Escribe tu reseña o comentario aquí..._')}
-            inputProps={{ maxLength: 2500 }} // Límite generoso para la BD
+            inputProps={{ maxLength: 2500 }}
             sx={terminalInputStyle}
 
             error={Boolean(formErrors.message)}
@@ -168,13 +165,11 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
           </TextField>
         </Box>
 
-        {/* 4. TIPO (Select + Explicación) */}
         <Box>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, mb: 1, fontWeight: 'bold' }}>
             {t('interactionModal.typeLabel', '4. TIPO DE VISIBILIDAD *')}
           </Typography>
 
-          {/* Caja explicativa estilo terminal */}
           <Box sx={{ mb: 2, p: 1.5, border: `1px dashed ${COLORS.primaryMid}`, backgroundColor: 'rgba(0,0,0,0.2)' }}>
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem' }}>
               <strong>[ PUBLIC ]:</strong> {t('interactionModal.typePublicDesc', 'Todos los usuarios del grupo podrán ver esta interacción.')}<br />

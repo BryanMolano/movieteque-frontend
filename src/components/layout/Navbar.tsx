@@ -35,11 +35,11 @@ export function Navbar() {
           disableRipple
           onClick={() => {
             navigate(item.path);
-            if (isMobile) setMobileOpen(false); // Cierra el menú en móvil al navegar
+            if (isMobile) setMobileOpen(false);
           }}
           sx={{
-            justifyContent: isMobile ? 'flex-start' : 'center', // Alineado a la izquierda en móvil
-            p: isMobile ? 2 : undefined, // Más espacio para tocar en el celular
+            justifyContent: isMobile ? 'flex-start' : 'center',
+            p: isMobile ? 2 : undefined,
             color: isActive ? COLORS.primaryDark : COLORS.primaryLight,
             backgroundColor: isActive ? COLORS.primaryLight : 'transparent',
             border: `2px solid ${isActive ? COLORS.primaryLight : 'transparent'}`,
@@ -129,7 +129,7 @@ export function Navbar() {
         onClose={toggleDrawer(false)}
         PaperProps={{
           sx: {
-            width: '85vw', // Ocupa el 85% de la pantalla
+            width: '85vw',
             maxWidth: '350px',
             backgroundColor: COLORS.primaryDark,
             borderLeft: `2px solid ${COLORS.primaryLight}`,
@@ -155,12 +155,10 @@ export function Navbar() {
             </Button>
           </Box>
 
-          {/* Links del Menú */}
           <Stack spacing={1} sx={{ flexGrow: 1 }}>
             {renderNavButtons(true)}
           </Stack>
 
-          {/* Botón Salir en Móvil */}
           <Button
             disableRipple
             onClick={handleLogout}

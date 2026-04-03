@@ -2,17 +2,14 @@ import { createContext, useState, useContext, ReactNode } from 'react';
 import { Snackbar, Alert } from '@mui/material';
 import { COLORS } from '../theme/AppTheme'; // Ajusta la ruta a tu tema
 
-// 1. Definimos los tipos para TypeScript
 type ToastSeverity = 'success' | 'error' | 'info';
 
 interface ToastContextProps {
   showToast: (message: string, severity?: ToastSeverity) => void;
 }
 
-// 2. Creamos el Contexto
 const ToastContext = createContext<ToastContextProps | undefined>(undefined);
 
-// 3. Creamos el Provider (El envoltorio global)
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState({
     open: false,
@@ -20,7 +17,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     severity: 'info' as ToastSeverity,
   });
 
-  // Esta es la función que usarás en toda tu app
   const showToast = (message: string, severity: ToastSeverity = 'info') => {
     setToast({ open: true, message, severity });
   };
@@ -32,10 +28,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   return (
     <ToastContext.Provider value={{ showToast }}>
-      {/* Tu aplicación entera vivirá aquí adentro */}
       {children}
 
-      {/* El Snackbar global con tu diseño brutalista */}
       <Snackbar
         open={toast.open}
         autoHideDuration={4000}
@@ -65,7 +59,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// 4. Creamos un Hook personalizado para usarlo fácilmente
 export const useToast = () => {
   const context = useContext(ToastContext);
   if (!context) {

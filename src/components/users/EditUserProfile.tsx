@@ -25,7 +25,7 @@ interface FormErrors {
 export function EditUserProfile({ open, onClose, user }: Props) {
   const { showToast } = useToast();
   const queryClient = useQueryClient();
-  const { t } = useTranslation(); // Iniciamos el traductor
+  const { t } = useTranslation();
   const [username, setUserName] = useState(user?.username || '');
   const [description, setDescription] = useState(user?.description || '');
   const [oldPassword, setOldPassword] = useState('');
@@ -135,7 +135,6 @@ export function EditUserProfile({ open, onClose, user }: Props) {
         <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid ${COLORS.primaryMid}` }}>
           <Typography color={COLORS.primaryLight} sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif' }}>
             {t('editUserProfile.title', '[ EDITAR_PERFIL ]')}
-            {/* [ EDITAR_PERFIL ] */}
           </Typography>
         </Box>
 
@@ -144,7 +143,6 @@ export function EditUserProfile({ open, onClose, user }: Props) {
           {/* INPUT: USERNAME */}
           <TextField
             label={t('editUserProfile.usernameLabel', 'USERNAME')}
-            // label="USERNAME"
             fullWidth
             value={username}
             onChange={(e) => {
@@ -159,9 +157,8 @@ export function EditUserProfile({ open, onClose, user }: Props) {
           {/* INPUT: DESCRIPCIÓN */}
           <TextField
             label={t('editUserProfile.descriptionLabel', 'DESCRIPCIÓN (BIO)')}
-            // label="DESCRIPCIÓN (BIO)"
             multiline
-            rows={3} // Lo hacemos más grande
+            rows={3}
             fullWidth
             value={description}
             onChange={(e) => {
@@ -177,13 +174,11 @@ export function EditUserProfile({ open, onClose, user }: Props) {
           <Box sx={{ borderTop: `1px dashed ${COLORS.primaryMid}`, mt: 1, pt: 3 }}>
             <Typography color={COLORS.primaryMid} sx={{ mb: 2, fontSize: '0.85rem' }}>
               {'>'} {t('editUserProfile.passwordHint', 'DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA')}
-              {/* {'>'} DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA */}
             </Typography>
 
             {/* INPUT: OLD PASSWORD */}
             <TextField
               label={t('editUserProfile.oldPasswordLabel', 'CONTRASEÑA ACTUAL')}
-              // label="CONTRASEÑA ACTUAL"
               type="password"
               fullWidth
               value={oldPassword}
@@ -199,7 +194,6 @@ export function EditUserProfile({ open, onClose, user }: Props) {
             {/* INPUT: NEW PASSWORD */}
             <TextField
               label={t('editUserProfile.newPasswordLabel', 'NUEVA CONTRASEÑA')}
-              // label="NUEVA CONTRASEÑA"
               type="password"
               fullWidth
               value={newPassword}
@@ -213,15 +207,12 @@ export function EditUserProfile({ open, onClose, user }: Props) {
             />
           </Box>
 
-          {/* BOTÓN DE ARCHIVO (IMAGEN) */}
           <Box sx={{ borderTop: `1px dashed ${COLORS.primaryMid}`, mt: 1, pt: 3 }}>
             <Typography color={COLORS.primaryMid} sx={{ mb: 1, fontSize: '0.85rem' }}>
               {'>'} {t('editUserProfile.imageHint', 'ACTUALIZAR IMAGEN DE PERFIL')}
-              {/* {'>'} ACTUALIZAR IMAGEN DE PERFIL */}
             </Typography>
             <Button component="label" sx={{ ...mechanicalBtnSx, py: 1.5, width: '100%', color: COLORS.primaryLight, backgroundColor: 'transparent' }}>
               {imageFile ? `[ ${imageFile.name} ]` : t('editUserProfile.selectImageBtn', 'SELECCIONAR_NUEVA_IMAGEN')}
-              {/* {imageFile ? `[ ${imageFile.name} ]` : 'SELECCIONAR_NUEVA_IMAGEN'} */}
               <input
                 type="file"
                 hidden
@@ -257,7 +248,6 @@ export function EditUserProfile({ open, onClose, user }: Props) {
             }}
           >
             {editUserProfileMutation.isPending ? t('editUserProfile.savingBtn', 'GUARDANDO...') : t('editUserProfile.executeBtn', 'GUARDAR CAMBIOS')}
-            {/* {editUserProfileMutation.isPending ? 'GUARDANDO...' : 'GUARDAR CAMBIOS'} */}
           </Button>
         </DialogActions>
 

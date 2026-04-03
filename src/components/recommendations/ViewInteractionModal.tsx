@@ -36,7 +36,6 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
         }
       }}
     >
-      {/* HEADER: Info general de la recomendación y número de interacción */}
       <Box sx={{ p: 3, pb: 2, borderBottom: `2px solid ${COLORS.primaryMid}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
           <Typography sx={{ fontWeight: 900, letterSpacing: '-1px', fontSize: '1.2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
@@ -58,7 +57,6 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
           display: 'flex',
           flexDirection: 'column',
           gap: 3,
-          // 👇 AQUÍ ESTÁN LOS ESTILOS DE LA BARRA DE SCROLL 👇
           overflowY: 'auto',
           '&::-webkit-scrollbar': { width: '6px' },
           '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
@@ -68,7 +66,6 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
 
         {/* SECCIÓN 1: USUARIO Y BOTÓN DE PERFIL */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 1.5, border: `1px dashed ${COLORS.primaryMid}`, backgroundColor: 'rgba(0,0,0,0.2)' }}>
-          {/* Foto de perfil */}
           <Box
             sx={{
               width: 56,
@@ -90,7 +87,7 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
             <Button
               disableRipple
               onClick={() => {
-                onClose(); // Cerramos el modal antes de navegar para evitar bugs visuales
+                onClose();
                 navigate(`/userProfile/${interaction.member?.user?.id}`);
               }}
               sx={{
@@ -112,7 +109,6 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
         {/* SECCIÓN 2: ÉNFASIS (RATING Y RESPONSE) */}
         <Box sx={{ border: `2px solid ${COLORS.primaryLight}`, backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', flexDirection: 'column' }}>
 
-          {/* Bloque de Rating (Destacado) */}
           <Box sx={{ borderBottom: `2px solid ${COLORS.primaryLight}`, p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900 }}>
               {t('viewInteraction.ratingLabel', 'CALIFICACIÓN:')}
@@ -177,7 +173,6 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
   );
 }
 
-// Sub-componente para imprimir los metadatos
 const MetadataItem = ({ label, value }: { label: string, value: string }) => (
   <Box sx={{ display: 'flex', mb: 0.5 }}>
     <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem', width: '80px', flexShrink: 0 }}>

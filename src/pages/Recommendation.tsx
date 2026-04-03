@@ -54,7 +54,6 @@ export function Recommendation() {
       overflow: 'hidden'
     }}>
 
-      {/* COLUMNAS LIMPIAS: Solo pasan la altura a sus hijos */}
       <Box sx={{ height: '100%', minHeight: 0 }}>
         <RecommendationSidebar recommendation={recommendation} isAdminOrOwner={isAdminOrOwner} currentMember={currentMember} />
       </Box>

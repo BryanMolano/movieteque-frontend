@@ -67,12 +67,12 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%', // 👈 CAMBIO CRÍTICO: height estricto
+        height: '100%',
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
         gap: 2,
-        overflowY: 'auto', // 👈 SCROLL ADENTRO DEL BORDE
+        overflowY: 'auto',
         '&::-webkit-scrollbar': { width: '6px' },
         '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
         '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
@@ -155,7 +155,6 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
               }
             }}
           >
-            {/* --- INICIO CAMBIOS: Layout Izquierdo (Foto + Textos) --- */}
             <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden', flexGrow: 1, mr: 2 }}>
 
               {/* 2. Cuadrado con la foto de perfil del usuario */}
@@ -202,12 +201,10 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                 )}
               </Box>
             </Box>
-            {/* --- FIN CAMBIOS --- */}
 
             {/* BOTONES DE ACCIÓN */}
             <Box sx={{ display: 'flex', gap: 1, flexShrink: 0 }}>
 
-              {/* --- INICIO CAMBIOS: 3. Botón de Ver Perfil para TODOS los usuarios --- */}
               <Tooltip title={t('groupMembers.viewProfile', 'Ver Perfil')} placement="top" disableInteractive>
                 <Button
                   disableRipple
@@ -222,7 +219,6 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                   {`>`}
                 </Button>
               </Tooltip>
-              {/* --- FIN CAMBIOS --- */}
 
               {/* Botones de Rol (SÓLO SI EL USUARIO ACTUAL ES ADMIN) */}
               {isAdmin && (
@@ -266,7 +262,6 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                       </Button>
                     </span>
                   </Tooltip>
-                  {/* Se eliminó el botón de banear según lo solicitado */}
                 </>
               )}
             </Box>

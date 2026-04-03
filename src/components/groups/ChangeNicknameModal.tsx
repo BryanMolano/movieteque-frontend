@@ -94,7 +94,7 @@ export function ChangeMemberNicknameModal({ open, onClose, groupId }: Props) {
       PaperProps={{
         sx: {
           border: `2px solid ${COLORS.primaryMid}`,
-          boxShadow: `8px 8px 0px ${COLORS.accentDark}`, // Sombra del modal
+          boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
         }
       }}
     >

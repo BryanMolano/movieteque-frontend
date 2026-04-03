@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const movietequeApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3030/api',
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 movietequeApi.interceptors.request.use(

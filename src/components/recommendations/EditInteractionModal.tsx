@@ -87,7 +87,7 @@ export function EditInteractionModal({ open, onClose, interaction, currentMember
       fullWidth
       PaperProps={{
         sx: {
-          border: `2px solid #eab308`, // Borde amarillo/dorado para diferenciar que es MODO EDICIÓN
+          border: `2px solid #eab308`,
           boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
           backgroundColor: COLORS.primaryDark,
           borderRadius: 0,

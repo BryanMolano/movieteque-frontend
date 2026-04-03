@@ -20,8 +20,7 @@ interface BanMemberInput {
 }
 
 export function BansModal({ open, onClose, sortedMembers, group }: BansModalProps) {
-  const { t } = useTranslation(); // <-- Instanciado el traductor
-  // Filtramos visualmente a los miembros
+  const { t } = useTranslation();
   const activeMembers = sortedMembers.filter(m => !m.isBanned && m.role.toLowerCase() !== 'admin');
   const bannedMembers = sortedMembers.filter(m => m.isBanned);
   const { showToast } = useToast();
@@ -143,9 +142,8 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
   );
 }
 
-// --- SUB-COMPONENTE PARA REUTILIZAR EL DISEÑO DE LA FILA ---
 function MemberRow({ member, actionLabel, actionColor, onAction }: { member: Member, actionLabel: string, actionColor: string, onAction: () => void }) {
-  const { t } = useTranslation(); // <-- Agregado para traducir ANONYMOUS aquí adentro
+  const { t } = useTranslation();
 
   return (
     <Box

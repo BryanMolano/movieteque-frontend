@@ -143,7 +143,6 @@ export function InviteUserModal({ open, onClose, currentUser, invitedUser }: Inv
 function GroupRow({ group, isAlreadyMember, isAlreadyInvited, onInvite }: { group: Group, isAlreadyMember: boolean, isAlreadyInvited: boolean, onInvite: () => void }) {
   const { t } = useTranslation();
 
-  // Agrupamos la condición para que si ya es miembro o ya está invitado, el botón se desactive y cambie el estilo
   const isDisabled = isAlreadyMember || isAlreadyInvited;
 
   return (
@@ -185,7 +184,6 @@ function GroupRow({ group, isAlreadyMember, isAlreadyInvited, onInvite }: { grou
         </Typography>
       </Box>
 
-      {/* Botón de Acción (Invitar / Ya es miembro / Ya está invitado) */}
       <Button
         disableRipple
         onClick={onInvite}
@@ -228,7 +226,6 @@ function GroupRow({ group, isAlreadyMember, isAlreadyInvited, onInvite }: { grou
     </Box>
   );
 }
-// --- ESTILO BASE PARA BOTONES ---
 const mechanicalBtnSx = {
   borderRadius: 0,
   border: `2px solid ${COLORS.primaryLight}`,

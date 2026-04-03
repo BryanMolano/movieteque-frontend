@@ -28,7 +28,7 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
   useEffect(() => {
     const token = localStorage.getItem('movieteque-token') || '';
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3030/api'
-    const socketUrl = apiUrl.replace('/api', ''); // Asumiendo que el socket está en la raíz del mismo dominio
+    const socketUrl = apiUrl.replace('/api', '');
 
     const socket = io(socketUrl, {
       auth: {
@@ -124,7 +124,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
         </Typography>
       </Box>
 
-      {/* ÁREA DE MENSAJES (SCROLL) */}
       <Box
         sx={{
           flexGrow: 1,
@@ -148,7 +147,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
           const isMine = msg.user.id === currentMember?.user.id;
           const senderInfo = getSenderInfo(msg.user);
 
-          // Calculamos si debemos mostrar el divisor
           const showDateDivider = index === 0 || !isSameDay(msg.createdAt, array[index - 1].createdAt);
 
           return (
@@ -205,7 +203,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
                     [{senderInfo.name}] _ {formatTime(msg.createdAt)}
                   </Typography>
 
-                  {/* Globo de Texto */}
                   <Box
                     sx={{
                       backgroundColor: isMine ? 'rgba(203, 211, 214, 0.1)' : 'transparent',
@@ -227,7 +224,6 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
             </Fragment>
           );
         })}
-        {/* Ancla para el auto-scroll */}
         <div ref={messagesEndRef} />
       </Box>
 

@@ -11,12 +11,10 @@ interface Props {
 export function MovieMainInfo({ movie }: Props) {
 
   const { t } = useTranslation();
-  // 1. Construir Backdrop
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/w1920${movie.backdrop_path}`
     : '/assets/placeholder-backdrop.png';
 
-  // 2. Formatear la duración (ej: 135 -> 02H 15M)
   const formatRuntime = (minutes: number) => {
     if (!minutes) return '00H 00M';
     const h = Math.floor(minutes / 60);
@@ -36,9 +34,6 @@ export function MovieMainInfo({ movie }: Props) {
 
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
 
-      {/* =======================================================
-          BLOQUE 1: BACKDROP
-      ======================================================= */}
       <Box
         sx={{
           width: '100%',
@@ -54,7 +49,6 @@ export function MovieMainInfo({ movie }: Props) {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
         {/* Izquierda: Títulos y Datos */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, minWidth: 0, width: '100%' }}>
-          {/* Título Principal (Sans-serif brutalista) */}
           <Typography
             variant="h1"
             sx={{
@@ -62,24 +56,22 @@ export function MovieMainInfo({ movie }: Props) {
               fontWeight: 900,
               textTransform: 'uppercase',
               letterSpacing: '-1.5px',
-              fontSize: { xs: '2.5rem', md: '4rem' }, // Gigante
+              fontSize: { xs: '2.5rem', md: '4rem' },
               lineHeight: 1,
               color: COLORS.primaryLight,
-              textShadow: `3px 3px 0px ${COLORS.accentDark}`, // Sombra dura al texto
+              textShadow: `3px 3px 0px ${COLORS.accentDark}`,
               wordWrap: 'break-word',
-              overflowWrap: 'break-word', // Previene el desbordamiento en pantallas muy pequeñas
+              overflowWrap: 'break-word',
             }}
           >
             {movie.title}
           </Typography>
 
-          {/* 👇 ADICIÓN: Título Original (Solo si es diferente al principal) */}
           {movie.title !== movie.original_title && (
             <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontStyle: 'italic', fontSize: '1.2rem' }}>
               {`AKA: ${movie.original_title}`}
             </Typography>
           )}
-          {/* 👇 NUEVA ADICIÓN: Estado y Fecha de Estreno (Estilo etiquetas de sistema) */}
           <Box sx={{ display: 'flex', gap: 1.5, mt: 1, flexWrap: 'wrap' }}>
             {movie.status && (
               <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '0.85rem', border: `1px solid ${COLORS.primaryMid}`, px: 1, backgroundColor: 'rgba(0,0,0,0.2)' }}>
@@ -94,7 +86,6 @@ export function MovieMainInfo({ movie }: Props) {
           </Box>
         </Box>
 
-        {/* Derecha: Datos Técnicos (Runtime y País) */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'flex-end' }, minWidth: { xs: 'auto', sm: 'max-content' } }}>
           <Typography sx={{ fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 900, color: COLORS.accentMid, letterSpacing: '2px' }}>
             {formatRuntime(movie.runtime)}
@@ -108,9 +99,6 @@ export function MovieMainInfo({ movie }: Props) {
 
 
 
-      {/* =======================================================
-          BLOQUE 3: OVERVIEW
-      ======================================================= */}
       <Box sx={{ borderLeft: `4px solid ${COLORS.primaryMid}`, pl: 2, py: 0.5 }}>
         <Typography
           sx={{
@@ -118,7 +106,6 @@ export function MovieMainInfo({ movie }: Props) {
             color: COLORS.primaryLight,
             fontSize: '1rem',
             lineHeight: 1.6,
-            // Limitamos a 4 líneas si es muy largo para proteger el "Above the Fold"
             display: '-webkit-box',
             WebkitLineClamp: 4,
             WebkitBoxOrient: 'vertical',
@@ -129,9 +116,6 @@ export function MovieMainInfo({ movie }: Props) {
         </Typography>
       </Box>
 
-      {/* =======================================================
-          BLOQUE 4: GÉNEROS
-      ======================================================= */}
       <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', mt: 1 }}>
         {movie.genres?.map((genre) => (
           <Box
@@ -149,9 +133,6 @@ export function MovieMainInfo({ movie }: Props) {
         ))}
       </Box>
 
-      {/* =======================================================
-          BLOQUE 5: PLATAFORMAS DE STREAMING (DISPONIBILIDAD)
-      ======================================================= */}
       {movie.watch_providers?.flatrate && movie.watch_providers.flatrate.length > 0 && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem', fontWeight: 900 }}>
@@ -164,7 +145,6 @@ export function MovieMainInfo({ movie }: Props) {
               gap: 2,
               overflowX: 'auto',
               pb: 1,
-              // Scrollbar técnico y minimalista
               '&::-webkit-scrollbar': { height: '6px' },
               '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
               '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
@@ -198,9 +178,6 @@ export function MovieMainInfo({ movie }: Props) {
         </Box>
       )}
 
-      {/* =======================================================
-          BLOQUE 6: VIDEOS Y TRAILERS
-      ======================================================= */}
       {movie.videos && movie.videos.length > 0 && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem', fontWeight: 900 }}>
@@ -221,7 +198,7 @@ export function MovieMainInfo({ movie }: Props) {
             {movie.videos.map((video) => (
               <Button
                 key={video.id}
-                component="a" // Convertimos el botón en un link real
+                component="a"
                 href={`https://www.youtube.com/watch?v=${video.key}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -247,7 +224,6 @@ export function MovieMainInfo({ movie }: Props) {
                   }
                 }}
               >
-                {/* Recreación brutalista del logo de YouTube sin usar iconos externos */}
                 <Box
                   sx={{
                     backgroundColor: '#FF0000',
