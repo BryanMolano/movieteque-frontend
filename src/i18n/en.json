@@ -20,9 +20,9 @@
     "usernameRequired": "the username is required"
   },
   "dashboard": {
-    "title": "Movieteque // My Groups",
-    "loading": ">>> ESTABLISHING SECURE CONNECTION... LOADING GROUPS...",
-    "error": "[ ERROR ] Could not fetch information from the server.",
+    "title": "My Groups",
+    "loading": ">>> LOADING GROUPS...",
+    "error": "[ ERROR ] error from the server.",
     "empty": "> You do not belong to any recommendation group yet.",
     "createGroupBtn": "+ CREATE NEW GROUP",
     "type": "TYP",
@@ -30,26 +30,26 @@
     "created": "CRE",
     "invitations": "INVITATIONS",
     "inviteModal": {
-      "title": "NEW_INVITATION_DETECTED",
+      "title": "NEW INVITATION DETECTED",
       "body1": "User ",
       "body2": " has invited you to join the strategic group:",
       "rejectBtn": "[ REJECT ]",
-      "processing": "PROCESSING...",
-      "acceptBtn": "[ ACCEPT_AND_ENTER ]",
+      "processing": "LOADING...",
+      "acceptBtn": "[ ACCEPT AND ENTER ]",
       "systemError": "SYSTEM_ERROR",
       "successJoin": "[OK]"
     }
   },
   "createGroup": {
-    "title": ">>> CREATE_GROUP",
+    "title": ">>> CREATE GROUP",
     "nameLabel": "[ NAME ]",
     "typeLabel": "[ TYPE ]",
     "typePublic": "PUBLIC",
     "typePrivate": "PRIVATE",
-    "selectImage": "[ SELECT_IMAGE ]",
+    "selectImage": "[ SELECT IMAGE ]",
     "cancel": "CANCEL",
-    "execute": "EXECUTE",
-    "processing": "PROCESSING...",
+    "execute": "CREATE",
+    "processing": "LOADING...",
     "errors": {
       "nameRequired": "NAME IS REQUIRED [!]"
     }
@@ -62,76 +62,76 @@
     "public": "PUBLIC",
     "members": "[ MEMBERS ]",
     "nickname": "[ NICKNAME ]",
-    "copyInvite": "> COPY_INVITE",
-    "inviteCopied": "> [ OK ] INVITE_COPIED",
-    "changeNickname": "> CHANGE_NICKNAME",
-    "editGroup": "> EDIT_GROUP",
-    "deleteGroup": "[X] DELETE_GROUP",
-    "deleteModalTitle": "CRITICAL_WARNING",
+    "copyInvite": "> COPY INVITE",
+    "inviteCopied": "> [ OK ] INVITE COPIED",
+    "changeNickname": "> CHANGE NICKNAME",
+    "editGroup": "> EDIT GROUP",
+    "deleteGroup": "[X] DELETE GROUP",
+    "deleteModalTitle": "CRITICAL WARNING",
     "deleteModalBody": "Are you absolutely sure you want to destroy this group? All data and members will be lost. This action is irreversible.",
     "cancel": "[ CANCEL ]",
-    "confirmDelete": "[ EXECUTE_DELETION ]",
+    "confirmDelete": "[ DELETE ]",
     "deleting": "DELETING...",
     "deleteError": "SYSTEM_ERROR: COULD NOT DELETE GROUP",
     "exitGroup": "[-> EXIT GROUP ]",
-    "exitModalTitle": "EXIT_WARNING",
+    "exitModalTitle": "EXIT WARNING",
     "exitModalBody": "If you leave the group, your recommendations and interactions will be deleted, but your messages will remain. Are you sure you want to leave the group?",
     "exiting": "EXITING...",
-    "confirmExit": "[ EXECUTE_EXIT ]",
-    "exitSuccess": "[OK] LEFT_GROUP",
-    "systemError": "SYSTEM_ERROR"
+    "confirmExit": "[ EXIT ]",
+    "exitSuccess": "[OK] LEFT GROUP",
+    "systemError": "SYSTEM ERROR"
   },
   "groupMembers": {
-    "title": "/// MEMBER_REGISTRY",
+    "title": "MEMBERS",
     "roleAdmin": "[ ADMIN ]",
     "roleUser": "[ USER ]",
     "adminBtn": "A",
     "userBtn": "U",
     "banBtn": "X",
-    "empty": "NO_MEMBERS_REGISTERED",
-    "roleUpdated": "[OK] ROLE_UPDATED",
-    "systemError": "SYSTEM_ERROR",
+    "empty": "NO MEMBERS REGISTERED",
+    "roleUpdated": "[OK] ROLE UPDATED",
+    "systemError": "ERROR",
     "manageBans": "Manage Bans",
     "viewProfile": "View Profile",
     "makeAdmin": "Make Admin",
     "makeUser": "Make User"
   },
   "editGroup": {
-    "title": "[ EDIT_GROUP ]",
-    "success": "[OK] GROUP_UPDATED",
-    "serverError": "[SERVER_ERROR]",
-    "criticalError": "[CRITICAL_ERROR] Operation could not be completed"
+    "title": "[ EDIT GROUP ]",
+    "success": "[OK] GROUP UPDATED",
+    "serverError": "[SERVER ERROR]",
+    "criticalError": "[CRITICAL ERROR] Operation could not be completed"
   },
   "userProfile": {
     "unknownDate": "UNKNOWN",
-    "systemError": "SYSTEM_ERROR",
+    "systemError": "SYSTEM ERROR",
     "joinSuccess": "[OK] YOU HAVE JOINED THE GROUP",
     "errorPrefix": "[ ERROR ]",
-    "loadingUser": ">>> LOADING_USER..._",
+    "loadingUser": ">>> LOADING USER..._",
     "errorNotFound": ">>> ERROR_404: NOT FOUND..._",
-    "memberSince": "MEMBER_SINCE",
+    "memberSince": "USER SINCE",
     "editProfileBtn": "[ EDIT PROFILE ]",
-    "bioTitle": "[ USER_BIO ]",
-    "noBioError": "> ERROR: USER_HAS_NO_DESCRIPTION.",
-    "publicGroupsTitle": "PUBLIC_GROUPS",
+    "bioTitle": "[ USER BIO ]",
+    "noBioError": "> USER HAS NO DESCRIPTION.",
+    "publicGroupsTitle": "PUBLIC GROUPS",
     "joiningBtn": "JOINING...",
     "joinBtn": "JOIN",
     "goToGroupBtn": "GO TO GROUP",
-    "noGroupsMsg": "> THIS_USER_DOES_NOT_BELONG_TO_ANY_PUBLIC_GROUP.",
+    "noGroupsMsg": "> THIS USER DOES NOT BELONG TO ANY PUBLIC GROUP.",
     "inviteToGroupBtn": "[ INVITE TO GROUP ]"
   },
   "editUserProfile": {
     "success": "[OK] PROFILE UPDATED",
     "serverError": "[SERVER ERROR]",
     "criticalError": "[CRITICAL ERROR] Operation could not be completed",
-    "title": "[ EDIT_PROFILE ]",
+    "title": "[ EDIT PROFILE ]",
     "usernameLabel": "USERNAME",
     "descriptionLabel": "DESCRIPTION (BIO)",
     "passwordHint": "LEAVE BLANK IF YOU DO NOT WISH TO CHANGE YOUR PASSWORD",
     "oldPasswordLabel": "CURRENT PASSWORD",
     "newPasswordLabel": "NEW PASSWORD",
     "imageHint": "UPDATE PROFILE IMAGE",
-    "selectImageBtn": "SELECT_NEW_IMAGE",
+    "selectImageBtn": "SELECT NEW IMAGE",
     "cancelBtn": "CANCEL",
     "savingBtn": "SAVING...",
     "executeBtn": "SAVE CHANGES"
@@ -141,7 +141,7 @@
     "inviteBtn": "INVITE",
     "alreadyMemberBtn": "ALREADY MEMBER",
     "closeBtn": "CLOSE",
-    "noGroupsMsg": "> NO_GROUPS_AVAILABLE_TO_INVITE.",
+    "noGroupsMsg": "> NO GROUPS AVAILABLE TO INVITE.",
     "alreadyInvitedBtn": "ALREADY INVITED"
   },
     "invitationsModal": {
@@ -149,24 +149,24 @@
     "acceptBtn": "ACCEPT",
     "rejectBtn": "REJECT",
     "closeBtn": "CLOSE",
-    "noInvitationsMsg": "> NO_PENDING_INVITATIONS."
+    "noInvitationsMsg": "> NO PENDING INVITATIONS."
   },
   "movies": {
-    "title": "[ SEARCH_MOVIES ]",
+    "title": "[ SEARCH MOVIES ]",
     "placeholder": "ENTER TITLE...",
-    "scanning": ">>> SCANNING_DATABASE..._",
-    "matches": ">>> MATCHES_FOUND",
+    "scanning": ">>> LOADING..._",
+    "matches": ">>> MATCHES FOUND",
     "year": "YEAR"
   },
   "movieSidebar": {
-    "viewPosters": "[ VIEW_POSTERS ]",
-    "viewStills": "[ VIEW_STILLS ]",
-    "recommendBtn": "> RECOMMEND_MOVIE"
+    "viewPosters": "[ VIEW POSTERS ]",
+    "viewStills": "[ VIEW STILLS ]",
+    "recommendBtn": "> RECOMMEND MOVIE"
   },
   "movieMain": {
     "status": "STATUS",
     "releaseDate": "RELEASED",
-    "noSynopsis": ">>> SYNOPSIS_NOT_FOUND_",
+    "noSynopsis": ">>> SYNOPSIS NOT FOUND",
     "streaming": "[ STREAMING ]",
     "trailer": "[ TRAILER ]"
   },
@@ -178,27 +178,27 @@
     "crew": "CREW"
   },
   "movieStats": {
-    "title": "[ METRICS_&_TECHNICAL_DATA ]",
+    "title": "[ METRICS & TECHNICAL DATA ]",
     "unknown": "UNKNOWN",
     "budget": "BUDGET",
     "revenue": "REVENUE",
-    "originalLanguage": "ORIGINAL_LANGUAGE",
+    "originalLanguage": "ORIGINAL LANGUAGE",
     "popularity": "POPULARITY",
     "score": "SCORE(TMDB)",
-    "totalVotes": "TOTAL_VOTES"
+    "totalVotes": "TOTAL VOTES"
   },
   "galleryModals": {
-    "postersTitle": "[ ARCHIVED_POSTERS",
-    "backdropsTitle": "[ IMAGE_ARCHIVES"
+    "postersTitle": "[ ARCHIVED POSTERS",
+    "backdropsTitle": "[ IMAGE ARCHIVES"
   },
   "recommendationModal": {
-    "titleStep1": "[ SELECT_GROUP ]",
-    "titleStep2": "[ DRAFT_RECOMMENDATION ]",
-    "loadingGroups": "Loading groups...",
+    "titleStep1": "[ SELECT GROUP ]",
+    "titleStep2": "[ DRAFT RECOMMENDATION ]",
+    "loadingGroups": "LOADING...",
     "noGroups": "No groups available.",
-    "messageLabel": "[ REVIEW_MESSAGE ]",
+    "messageLabel": "[ REVIEW MESSAGE ]",
     "messagePlaceholder": "Why do you recommend this movie?(optional)",
-    "priorityLabel": "[ PRIORITY_LEVEL : 1-10 ]",
+    "priorityLabel": "[ PRIORITY LEVEL : 1-10 ]",
     "priorityMax": "(MAXIMUM)",
     "btnCancel": "[ CANCEL ]",
     "btnBack": "< BACK",
@@ -208,20 +208,20 @@
     "systemError": "SYSTEM_ERROR"
   },
   "usersSearch": {
-    "title": "[ SEARCH_USERS ]",
+    "title": "[ SEARCH USERS ]",
     "placeholder": "Type a username...",
     "searching": "SEARCHING...",
     "resultsFound": "RESULTS FOUND",
-    "viewProfile": "[ VIEW_PROFILE ]",
-    "myProfile": "[ MY_PROFILE ]"
+    "viewProfile": "[ VIEW PROFILE ]",
+    "myProfile": "[ MY PROFILE ]"
   },
   "recommendationGroup": {
     "activeTab": "ACTIVE",
     "inactiveTab": "INACTIVE",
     "priority": "[ PRIORITY ]",
     "recent": "[ RECENT ]",
-    "noActiveRecs": ">>> NO_ACTIVE_RECOMMENDATIONS_",
-    "noInactiveRecs": ">>> NO_INACTIVE_RECOMMENDATIONS_"
+    "noActiveRecs": ">>> NO ACTIVE RECOMMENDATIONS_",
+    "noInactiveRecs": ">>> NO INACTIVE RECOMMENDATIONS_"
   },
   "recSidebar": {
     "date": "DATE",
@@ -246,7 +246,7 @@
     "sortRating": "RATING",
     "typePublic": "PUBLIC",
     "typePrivate": "PRIVATE",
-    "empty": ">>> NO_INTERACTIONS_FOUND_",
+    "empty": ">>> NO INTERACTIONS FOUND",
     "btnView": "> VIEW",
     "btnEdit": "EDIT",
     "btnDelete": "DELETE",
@@ -287,7 +287,7 @@
   "viewInteraction": {
     "title": "> INTERACTION DETAIL",
     "unknownMovie": "UNKNOWN MOVIE",
-    "anonymousUser": "ANONYMOUS",
+    "anonymousUser": "UNKNOWN",
     "goToProfile": "[ GO TO PROFILE ]",
     "ratingLabel": "RATING:",
     "noRating": "NOT RATED",
@@ -301,8 +301,8 @@
     "okButton": "OK"
   },
   "chat": {
-    "title": "> COMMUNICATION TERMINAL",
-    "loading": ">>> LOADING_HISTORY_",
+    "title": "> CHAT",
+    "loading": ">>> LOADING HISTORY",
     "inputPlaceholder": "Type a message..._",
     "send": "SEND",
     "today": "[ TODAY ]",
@@ -313,7 +313,7 @@
     "nameLabel": "[ NICKNAME ]",
     "cancel": "CANCEL",
     "execute": "CHANGE",
-    "processing": "PROCESSING...",
+    "processing": "LOADING...",
     "errors": {
       "nameRequired": "THE NICKNAME IS REQUIRED[!]"
     }
@@ -327,7 +327,7 @@
     "noBannedUsers": "> NO BANNED USERS.",
     "unbanBtn": "UNBAN",
     "closeBtn": "CLOSE",
-    "anonymous": "ANONYMOUS",
+    "anonymous": "UNKNOWN",
     "systemError": "SYSTEM_ERROR"
   }
 }

@@ -10,18 +10,19 @@
     "registerBtn": "REGISTRARSE",
     "processing": ">>> PROCESANDO...",
     "googleBtn": "Continuar con Google",
-    "noAccount": "> No tienes cuenta? Regístrate",
-    "hasAccount": "> Ya tienes cuenta? Inicia sesión"
+    "noAccount": "> ¿No tienes cuenta? Regístrate aquí",
+    "hasAccount": "> ¿Ya tienes cuenta? Inicia sesión"
   },
   "validation": {
     "emailRequired": "El correo es obligatorio",
     "emailInvalid": "Debe ser un correo válido",
     "passwordMin": "Mínimo 6 caracteres",
-    "usernameRequired": "Requerido para crear cuenta"
+    "usernameRequired": "El nombre de usuario es requerido"
   },
   "dashboard": {
-    "loading": ">>> ESTABLECIENDO CONEXIÓN SEGURA... CARGANDO GRUPOS...",
-    "error": "[ ERROR ] No se pudo obtener la información del servidor.",
+    "title": "Mis Grupos",
+    "loading": ">>> CARGANDO GRUPOS...",
+    "error": "[ ERROR ] error del servidor.",
     "empty": "> No perteneces a ningún grupo de recomendación todavía.",
     "createGroupBtn": "+ CREAR NUEVO GRUPO",
     "type": "TIPO",
@@ -29,31 +30,30 @@
     "created": "CRE",
     "invitations": "INVITACIONES",
     "inviteModal": {
-      "title": "NUEVA_INVITACION_DETECTADA",
+      "title": "NUEVA INVITACIÓN DETECTADA",
       "body1": "El usuario ",
       "body2": " te ha invitado a unirte al grupo estratégico:",
       "rejectBtn": "[ RECHAZAR ]",
-      "processing": "PROCESANDO...",
-      "acceptBtn": "[ ACEPTAR_E_INGRESAR ]",
+      "processing": "CARGANDO...",
+      "acceptBtn": "[ ACEPTAR E INGRESAR ]",
       "systemError": "ERROR_DE_SISTEMA",
       "successJoin": "[OK]"
     }
   },
   "createGroup": {
-    "title": ">>> CREAR_GRUPO",
+    "title": ">>> CREAR GRUPO",
     "nameLabel": "[ NOMBRE ]",
     "typeLabel": "[ TIPO ]",
     "typePublic": "PÚBLICO",
     "typePrivate": "PRIVADO",
-    "selectImage": "[ SELECCIONAR_IMAGEN ]",
+    "selectImage": "[ SELECCIONAR IMAGEN ]",
     "cancel": "CANCELAR",
-    "execute": "EJECUTAR",
-    "processing": "PROCESANDO...",
+    "execute": "CREAR",
+    "processing": "CARGANDO...",
     "errors": {
       "nameRequired": "EL NOMBRE ES REQUERIDO [!]"
     }
   },
-  
   "groupSidebar": {
     "nameFallback": "NOMBRE DEL GRUPO",
     "created": ">>> CREADO",
@@ -62,76 +62,76 @@
     "public": "PÚBLICO",
     "members": "[ MIEMBROS ]",
     "nickname": "[ NICKNAME ]",
-    "copyInvite": "> COPIAR_INVITACION",
-    "inviteCopied": "> [ OK ] ENLACE_COPIADO",
-    "changeNickname": "> CAMBIAR_NICKNAME",
-    "editGroup": "> EDITAR_GRUPO",
-    "deleteGroup": "[X] ELIMINAR_GRUPO",
-    "deleteModalTitle": "ADVERTENCIA_CRITICA",
+    "copyInvite": "> COPIAR INVITACIÓN",
+    "inviteCopied": "> [ OK ] INVITACIÓN COPIADA",
+    "changeNickname": "> CAMBIAR NICKNAME",
+    "editGroup": "> EDITAR GRUPO",
+    "deleteGroup": "[X] ELIMINAR GRUPO",
+    "deleteModalTitle": "ADVERTENCIA CRÍTICA",
     "deleteModalBody": "¿Estás absolutamente seguro de que deseas destruir este grupo? Todos los datos y miembros se perderán. Esta acción es irreversible.",
     "cancel": "[ CANCELAR ]",
-    "confirmDelete": "[ EJECUTAR_ELIMINACION ]",
+    "confirmDelete": "[ ELIMINAR ]",
     "deleting": "ELIMINANDO...",
-    "deleteError": "ERROR_DE_SISTEMA: NO SE PUDO ELIMINAR EL GRUPO",
+    "deleteError": "ERROR DE SISTEMA: NO SE PUDO ELIMINAR EL GRUPO",
     "exitGroup": "[-> SALIR DEL GRUPO ]",
-    "exitModalTitle": "ADVERTENCIA_DE_SALIDA",
+    "exitModalTitle": "ADVERTENCIA DE SALIDA",
     "exitModalBody": "Si sales del grupo, tus recomendaciones e interacciones se borrarán, pero tus mensajes seguirán vigentes. ¿Estás seguro de querer salir del grupo?",
     "exiting": "SALIENDO...",
-    "confirmExit": "[ EJECUTAR_SALIDA ]",
-    "exitSuccess": "[OK] SALIDA_EXITOSA",
-    "systemError": "ERROR_DE_SISTEMA"
+    "confirmExit": "[ SALIR ]",
+    "exitSuccess": "[OK] SALISTE DEL GRUPO",
+    "systemError": "ERROR DE SISTEMA"
   },
   "groupMembers": {
-    "title": "/// REGISTRO_DE_MIEMBROS",
+    "title": "MIEMBROS",
     "roleAdmin": "[ ADMIN ]",
     "roleUser": "[ USUARIO ]",
     "adminBtn": "A",
     "userBtn": "U",
     "banBtn": "X",
-    "empty": "NO_HAY_MIEMBROS_REGISTRADOS",
-    "roleUpdated": "[OK] ROL_ACTUALIZADO",
-    "systemError": "ERROR_DE_SISTEMA",
+    "empty": "NO HAY MIEMBROS REGISTRADOS",
+    "roleUpdated": "[OK] ROL ACTUALIZADO",
+    "systemError": "ERROR",
     "manageBans": "Administrar Baneados",
     "viewProfile": "Ver Perfil",
     "makeAdmin": "Hacer Admin",
     "makeUser": "Hacer Usuario"
   },
   "editGroup": {
-    "title": "[ EDITAR_GRUPO ]",
-    "success": "[OK] GRUPO_ACTUALIZADO",
-    "serverError": "[ERROR_DEL_SERVIDOR]",
-    "criticalError": "[ERROR_CRITICO] No se pudo completar la operación"
+    "title": "[ EDITAR GRUPO ]",
+    "success": "[OK] GRUPO ACTUALIZADO",
+    "serverError": "[ERROR DEL SERVIDOR]",
+    "criticalError": "[ERROR CRÍTICO] No se pudo completar la operación"
   },
   "userProfile": {
     "unknownDate": "DESCONOCIDO",
-    "systemError": "ERROR_DE_SISTEMA",
+    "systemError": "ERROR DE SISTEMA",
     "joinSuccess": "[OK] TE HAS UNIDO AL GRUPO",
     "errorPrefix": "[ ERROR ]",
-    "loadingUser": ">>> CARGANDO_USER..._",
-    "errorNotFound": ">>> ERROR_404: NOT FOUND..._",
-    "memberSince": "MIEMBRO_DESDE",
+    "loadingUser": ">>> CARGANDO USUARIO..._",
+    "errorNotFound": ">>> ERROR_404: NO ENCONTRADO..._",
+    "memberSince": "USUARIO DESDE",
     "editProfileBtn": "[ EDITAR PERFIL ]",
-    "bioTitle": "[ BIO_DEL_USUARIO ]",
-    "noBioError": "> ERROR: USUARIO_SIN_DESCRIPCIÓN.",
-    "publicGroupsTitle": "GRUPOS_PÚBLICOS",
+    "bioTitle": "[ BIO DEL USUARIO ]",
+    "noBioError": "> EL USUARIO NO TIENE DESCRIPCIÓN.",
+    "publicGroupsTitle": "GRUPOS PÚBLICOS",
     "joiningBtn": "UNIENDO...",
     "joinBtn": "UNIRSE",
     "goToGroupBtn": "IR A GRUPO",
-    "noGroupsMsg": "> ESTE_USUARIO_NO_PERTENECE_A_NINGÚN_GRUPO_PÚBLICO.",
+    "noGroupsMsg": "> ESTE USUARIO NO PERTENECE A NINGÚN GRUPO PÚBLICO.",
     "inviteToGroupBtn": "[ INVITAR A GRUPO ]"
   },
   "editUserProfile": {
     "success": "[OK] PERFIL ACTUALIZADO",
     "serverError": "[ERROR DEL SERVIDOR]",
     "criticalError": "[ERROR CRITICO] No se pudo completar la operación",
-    "title": "[ EDITAR_PERFIL ]",
+    "title": "[ EDITAR PERFIL ]",
     "usernameLabel": "USERNAME",
     "descriptionLabel": "DESCRIPCIÓN (BIO)",
     "passwordHint": "DEJAR EN BLANCO SI NO DESEA CAMBIAR LA CONTRASEÑA",
     "oldPasswordLabel": "CONTRASEÑA ACTUAL",
     "newPasswordLabel": "NUEVA CONTRASEÑA",
     "imageHint": "ACTUALIZAR IMAGEN DE PERFIL",
-    "selectImageBtn": "SELECCIONAR_NUEVA_IMAGEN",
+    "selectImageBtn": "SELECCIONAR NUEVA IMAGEN",
     "cancelBtn": "CANCELAR",
     "savingBtn": "GUARDANDO...",
     "executeBtn": "GUARDAR CAMBIOS"
@@ -141,7 +141,7 @@
     "inviteBtn": "INVITAR",
     "alreadyMemberBtn": "YA ES MIEMBRO",
     "closeBtn": "CERRAR",
-    "noGroupsMsg": "> NO_TIENES_GRUPOS_DISPONIBLES_PARA_INVITAR.",
+    "noGroupsMsg": "> NO HAY GRUPOS DISPONIBLES PARA INVITAR.",
     "alreadyInvitedBtn": "YA ESTÁ INVITADO"
   },
   "invitationsModal": {
@@ -149,24 +149,24 @@
     "acceptBtn": "ACEPTAR",
     "rejectBtn": "RECHAZAR",
     "closeBtn": "CERRAR",
-    "noInvitationsMsg": "> NO_TIENES_INVITACIONES_PENDIENTES."
+    "noInvitationsMsg": "> NO HAY INVITACIONES PENDIENTES."
   },
   "movies": {
-    "title": "[ BUSCAR_PELÍCULAS ]",
+    "title": "[ BUSCAR PELÍCULAS ]",
     "placeholder": "INGRESE TÍTULO...",
-    "scanning": ">>> ESCANEANDO_BASE_DE_DATOS..._",
-    "matches": ">>> COINCIDENCIAS_ENCONTRADAS",
+    "scanning": ">>> CARGANDO..._",
+    "matches": ">>> COINCIDENCIAS ENCONTRADAS",
     "year": "AÑO"
   },
   "movieSidebar": {
-    "viewPosters": "[ VER_PÓSTERS ]",
-    "viewStills": "[ VER_STILLS ]",
-    "recommendBtn": "> RECOMENDAR_PELÍCULA"
+    "viewPosters": "[ VER PÓSTERS ]",
+    "viewStills": "[ VER STILLS ]",
+    "recommendBtn": "> RECOMENDAR PELÍCULA"
   },
   "movieMain": {
     "status": "ESTADO",
     "releaseDate": "ESTRENO",
-    "noSynopsis": ">>> SINOPSIS_NO_ENCONTRADA_",
+    "noSynopsis": ">>> SINOPSIS NO ENCONTRADA",
     "streaming": "[ STREAMING ]",
     "trailer": "[ TRAILER ]"
   },
@@ -178,27 +178,27 @@
     "crew": "EQUIPO TÉCNICO"
   },
   "movieStats": {
-    "title": "[ MÉTRICAS_Y_DATOS_TÉCNICOS ]",
+    "title": "[ MÉTRICAS Y DATOS TÉCNICOS ]",
     "unknown": "DESCONOCIDO",
     "budget": "PRESUPUESTO",
     "revenue": "RECAUDACIÓN",
-    "originalLanguage": "IDIOMA_ORIGINAL",
+    "originalLanguage": "IDIOMA ORIGINAL",
     "popularity": "POPULARIDAD",
     "score": "PUNTUACIÓN(TMDB)",
-    "totalVotes": "VOTOS_TOTALES"
+    "totalVotes": "VOTOS TOTALES"
   },
   "galleryModals": {
-    "postersTitle": "[ PÓSTERS_ARCHIVADOS",
-    "backdropsTitle": "[ ARCHIVOS_DE_IMAGEN"
+    "postersTitle": "[ PÓSTERS ARCHIVADOS",
+    "backdropsTitle": "[ ARCHIVOS DE IMAGEN"
   },
   "recommendationModal": {
-    "titleStep1": "[ SELECCIONAR_GRUPO ]",
-    "titleStep2": "[ REDACTAR_RECOMENDACIÓN ]",
-    "loadingGroups": "Cargando grupos...",
-    "noGroups": "No tienes grupos disponibles.",
-    "messageLabel": "[ MENSAJE_RESEÑA ]",
+    "titleStep1": "[ SELECCIONAR GRUPO ]",
+    "titleStep2": "[ REDACTAR RECOMENDACIÓN ]",
+    "loadingGroups": "CARGANDO...",
+    "noGroups": "No hay grupos disponibles.",
+    "messageLabel": "[ MENSAJE RESEÑA ]",
     "messagePlaceholder": "¿Por qué recomiendas esta película?(opcional)",
-    "priorityLabel": "[ NIVEL_PRIORIDAD : 1-10 ]",
+    "priorityLabel": "[ NIVEL PRIORIDAD : 1-10 ]",
     "priorityMax": "(MÁXIMA)",
     "btnCancel": "[ CANCELAR ]",
     "btnBack": "< VOLVER",
@@ -208,20 +208,20 @@
     "systemError": "ERROR_DE_SISTEMA"
   },
   "usersSearch": {
-    "title": "[ BUSCAR_USUARIOS ]",
+    "title": "[ BUSCAR USUARIOS ]",
     "placeholder": "Escribe un nombre de usuario...",
     "searching": "BUSCANDO...",
     "resultsFound": "RESULTADOS ENCONTRADOS",
-    "viewProfile": "[ VER_PERFIL ]",
-    "myProfile": "[ MI_PERFIL ]"
+    "viewProfile": "[ VER PERFIL ]",
+    "myProfile": "[ MI PERFIL ]"
   },
   "recommendationGroup": {
     "activeTab": "ACTIVAS",
     "inactiveTab": "INACTIVAS",
     "priority": "[ PRIORIDAD ]",
     "recent": "[ RECIENTES ]",
-    "noActiveRecs": ">>> NO_HAY_RECOMENDACIONES_ACTIVAS_",
-    "noInactiveRecs": ">>> NO_HAY_RECOMENDACIONES_INACTIVAS_"
+    "noActiveRecs": ">>> NO HAY RECOMENDACIONES ACTIVAS_",
+    "noInactiveRecs": ">>> NO HAY RECOMENDACIONES INACTIVAS_"
   },
   "recSidebar": {
     "date": "FECHA",
@@ -246,7 +246,7 @@
     "sortRating": "PUNTUACIÓN",
     "typePublic": "PÚBLICAS",
     "typePrivate": "PRIVADAS",
-    "empty": ">>> NO_HAY_INTERACCIONES_",
+    "empty": ">>> NO SE ENCONTRARON INTERACCIONES",
     "btnView": "> VER",
     "btnEdit": "EDITAR",
     "btnDelete": "ELIMINAR",
@@ -301,21 +301,21 @@
     "okButton": "OK"
   },
   "chat": {
-    "title": "> TERMINAL DE COMUNICACIÓN",
-    "loading": ">>> CARGANDO_HISTORIAL_",
+    "title": "> CHAT",
+    "loading": ">>> CARGANDO HISTORIAL",
     "inputPlaceholder": "Escribe un mensaje..._",
     "send": "ENVIAR",
     "today": "[ HOY ]",
     "yesterday": "[ AYER ]"
   },
   "changeNickname":{
-    "title": ">>> CAMBIAR_NICKNAME",
+    "title": ">>> CHANGE_NICKNAME",
     "nameLabel": "[ NOMBRE ]",
     "cancel": "CANCELAR",
     "execute": "CAMBIAR",
-    "processing": "PROCESANDO...",
+    "processing": "CARGANDO...",
     "errors": {
-      "nameRequired": "EL NICKNAME ES REQUERIDO [!]"
+      "nameRequired": "EL NICKNAME ES REQUERIDO[!]"
     }
   },
   "bansModal": {
@@ -327,7 +327,7 @@
     "noBannedUsers": "> NO HAY USUARIOS BANEADOS.",
     "unbanBtn": "DESBANEAR",
     "closeBtn": "CERRAR",
-    "anonymous": "ANÓNIMO",
+    "anonymous": "DESCONOCIDO",
     "systemError": "ERROR_DE_SISTEMA"
   }
 }
