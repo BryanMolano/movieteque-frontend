@@ -75,7 +75,7 @@ export function ViewInteractionModal({ open, onClose, interaction, recommendatio
               height: 56,
               flexShrink: 0,
               border: `2px solid ${COLORS.primaryMid}`,
-              backgroundImage: `url(${interaction.member?.user?.imgUrl || 'https://via.placeholder.com/56/0B2833/CBD3D6?text=?'})`,
+              backgroundImage: `url(${interaction.member?.user?.imgUrl || '/assets/placeholder-avatar.png'})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

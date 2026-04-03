@@ -120,7 +120,7 @@ export function UserProfile() {
           {/* FOTO */}
           <Box
             component="img"
-            src={user?.imgUrl || 'https://via.placeholder.com/150'} // Cambia profileImage por tu variable real
+            src={user?.imgUrl || '/assets/placeholder-avatar.png'} // Cambia profileImage por tu variable real
             alt="Profile"
             sx={{
               width: { xs: '100%', sm: 150 },

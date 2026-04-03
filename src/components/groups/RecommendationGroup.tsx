@@ -181,7 +181,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <Box
             component="img"
-            src={user.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=?'}
+            src={user.imgUrl || '/assets/placeholder-avatar.png'}
             sx={{ width: 40, height: 40, border: `2px solid ${COLORS.primaryLight}`, objectFit: 'cover' }}
           />
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1.2rem', fontWeight: 900, textTransform: 'uppercase' }}>
@@ -240,7 +240,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
                 width: '100%',
                 height: '210px',
                 border: `2px solid ${COLORS.primaryMid}`,
-                backgroundImage: `url('https://image.tmdb.org/t/p/w200${rec.movie.posterUrl}')`,
+                backgroundImage: rec.movie.posterUrl ? `url('https://image.tmdb.org/t/p/w200${rec.movie.posterUrl}')` : 'url(/assets/placeholder-movie.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 cursor: 'pointer',

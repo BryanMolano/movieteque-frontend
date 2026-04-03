@@ -15,7 +15,7 @@ export function MovieSidebar({ movie }: Props) {
   const { t } = useTranslation();
   const posterUrl = movie?.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : 'https://via.placeholder.com/500x750/0B2833/CBD3D6?text=NO+POSTER';
+    : '/assets/placeholder-movie.png';
 
   const logoUrl = movie?.logos?.[0]?.file_path
     ? `https://image.tmdb.org/t/p/w300${movie.logos[0].file_path}`

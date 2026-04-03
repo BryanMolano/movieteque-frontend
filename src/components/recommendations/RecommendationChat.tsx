@@ -98,7 +98,7 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
     const member = recommendation?.group.members.find(m => m.user.id === messageUser.id);
     return {
       name: member?.nickname || messageUser.username,
-      imgUrl: messageUser.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=?'
+      imgUrl: messageUser.imgUrl || '/assets/placeholder-avatar.png'
     };
   };
   if (!recommendation) return null;

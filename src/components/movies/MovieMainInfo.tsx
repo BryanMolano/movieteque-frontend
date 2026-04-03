@@ -14,7 +14,7 @@ export function MovieMainInfo({ movie }: Props) {
   // 1. Construir Backdrop
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/w1920${movie.backdrop_path}`
-    : 'https://via.placeholder.com/1280x400/0B2833/617B85?text=+++NO+SIGNAL+++';
+    : '/assets/placeholder-backdrop.png';
 
   // 2. Formatear la duración (ej: 135 -> 02H 15M)
   const formatRuntime = (minutes: number) => {

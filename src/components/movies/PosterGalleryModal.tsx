@@ -112,7 +112,7 @@ export function PostersGallery({ open, posters, onClose }: Props) {
           {/* CONTENEDOR DE IMAGEN (CARGA PEREZOSA NATURAL) */}
           <Box
             component="img"
-            src={imageUrl}
+            src={imageUrl ? imageUrl : '/assets/placeholder-movie.png'}
             alt={`Póster ${currentIndex + 1}`}
             // Usamos el loading lazy nativo de HTML por si acaso
             loading="lazy"

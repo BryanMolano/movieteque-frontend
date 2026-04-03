@@ -167,7 +167,7 @@ function GroupRow({ group, isAlreadyMember, isAlreadyInvited, onInvite }: { grou
             height: 40,
             flexShrink: 0,
             border: `2px solid ${COLORS.primaryMid}`,
-            backgroundImage: `url(${group.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=G'})`,
+            backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             mr: 2,

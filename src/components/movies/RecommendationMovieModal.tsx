@@ -128,7 +128,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
               {/* Poster miniatura */}
               <Box
                 component="img"
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/assets/placeholder-movie.png'}
                 sx={{ width: 60, height: 90, objectFit: 'cover', border: `2px solid ${COLORS.primaryLight}` }}
               />
               <Box sx={{ flexGrow: 1, minWidth: 0 }}>
@@ -136,7 +136,7 @@ export function RecommendationMovieModal({ open, onClose, movie }: Props) {
                   {movie.title}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Box component="img" src={selectedGroup.imgUrl || 'https://via.placeholder.com/20'} sx={{ width: 20, height: 20, borderRadius: '50%' }} />
+                  <Box component="img" src={selectedGroup.imgUrl || '/assets/placeholder-group.png'} sx={{ width: 20, height: 20, borderRadius: '50%' }} />
                   <Typography sx={{ color: COLORS.primaryMid, fontFamily: 'monospace', fontSize: '0.8rem' }} noWrap>
                     {`>> ${selectedGroup.name}`}
                   </Typography>
@@ -226,7 +226,7 @@ function GroupSelectionRow({ group, onSelect }: { group: Group, onSelect: () => 
         <Box
           sx={{
             width: 40, height: 40, flexShrink: 0, border: `2px solid ${COLORS.primaryMid}`,
-            backgroundImage: `url(${group.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=G'})`,
+            backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
             backgroundSize: 'cover', backgroundPosition: 'center', mr: 2
           }}
         />

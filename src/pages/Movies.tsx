@@ -92,7 +92,7 @@ export function Movies() {
                     // 👇 Lógica visual para armar la URL de TMDB o usar placeholder
                     backgroundImage: movie.poster_path
                       ? `url('https://image.tmdb.org/t/p/w342${movie.poster_path}')`
-                      : `url('https://via.placeholder.com/90x135/0B2833/CBD3D6?text=NO+POSTER')`,
+                      : `url('/assets/placeholder-movie.png')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     mr: 3

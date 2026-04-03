@@ -116,7 +116,7 @@ export function BackdropsGallery({ open, backdrops, onClose }: Props) {
 
           <Box
             component="img"
-            src={imageUrl}
+            src={imageUrl ? imageUrl : '/assets/placeholder-backdrop.png'}
             alt={`Backdrop ${currentIndex + 1}`}
             loading="lazy"
             sx={{

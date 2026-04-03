@@ -21,7 +21,7 @@ function CreditCard({ name, subtitle, profilePath }: CreditCardProps) {
   const { t } = useTranslation();
   const imageUrl = profilePath
     ? `https://image.tmdb.org/t/p/w185${profilePath}`
-    : 'https://via.placeholder.com/150x225/0B2833/617B85?text=NO+PIC'; // Placeholder brutalista
+    : '/assets/placeholder-avatar.png';
 
   return (
     <Box
@@ -127,15 +127,15 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
           },
         }}
       >
-        {items.map((person) => {
-          // Extraemos el subtítulo dependiendo de si es Cast o Crew
+        {items.map((person, index) => {
           let subtitle = undefined;
           if (isCast && 'character' in person) subtitle = person.character;
           if (showJob && 'job' in person) subtitle = person.job;
 
           return (
             <CreditCard
-              key={person.id + (subtitle || '')} // Llave única combinada por si alguien tiene 2 roles
+              // 2. Modifica la llave para incluir el index al final
+              key={`${person.id}-${subtitle || 'no-sub'}-${index}`}
               name={person.name}
               profilePath={person.profile_path}
               subtitle={subtitle}
@@ -147,26 +147,22 @@ function CreditRow({ title, items, isCast, showJob }: CreditRowProps) {
   );
 }
 
-// ==========================================
-// COMPONENTE PRINCIPAL
-// ==========================================
 export function MovieCredits({ movie }: Props) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: 2 }}>
-
-      {/* 1. Cast (Foto, Nombre, Personaje) */}
+      {/* 1. Cast */}
       <CreditRow title={t('movieCredits.cast')} items={movie.cast} isCast={true} />
 
-      {/* 2. Directores (Foto, Nombre) */}
-      <CreditRow title={t('movieCredits.directors')} items={movie.directors} />
+      {/* 2. Directores - AGREGAR showJob={true} */}
+      <CreditRow title={t('movieCredits.directors')} items={movie.directors} showJob={true} />
 
-      {/* 3. Escritores (Foto, Nombre) */}
-      <CreditRow title={t('movieCredits.writers')} items={movie.writers} />
+      {/* 3. Escritores - AGREGAR showJob={true} */}
+      <CreditRow title={t('movieCredits.writers')} items={movie.writers} showJob={true} />
 
-      {/* 4. Compositores (Foto, Nombre) */}
-      <CreditRow title={t('movieCredits.composers')} items={movie.composers} />
+      {/* 4. Compositores - AGREGAR showJob={true} */}
+      <CreditRow title={t('movieCredits.composers')} items={movie.composers} showJob={true} />
 
-      {/* 5. Crew General (Foto, Nombre, Trabajo) */}
+      {/* 5. Crew General */}
       <CreditRow title={t('movieCredits.crew')} items={movie.crew} showJob={true} />
     </Box>
   );

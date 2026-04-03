@@ -165,7 +165,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                   height: 36,
                   flexShrink: 0,
                   border: `2px solid ${COLORS.primaryMid}`,
-                  backgroundImage: `url(${member.user?.imgUrl || 'https://via.placeholder.com/40/0B2833/CBD3D6?text=?'})`,
+                  backgroundImage: `url(${member.user?.imgUrl || '/assets/placeholder-avatar.png'})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   mr: 2

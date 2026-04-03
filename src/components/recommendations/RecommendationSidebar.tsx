@@ -81,7 +81,8 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
           aspectRatio: '2 / 3', // Formato clásico de póster de cine
           border: `2px solid ${COLORS.primaryLight}`,
           boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
-          backgroundImage: `url('https://image.tmdb.org/t/p/w500${recommendation.movie.posterUrl}')`,
+          // backgroundImage: `url('https://image.tmdb.org/t/p/w500${recommendation.movie.posterUrl}')`,
+          backgroundImage: recommendation.movie.posterUrl ? `url('https://image.tmdb.org/t/p/w500${recommendation.movie.posterUrl}')` : 'url(/assets/placeholder-movie.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           // Filtro visual si está inactiva

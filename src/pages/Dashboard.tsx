@@ -230,7 +230,7 @@ const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t
     }}
   >
     <Avatar
-      src={group.imgUrl}
+      src={group.imgUrl || '/assets/placeholder-group.png'} // <-- CAMBIO AQUÍ: Implementación de la imagen local de respaldo
       alt={group.name}
       variant="square"
       sx={{ width: 70, height: 70, border: `2px solid ${COLORS.primaryLight}`, flexShrink: 0 }} // flexShrink evita que la imagen se aplaste

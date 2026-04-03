@@ -117,7 +117,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
           aspectRatio: '1 / 1',
           border: `2px solid ${COLORS.primaryLight}`,
           boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
-          backgroundImage: `url(${group.imgUrl || 'https://via.placeholder.com/600x600/0B2833/CBD3D6?text=NO+IMAGE'})`,
+          backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           flexShrink: 0, // Asegura que la imagen no se aplaste al hacer scroll
