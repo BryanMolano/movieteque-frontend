@@ -1,4 +1,5 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext } from 'react';
+import type { ReactNode } from 'react';
 import { Snackbar, Alert } from '@mui/material';
 import { COLORS } from '../theme/AppTheme'; // Ajusta la ruta a tu tema
 
