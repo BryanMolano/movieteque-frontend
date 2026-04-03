@@ -6,6 +6,7 @@ import axios from "axios";
 import { movietequeApi } from "../../api/MovietequeApi";
 import { useToast } from "../../contexts/ToastContext";
 import type { Group } from "../../interfaces/Group";
+import { useTranslation } from "react-i18next"; // <-- Importado useTranslation
 
 interface BansModalProps {
   open: boolean;
@@ -17,17 +18,17 @@ interface BansModalProps {
 interface BanMemberInput {
   memberId: string;
 }
+
 export function BansModal({ open, onClose, sortedMembers, group }: BansModalProps) {
+  const { t } = useTranslation(); // <-- Instanciado el traductor
   // Filtramos visualmente a los miembros
   const activeMembers = sortedMembers.filter(m => !m.isBanned && m.role.toLowerCase() !== 'admin');
   const bannedMembers = sortedMembers.filter(m => m.isBanned);
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
-
   const banMember = useMutation({
     mutationFn: async ({ memberId }: BanMemberInput) => {
-
       const response = await movietequeApi.post(`/group/${group.id}/ban`, { id: memberId })
       return response.data;
     },
@@ -37,16 +38,15 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
       showToast('[OK]', 'success')
     },
     onError: (error) => {
-      let serverMessage = "ERROR_DE_SISTEMA";
+      let serverMessage = t('bansModal.systemError', 'ERROR_DE_SISTEMA');
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
       }
       showToast(`[ ERROR ] ${serverMessage}`, 'error');
     }
-
-
   })
+
   return (
     <Dialog
       open={open}
@@ -66,7 +66,8 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
       {/* ENCABEZADO */}
       <Box sx={{ p: 3, pb: 2, borderBottom: `2px solid #ff5555` }}>
         <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif', color: '#ff5555' }}>
-          [ BANEOS ] </Typography>
+          {t('bansModal.title', '[ BANEOS ]')}
+        </Typography>
       </Box>
 
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 4, pt: 3, p: 2 }}>
@@ -74,18 +75,20 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
         {/* --- SECCIÓN 1: USUARIOS ACTIVOS (PARA BANEAR) --- */}
         <Box>
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 2, fontWeight: 'bold' }}>
-            {`>>> USUARIOS[${activeMembers.length}]`}
+            {t('bansModal.activeUsers', '>>> USUARIOS[{{count}}]', { count: activeMembers.length })}
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {activeMembers.length === 0 && (
-              <Typography sx={{ color: COLORS.primaryMid, fontSize: '0.9rem' }}>{'>'} NO HAY USUARIOS.</Typography>
+              <Typography sx={{ color: COLORS.primaryMid, fontSize: '0.9rem' }}>
+                {t('bansModal.noActiveUsers', '> NO HAY USUARIOS.')}
+              </Typography>
             )}
             {activeMembers.map((member) => (
               <MemberRow
                 key={member.id}
                 member={member}
-                actionLabel="BANEAR"
+                actionLabel={t('bansModal.banBtn', 'BANEAR')}
                 actionColor="#ff5555"
                 onAction={() => banMember.mutate({ memberId: member.id })}
               />
@@ -96,18 +99,20 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
         {/* --- SECCIÓN 2: LISTA NEGRA (PARA DESBANEAR) --- */}
         <Box sx={{ borderTop: `1px dashed ${COLORS.primaryMid}`, pt: 3 }}>
           <Typography sx={{ fontFamily: 'monospace', color: '#ff5555', mb: 2, fontWeight: 'bold' }}>
-            {`>>> BANEADOS[${bannedMembers.length}]`}
+            {t('bansModal.bannedUsers', '>>> BANEADOS[{{count}}]', { count: bannedMembers.length })}
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {bannedMembers.length === 0 && (
-              <Typography sx={{ color: COLORS.primaryMid, fontSize: '0.9rem' }}>{'>'} NO HAY USUARIOS BANEADOS.</Typography>
+              <Typography sx={{ color: COLORS.primaryMid, fontSize: '0.9rem' }}>
+                {t('bansModal.noBannedUsers', '> NO HAY USUARIOS BANEADOS.')}
+              </Typography>
             )}
             {bannedMembers.map((member) => (
               <MemberRow
                 key={member.id}
                 member={member}
-                actionLabel="DESBANEAR"
+                actionLabel={t('bansModal.unbanBtn', 'DESBANEAR')}
                 actionColor={COLORS.primaryLight}
                 onAction={() => banMember.mutate({ memberId: member.id })}
               />
@@ -130,7 +135,7 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
             justifyContent: 'center'
           }}
         >
-          CERRAR
+          {t('bansModal.closeBtn', 'CERRAR')}
         </Button>
       </DialogActions>
 
@@ -140,6 +145,8 @@ export function BansModal({ open, onClose, sortedMembers, group }: BansModalProp
 
 // --- SUB-COMPONENTE PARA REUTILIZAR EL DISEÑO DE LA FILA ---
 function MemberRow({ member, actionLabel, actionColor, onAction }: { member: Member, actionLabel: string, actionColor: string, onAction: () => void }) {
+  const { t } = useTranslation(); // <-- Agregado para traducir ANONYMOUS aquí adentro
+
   return (
     <Box
       sx={{
@@ -170,7 +177,7 @@ function MemberRow({ member, actionLabel, actionColor, onAction }: { member: Mem
         {/* Textos */}
         <Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <Typography noWrap sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1rem' }}>
-            {member.nickname || member.user?.username || 'ANONYMOUS'}
+            {member.nickname || member.user?.username || t('bansModal.anonymous', 'ANONYMOUS')}
           </Typography>
           {member.nickname && member.user?.username && (
             <Typography noWrap sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.75rem' }}>

@@ -37,9 +37,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const { showToast } = useToast();
 
-  // --- INICIO CAMBIO: Corrección de mayúscula inicial en el estado para respetar camelCase ---
   const [isExitGroupModalOpen, setIsExitGroupModalOpen] = useState<boolean>(false);
-  // --- FIN CAMBIO ---
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -67,12 +65,12 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-groups'] });
-      showToast('[OK]', 'success')
+      showToast(t('groupSidebar.exitSuccess', '[OK] SALIDA_EXITOSA'), 'success')
       setIsExitGroupModalOpen(false);
       navigate('/dashboard');
     },
     onError: (error) => {
-      let serverMessage = t('recommendationModal.systemError');
+      let serverMessage = t('groupSidebar.systemError', 'ERROR_DE_SISTEMA');
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
@@ -101,7 +99,11 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%',
+        height: '100%',
+        overflowY: 'auto',
+        '&::-webkit-scrollbar': { width: '6px' },
+        '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
+        '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
@@ -118,6 +120,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
           backgroundImage: `url(${group.imgUrl || 'https://via.placeholder.com/600x600/0B2833/CBD3D6?text=NO+IMAGE'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          flexShrink: 0, // Asegura que la imagen no se aplaste al hacer scroll
         }}
       />
 
@@ -152,7 +155,7 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       </Box>
 
       {/* BOTONES DE ACCIÓN (ESTILO TERMINAL) */}
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ pb: 2 /* Padding bottom extra para que el scroll termine limpio */ }}>
         <Button disableRipple sx={mechanicalButtonStyle}
           onClick={handleCopyInvite}>
           {isCopied ? t('groupSidebar.inviteCopied') : t('groupSidebar.copyInvite')}
@@ -167,70 +170,69 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
           onClose={() => setIsModalOpen(false)}
           groupId={group.id}
         />
+
+        {isAdmin && (
+          <Button
+            disableRipple sx={mechanicalButtonStyle}
+            onClick={() => setIsEditModalOpen(true)}
+          >
+            {t('groupSidebar.editGroup')}
+          </Button>
+        )}
+        <EditGroupModal
+          open={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          group={group}
+        />
+
+        {/* BOTÓN DE ELIMINAR (SÓLO ADMIN) */}
+        {isAdmin && (
+          <Button
+            disableRipple
+            onClick={() => setIsDeleteModalOpen(true)}
+            sx={{
+              ...mechanicalButtonStyle,
+              mt: 2,
+              border: `2px solid ${COLORS.primaryMid}`,
+              color: COLORS.primaryMid,
+              boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
+              fontSize: '0.8rem',
+              p: '8px',
+              '&:hover': {
+                backgroundColor: COLORS.primaryDark,
+                color: COLORS.primaryLight,
+                borderColor: COLORS.primaryLight,
+              }
+            }}
+          >
+            {t('groupSidebar.deleteGroup')}
+          </Button>
+        )}
+
+        {/* BOTÓN DE SALIR (SÓLO USER NO ADMIN) */}
+        {!isAdmin && (
+          <Button
+            disableRipple
+            onClick={() => setIsExitGroupModalOpen(true)}
+            sx={{
+              ...mechanicalButtonStyle,
+              mt: 2,
+              border: `2px solid #ffaa00`,
+              color: '#ffaa00',
+              boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
+              fontSize: '0.8rem',
+              p: '8px',
+              '&:hover': {
+                backgroundColor: COLORS.primaryDark,
+                color: '#ffcc00',
+                borderColor: '#ffcc00',
+              }
+            }}
+          >
+            {t('groupSidebar.exitGroup', '[-> SALIR DEL GRUPO ]')}
+          </Button>
+        )}
       </Stack>
-
-      {isAdmin && (
-        <Button
-          disableRipple sx={mechanicalButtonStyle}
-          onClick={() => setIsEditModalOpen(true)}
-        >
-          {t('groupSidebar.editGroup')}
-        </Button>
-      )}
-      <EditGroupModal
-        open={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        group={group}
-      />
-
-      {/* BOTÓN DE ELIMINAR (SÓLO ADMIN) */}
-      {isAdmin && (
-        <Button
-          disableRipple
-          onClick={() => setIsDeleteModalOpen(true)}
-          sx={{
-            ...mechanicalButtonStyle,
-            mt: 4,
-            border: `2px solid ${COLORS.primaryMid}`,
-            color: COLORS.primaryMid,
-            boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
-            fontSize: '0.8rem',
-            p: '8px',
-            '&:hover': {
-              backgroundColor: COLORS.primaryDark,
-              color: COLORS.primaryLight,
-              borderColor: COLORS.primaryLight,
-            }
-          }}
-        >
-          {t('groupSidebar.deleteGroup')}
-        </Button>
-      )}
-
-      {/* --- INICIO CAMBIOS: BOTÓN DE SALIR (SÓLO USER NO ADMIN) --- */}
-      {!isAdmin && ( // Cambio: Agregado condicional para usuarios normales
-        <Button // Cambio: Agregado botón de salir
-          disableRipple // Cambio: Desactiva efecto onda
-          onClick={() => setIsExitGroupModalOpen(true)} // Cambio: Abre el modal de salida
-          sx={{ // Cambio: Estilos brutalistas
-            ...mechanicalButtonStyle, // Cambio: Herencia base
-            mt: 4, // Cambio: Margen top para separar
-            border: `2px solid #ffaa00`, // Cambio: Borde naranja advertencia
-            color: '#ffaa00', // Cambio: Texto naranja advertencia
-            boxShadow: `3px 3px 0px ${COLORS.accentDark}`, // Cambio: Sombra consistente
-            fontSize: '0.8rem', // Cambio: Fuente pequeña
-            p: '8px', // Cambio: Padding compacto
-            '&:hover': { // Cambio: Hover state
-              backgroundColor: COLORS.primaryDark, // Cambio: Mantiene fondo
-              color: '#ffcc00', // Cambio: Naranja más brillante
-              borderColor: '#ffcc00', // Cambio: Borde más brillante
-            }
-          }}
-        >
-          {t('groupSidebar.exitGroup', '[-> SALIR DEL GRUPO')} {/* Cambio: Texto con llave i18n */}
-        </Button> // Cambio: Cierre botón
-      )}
-      {/* --- FIN CAMBIOS --- */}
 
       {/* Modal de Confirmación de Eliminación Brutalista */}
       <Dialog
@@ -289,67 +291,66 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
         </DialogActions>
       </Dialog>
 
-      {/* --- INICIO CAMBIOS: MODAL DE CONFIRMACIÓN DE SALIDA --- */}
-      <Dialog // Cambio: Elemento modal para la salida
-        open={isExitGroupModalOpen} // Cambio: Ligado al estado corregido
-        onClose={() => setIsExitGroupModalOpen(false)} // Cambio: Cierra el modal
-        PaperProps={{ // Cambio: Estilos del contenedor del modal
-          sx: { // Cambio: Estilos SX
-            border: `2px solid #ffaa00`, // Cambio: Borde naranja advertencia
-            boxShadow: `8px 8px 0px ${COLORS.accentDark}`, // Cambio: Sombra brutalista
-            backgroundColor: COLORS.primaryDark, // Cambio: Fondo oscuro
+      {/* MODAL DE CONFIRMACIÓN DE SALIDA */}
+      <Dialog
+        open={isExitGroupModalOpen}
+        onClose={() => setIsExitGroupModalOpen(false)}
+        PaperProps={{
+          sx: {
+            border: `2px solid #ffaa00`,
+            boxShadow: `8px 8px 0px ${COLORS.accentDark}`,
+            backgroundColor: COLORS.primaryDark,
           }
         }}
       >
-        <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid #ffaa00` }}> {/* Cambio: Header del modal */}
-          <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif', color: '#ffaa00' }}> {/* Cambio: Título */}
-            {t('groupSidebar.exitModalTitle', 'ADVERTENCIA_DE_SALIDA')} {/* Cambio: Texto título modal */}
+        <Box sx={{ p: 3, pb: 1, borderBottom: `2px solid #ffaa00` }}>
+          <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '1.5rem', fontFamily: 'sans-serif', color: '#ffaa00' }}>
+            {t('groupSidebar.exitModalTitle', 'ADVERTENCIA_DE_SALIDA')}
           </Typography>
         </Box>
 
-        <DialogContent sx={{ pt: 4, pb: 4 }}> {/* Cambio: Contenedor texto */}
-          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}> {/* Cambio: Estilo texto */}
-            {t('groupSidebar.exitModalBody', 'Si sales del grupo, tus recomendaciones e interacciones se borrarán, pero tus mensajes seguirán vigentes. ¿Estás seguro de querer salir del grupo?')} {/* Cambio: Texto solicitado exacto */}
+        <DialogContent sx={{ pt: 4, pb: 4 }}>
+          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
+            {t('groupSidebar.exitModalBody', 'Si sales del grupo, tus recomendaciones e interacciones se borrarán, pero tus mensajes seguirán vigentes. ¿Estás seguro de querer salir del grupo?')}
           </Typography>
         </DialogContent>
 
-        <DialogActions sx={{ p: 3, pt: 1, gap: 2 }}> {/* Cambio: Contenedor de botones */}
-          <Button // Cambio: Botón cancelar
-            onClick={() => setIsExitGroupModalOpen(false)} // Cambio: Cierra modal
-            disableRipple // Cambio: Sin efecto
-            sx={{ // Cambio: Estilos
-              ...mechanicalButtonStyle, // Cambio: Base
-              border: `2px solid ${COLORS.primaryMid}`, // Cambio: Borde neutro
-              boxShadow: `4px 4px 0px ${COLORS.accentDark}`, // Cambio: Sombra
-              color: COLORS.primaryMid, // Cambio: Texto neutro
-              p: '8px 16px' // Cambio: Padding
+        <DialogActions sx={{ p: 3, pt: 1, gap: 2 }}>
+          <Button
+            onClick={() => setIsExitGroupModalOpen(false)}
+            disableRipple
+            sx={{
+              ...mechanicalButtonStyle,
+              border: `2px solid ${COLORS.primaryMid}`,
+              boxShadow: `4px 4px 0px ${COLORS.accentDark}`,
+              color: COLORS.primaryMid,
+              p: '8px 16px'
             }}
           >
-            {t('groupSidebar.cancel')} {/* Cambio: Texto cancelar */}
+            {t('groupSidebar.cancel')}
           </Button>
-          <Button // Cambio: Botón confirmar
-            onClick={() => exitGroupMutation.mutate()} // Cambio: Ejecuta mutación
-            disabled={exitGroupMutation.isPending} // Cambio: Deshabilita si está cargando
-            disableRipple // Cambio: Sin efecto
-            sx={{ // Cambio: Estilos
-              ...mechanicalButtonStyle, // Cambio: Base
-              bgcolor: '#ffaa00', // Cambio: Fondo advertencia
-              color: COLORS.primaryDark, // Cambio: Texto oscuro
-              borderColor: '#ffaa00', // Cambio: Borde
-              boxShadow: `4px 4px 0px ${COLORS.accentDark}`, // Cambio: Sombra
-              p: '8px 16px', // Cambio: Padding
-              '&:hover': { bgcolor: '#ffcc00' } // Cambio: Hover advertencia
+          <Button
+            onClick={() => exitGroupMutation.mutate()}
+            disabled={exitGroupMutation.isPending}
+            disableRipple
+            sx={{
+              ...mechanicalButtonStyle,
+              bgcolor: '#ffaa00',
+              color: COLORS.primaryDark,
+              borderColor: '#ffaa00',
+              boxShadow: `4px 4px 0px ${COLORS.accentDark}`,
+              p: '8px 16px',
+              '&:hover': { bgcolor: '#ffcc00' }
             }}
           >
-            {exitGroupMutation.isPending ? t('groupSidebar.exiting', 'SALIENDO...') : t('groupSidebar.confirmExit', '[ EJECUTAR_SALIDA ]')} {/* Cambio: Texto dinámico */}
+            {exitGroupMutation.isPending ? t('groupSidebar.exiting', 'SALIENDO...') : t('groupSidebar.confirmExit', '[ EJECUTAR_SALIDA ]')}
           </Button>
         </DialogActions>
       </Dialog>
-      {/* --- FIN CAMBIOS --- */}
-
     </Box>
   );
 }
+
 const mechanicalButtonStyle = {
   borderRadius: 0,
   border: `2px solid ${COLORS.primaryLight}`,

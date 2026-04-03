@@ -54,7 +54,7 @@ export function InviteUserModal({ open, onClose, currentUser, invitedUser }: Inv
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups', invitedUser?.id] });
-      queryClient.invalidateQueries({ queryKey: ['groups', currentUser?.id] });
+      queryClient.invalidateQueries({ queryKey: ['groups-invited', invitedUser?.id] });
       queryClient.invalidateQueries({ queryKey: ['groups', currentUser?.id] });
       showToast('[OK]', 'success')
     },

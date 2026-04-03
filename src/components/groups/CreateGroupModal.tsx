@@ -59,7 +59,7 @@ export function CreateGroupModal({ open, onClose }: Props) {
       setType('PRIVATE')
     },
     onError: (error: any) => {
-      alert(error.message)
+      // alert(error.message)
       const serverErrors = error.response?.data?.message;
 
       if (Array.isArray(serverErrors)) {

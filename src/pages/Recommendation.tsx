@@ -11,7 +11,7 @@ import { RecommendationChat } from '../components/recommendations/Recommendation
 export function Recommendation() {
   const { id } = useParams();
   const { data: currentUser } = useUser();
-  const { data: recommendation, isLoading } = useRecommendation(id);
+  const { data: recommendation, isLoading, isError } = useRecommendation(id);
   const isAdminOrOwner = (recommendation?.group?.members?.some(member =>
     (member.role === 'Admin' && member.user.id === currentUser?.id) ||
     (member.user.id === currentUser?.id && recommendation.user.id === member.user.id)));
@@ -21,6 +21,9 @@ export function Recommendation() {
   const navigate = useNavigate();
   const isValidMember = currentMember?.role === 'Admin' || currentMember?.role === 'User'
 
+  if (isError) {
+    navigate('/dashboard', { replace: true });
+  }
   useEffect(() => {
     if (!isLoading && recommendation && currentUser) {
       if (!isValidMember) {

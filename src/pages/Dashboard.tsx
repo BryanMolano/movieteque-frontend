@@ -19,6 +19,7 @@ interface Group {
   membersCount: number;
   imgUrl: string;
 }
+
 export function Dashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation(); // Iniciamos el traductor
@@ -27,7 +28,6 @@ export function Dashboard() {
   const queryClient = useQueryClient()
   const { showToast } = useToast();
   const { data: currentUser } = useUser();
-
 
   const [pendingToken, setPendingToken] = useState<string | null>(
     localStorage.getItem('pending-invite')
@@ -57,14 +57,13 @@ export function Dashboard() {
     onSuccess: () => {
       localStorage.removeItem('pending-invite');
       setPendingToken(null);
-      // Aquí podrías recargar la lista de grupos del usuario para que aparezca el nuevo
       queryClient.invalidateQueries({ queryKey: ['user-groups'] })
-      alert("TE HAS UNIDO AL GRUPO");
+      showToast(t('dashboard.inviteModal.successJoin', '[OK]'), 'success');
     },
     onError: (error) => {
       localStorage.removeItem('pending-invite');
       setPendingToken(null);
-      let serverMessage = "ERROR_DE_SISTEMA";
+      let serverMessage = t('dashboard.inviteModal.systemError', 'ERROR_DE_SISTEMA');
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
@@ -78,6 +77,7 @@ export function Dashboard() {
     setPendingToken(null);
   };
   //FIN TOKEN
+
   const { data: groups, isLoading, isError } = useQuery({
     queryKey: ['user-groups'],
     queryFn: async () => {
@@ -179,11 +179,11 @@ export function Dashboard() {
           boxShadow: `8px 8px 0px ${COLORS.accentMid}`, p: 4, outline: 'none'
         }}>
           <Typography sx={{ fontWeight: 900, fontSize: '1.5rem', color: COLORS.primaryLight, letterSpacing: '-1px', mb: 2, fontFamily: 'sans-serif' }}>
-            NUEVA_INVITACION_DETECTADA
+            {t('dashboard.inviteModal.title', 'NUEVA_INVITACION_DETECTADA')}
           </Typography>
 
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 4 }}>
-            El usuario <strong style={{ color: COLORS.primaryLight }}>[{inviteData?.inviterNickname}]</strong> te ha invitado a unirte al grupo estratégico:
+            {t('dashboard.inviteModal.body1', 'El usuario ')}<strong style={{ color: COLORS.primaryLight }}>[{inviteData?.inviterNickname}]</strong>{t('dashboard.inviteModal.body2', ' te ha invitado a unirte al grupo estratégico:')}
             <br /><br />
             <span style={{ fontSize: '1.2rem', color: COLORS.primaryLight, borderLeft: `4px solid ${COLORS.accentMid}`, paddingLeft: '10px' }}>
               {inviteData?.groupName}
@@ -195,23 +195,23 @@ export function Dashboard() {
               border: `2px solid ${COLORS.primaryMid}`, color: COLORS.primaryMid,
               boxShadow: `4px 4px 0px ${COLORS.accentDark}`, borderRadius: 0, fontFamily: 'sans-serif', fontWeight: 900
             }}>
-              [ RECHAZAR ]
+              {t('dashboard.inviteModal.rejectBtn', '[ RECHAZAR ]')}
             </Button>
             <Button disableRipple onClick={() => joinGroupMutation.mutate()} disabled={joinGroupMutation.isPending} sx={{
               border: `2px solid ${COLORS.primaryLight}`, color: COLORS.primaryDark, backgroundColor: COLORS.primaryLight,
               boxShadow: `4px 4px 0px ${COLORS.accentMid}`, borderRadius: 0, fontFamily: 'sans-serif', fontWeight: 900,
               '&:hover': { backgroundColor: '#fff' }
             }}>
-              {joinGroupMutation.isPending ? 'PROCESANDO...' : '[ ACEPTAR_E_INGRESAR ]'}
+              {joinGroupMutation.isPending ? t('dashboard.inviteModal.processing', 'PROCESANDO...') : t('dashboard.inviteModal.acceptBtn', '[ ACEPTAR_E_INGRESAR ]')}
             </Button>
           </Box>
         </Box>
       </Modal>
 
-
     </Box >
   );
 }
+
 const GroupCard = ({ group, onClick, t }: { group: Group, onClick: () => void, t: any }) => (
   <Paper
     elevation={0}

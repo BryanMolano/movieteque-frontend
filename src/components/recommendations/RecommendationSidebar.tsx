@@ -142,13 +142,15 @@ export function RecommendationSidebar({ recommendation, isAdminOrOwner, currentM
         >
           {t('recSidebar.goToMovie', '> IR A PELÍCULA')}
         </Button>
-        <Button
-          disableRipple
-          sx={mechanicalButtonStyle}
-          onClick={() => setIsInteractionModalOpen(true)}
-        >
-          {t('recSidebar.interact', '> CREAR INTERACCIÓN')}
-        </Button>
+        {recommendation.recommendationState === 'Active' && (
+          <Button
+            disableRipple
+            sx={mechanicalButtonStyle}
+            onClick={() => setIsInteractionModalOpen(true)}
+          >
+            {t('recSidebar.interact', '> CREAR INTERACCIÓN')}
+          </Button>
+        )}
       </Stack>
 
       <InteractionModal

@@ -20,7 +20,6 @@
     "usernameRequired": "Requerido para crear cuenta"
   },
   "dashboard": {
-    "title": "Movieteque // Mis Grupos",
     "loading": ">>> ESTABLECIENDO CONEXIÓN SEGURA... CARGANDO GRUPOS...",
     "error": "[ ERROR ] No se pudo obtener la información del servidor.",
     "empty": "> No perteneces a ningún grupo de recomendación todavía.",
@@ -28,8 +27,17 @@
     "type": "TIPO",
     "users": "USR",
     "created": "CRE",
-    "invitations": "INVITACIONES"
-
+    "invitations": "INVITACIONES",
+    "inviteModal": {
+      "title": "NUEVA_INVITACION_DETECTADA",
+      "body1": "El usuario ",
+      "body2": " te ha invitado a unirte al grupo estratégico:",
+      "rejectBtn": "[ RECHAZAR ]",
+      "processing": "PROCESANDO...",
+      "acceptBtn": "[ ACEPTAR_E_INGRESAR ]",
+      "systemError": "ERROR_DE_SISTEMA",
+      "successJoin": "[OK]"
+    }
   },
   "createGroup": {
     "title": ">>> CREAR_GRUPO",
@@ -64,7 +72,14 @@
     "cancel": "[ CANCELAR ]",
     "confirmDelete": "[ EJECUTAR_ELIMINACION ]",
     "deleting": "ELIMINANDO...",
-    "deleteError": "ERROR_DE_SISTEMA: NO SE PUDO ELIMINAR EL GRUPO"
+    "deleteError": "ERROR_DE_SISTEMA: NO SE PUDO ELIMINAR EL GRUPO",
+    "exitGroup": "[-> SALIR DEL GRUPO ]",
+    "exitModalTitle": "ADVERTENCIA_DE_SALIDA",
+    "exitModalBody": "Si sales del grupo, tus recomendaciones e interacciones se borrarán, pero tus mensajes seguirán vigentes. ¿Estás seguro de querer salir del grupo?",
+    "exiting": "SALIENDO...",
+    "confirmExit": "[ EJECUTAR_SALIDA ]",
+    "exitSuccess": "[OK] SALIDA_EXITOSA",
+    "systemError": "ERROR_DE_SISTEMA"
   },
   "groupMembers": {
     "title": "/// REGISTRO_DE_MIEMBROS",
@@ -73,7 +88,13 @@
     "adminBtn": "A",
     "userBtn": "U",
     "banBtn": "X",
-    "empty": "NO_HAY_MIEMBROS_REGISTRADOS"
+    "empty": "NO_HAY_MIEMBROS_REGISTRADOS",
+    "roleUpdated": "[OK] ROL_ACTUALIZADO",
+    "systemError": "ERROR_DE_SISTEMA",
+    "manageBans": "Administrar Baneados",
+    "viewProfile": "Ver Perfil",
+    "makeAdmin": "Hacer Admin",
+    "makeUser": "Hacer Usuario"
   },
   "editGroup": {
     "title": "[ EDITAR_GRUPO ]",
@@ -188,12 +209,13 @@
   },
   "usersSearch": {
     "title": "[ BUSCAR_USUARIOS ]",
-    "placeholder": "INGRESE USERNAME...",
-    "searching": ">>> BUSCANDO..._",
-    "resultsFound": ">>> RESULTADOS_ENCONTRADOS",
-    "viewProfile": "VER PERFIL"
+    "placeholder": "Escribe un nombre de usuario...",
+    "searching": "BUSCANDO...",
+    "resultsFound": "RESULTADOS ENCONTRADOS",
+    "viewProfile": "[ VER_PERFIL ]",
+    "myProfile": "[ MI_PERFIL ]"
   },
-    "recommendationGroup": {
+  "recommendationGroup": {
     "activeTab": "ACTIVAS",
     "inactiveTab": "INACTIVAS",
     "priority": "[ PRIORIDAD ]",
@@ -295,6 +317,17 @@
     "errors": {
       "nameRequired": "EL NICKNAME ES REQUERIDO [!]"
     }
+  },
+  "bansModal": {
+    "title": "[ BANEOS ]",
+    "activeUsers": ">>> USUARIOS[{{count}}]",
+    "noActiveUsers": "> NO HAY USUARIOS.",
+    "banBtn": "BANEAR",
+    "bannedUsers": ">>> BANEADOS[{{count}}]",
+    "noBannedUsers": "> NO HAY USUARIOS BANEADOS.",
+    "unbanBtn": "DESBANEAR",
+    "closeBtn": "CERRAR",
+    "anonymous": "ANÓNIMO",
+    "systemError": "ERROR_DE_SISTEMA"
   }
-  
 }

@@ -23,7 +23,6 @@ interface ChangeRolInput {
   role: string;
 }
 
-
 export function GroupMembersList({ members, isAdmin, group }: GroupMembersListProps) {
 
   const navigate = useNavigate();
@@ -40,11 +39,8 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       return 0;
     });
 
-
-
   const changeMemberRole = useMutation({
     mutationFn: async ({ groupId, memberId, role }: ChangeRolInput) => {
-
       const response = await movietequeApi.post(`/group/${groupId}/changeMemberRole`, { id: memberId, role: role })
       return response.data;
     },
@@ -53,21 +49,17 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       queryClient.invalidateQueries({ queryKey: ['user-groups'] });
       queryClient.invalidateQueries({ queryKey: ['group', groupId] });
 
-      showToast('[OK] ROL_ACTUALIZADO', 'success')
-
+      showToast(t('groupMembers.roleUpdated', '[OK] ROL_ACTUALIZADO'), 'success')
     },
     onError: (error) => {
-      let serverMessage = "ERROR_DE_SISTEMA";
+      let serverMessage = t('groupMembers.systemError', 'ERROR_DE_SISTEMA');
       if (axios.isAxiosError(error)) {
         serverMessage = error.response?.data?.message || serverMessage;
         if (Array.isArray(serverMessage)) serverMessage = serverMessage[0];
       }
 
       showToast(`[ ERROR ] ${serverMessage}`, 'error');
-
     }
-
-
   })
 
   return (
@@ -103,7 +95,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
       </Typography>
 
       {isAdmin && (
-        <Tooltip title="Administrar Baneados" placement="top" disableInteractive>
+        <Tooltip title={t('groupMembers.manageBans', 'Administrar Baneados')} placement="top" disableInteractive>
           <Button
             disableRipple
             onClick={() => setIsModalOpen(true)} // Tu futura lógica aquí
@@ -144,7 +136,6 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
 
         if (member.isBanned) return null;
         if (member.role === 'Invited') return null;
-
 
         const isMemberAdmin = member.role.toLowerCase() === 'admin';
 
@@ -217,7 +208,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
             <Box sx={{ display: 'flex', gap: 1, flexShrink: 0 }}>
 
               {/* --- INICIO CAMBIOS: 3. Botón de Ver Perfil para TODOS los usuarios --- */}
-              <Tooltip title="Ver Perfil" placement="top" disableInteractive>
+              <Tooltip title={t('groupMembers.viewProfile', 'Ver Perfil')} placement="top" disableInteractive>
                 <Button
                   disableRipple
                   sx={{
@@ -237,7 +228,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
               {isAdmin && (
                 <>
                   {/* Botón Asignar Admin */}
-                  <Tooltip title="Hacer Admin" placement="top" disableInteractive>
+                  <Tooltip title={t('groupMembers.makeAdmin', 'Hacer Admin')} placement="top" disableInteractive>
                     <span>
                       <Button
                         disableRipple
@@ -257,7 +248,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                   </Tooltip>
 
                   {/* Botón Asignar Usuario */}
-                  <Tooltip title="Hacer Usuario" placement="top" disableInteractive>
+                  <Tooltip title={t('groupMembers.makeUser', 'Hacer Usuario')} placement="top" disableInteractive>
                     <span>
                       <Button
                         disableRipple
@@ -283,12 +274,10 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
         );
       })}
 
-
-
-
     </Box>
   );
 }
+
 const squareBtnStyle = {
   minWidth: '32px',
   height: '32px',

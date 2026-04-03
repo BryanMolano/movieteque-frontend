@@ -28,7 +28,17 @@
     "type": "TYP",
     "users": "USR",
     "created": "CRE",
-    "invitations": "INVITATIONS"
+    "invitations": "INVITATIONS",
+    "inviteModal": {
+      "title": "NEW_INVITATION_DETECTED",
+      "body1": "User ",
+      "body2": " has invited you to join the strategic group:",
+      "rejectBtn": "[ REJECT ]",
+      "processing": "PROCESSING...",
+      "acceptBtn": "[ ACCEPT_AND_ENTER ]",
+      "systemError": "SYSTEM_ERROR",
+      "successJoin": "[OK]"
+    }
   },
   "createGroup": {
     "title": ">>> CREATE_GROUP",
@@ -62,7 +72,14 @@
     "cancel": "[ CANCEL ]",
     "confirmDelete": "[ EXECUTE_DELETION ]",
     "deleting": "DELETING...",
-    "deleteError": "SYSTEM_ERROR: COULD NOT DELETE GROUP"
+    "deleteError": "SYSTEM_ERROR: COULD NOT DELETE GROUP",
+    "exitGroup": "[-> EXIT GROUP ]",
+    "exitModalTitle": "EXIT_WARNING",
+    "exitModalBody": "If you leave the group, your recommendations and interactions will be deleted, but your messages will remain. Are you sure you want to leave the group?",
+    "exiting": "EXITING...",
+    "confirmExit": "[ EXECUTE_EXIT ]",
+    "exitSuccess": "[OK] LEFT_GROUP",
+    "systemError": "SYSTEM_ERROR"
   },
   "groupMembers": {
     "title": "/// MEMBER_REGISTRY",
@@ -71,7 +88,13 @@
     "adminBtn": "A",
     "userBtn": "U",
     "banBtn": "X",
-    "empty": "NO_MEMBERS_REGISTERED"
+    "empty": "NO_MEMBERS_REGISTERED",
+    "roleUpdated": "[OK] ROLE_UPDATED",
+    "systemError": "SYSTEM_ERROR",
+    "manageBans": "Manage Bans",
+    "viewProfile": "View Profile",
+    "makeAdmin": "Make Admin",
+    "makeUser": "Make User"
   },
   "editGroup": {
     "title": "[ EDIT_GROUP ]",
@@ -186,10 +209,11 @@
   },
   "usersSearch": {
     "title": "[ SEARCH_USERS ]",
-    "placeholder": "ENTER USERNAME...",
-    "searching": ">>> SEARCHING..._",
-    "resultsFound": ">>> RESULTS_FOUND",
-    "viewProfile": "VIEW PROFILE"
+    "placeholder": "Type a username...",
+    "searching": "SEARCHING...",
+    "resultsFound": "RESULTS FOUND",
+    "viewProfile": "[ VIEW_PROFILE ]",
+    "myProfile": "[ MY_PROFILE ]"
   },
   "recommendationGroup": {
     "activeTab": "ACTIVE",
@@ -293,7 +317,17 @@
     "errors": {
       "nameRequired": "THE NICKNAME IS REQUIRED[!]"
     }
+  },
+  "bansModal": {
+    "title": "[ BANS ]",
+    "activeUsers": ">>> USERS[{{count}}]",
+    "noActiveUsers": "> NO USERS.",
+    "banBtn": "BAN",
+    "bannedUsers": ">>> BANNED[{{count}}]",
+    "noBannedUsers": "> NO BANNED USERS.",
+    "unbanBtn": "UNBAN",
+    "closeBtn": "CLOSE",
+    "anonymous": "ANONYMOUS",
+    "systemError": "SYSTEM_ERROR"
   }
-
-
 }

@@ -45,34 +45,49 @@ export function EditUserProfile({ open, onClose, user }: Props) {
       // showToast('[OK] PERFIL ACTUALIZADO', 'success')
     },
     onError: (error) => {
-      let serverErrors = {}
-      if (axios.isAxiosError(error)) {
-        serverErrors = (error.response?.data)?.message;
-      }
-      if (Array.isArray(serverErrors)) {
-        const newErrors: FormErrors = {}
-        serverErrors.forEach((msg: string) => {
-          if (msg.includes('username'))
-            newErrors.username = msg;
-          if (msg.includes('description'))
-            newErrors.description = msg;
-          if (msg.includes('oldPassword'))
-            newErrors.oldPassword = msg;
-          if (msg.includes('newPassword'))
-            newErrors.newPassword = msg;
-        });
-        setFormErrors(newErrors)
-      }
-      else if (typeof serverErrors === 'string') {
-        showToast(`${t('editUserProfile.serverError', '[ERROR DEL SERVIDOR]')} ${serverErrors}`, 'error')
-        // showToast(`[ERROR DEL SERVIDOR] ${serverErrors}`, 'error')
-      }
-      else {
-        showToast(t('editUserProfile.criticalError', '[ERROR CRITICO] No se pudo completar la operacion'), 'error')
-        // showToast(`[ERROR CRIRICO] No se pudo completar la operacion`, 'error')
+      let isSpecificFieldError = false;
+      const newErrors: FormErrors = {}
+
+      if (axios.isAxiosError(error) && error.response) {
+        const backendMessage = error.response.data?.message
+
+        if (Array.isArray(backendMessage)) {
+          const newErrors: FormErrors = {}
+          backendMessage.forEach((msg: string) => {
+            if (msg.includes('username'))
+              newErrors.username = msg;
+            if (msg.includes('description'))
+              newErrors.description = msg;
+            if (msg.includes('oldPassword'))
+              newErrors.oldPassword = msg;
+            if (msg.includes('newPassword'))
+              newErrors.newPassword = msg;
+          });
+          setFormErrors(newErrors)
+        }
+        else if (typeof backendMessage === 'string') {
+          const lowermsg = backendMessage.toLowerCase();
+          if (lowermsg.includes('username')) {
+            newErrors.username = backendMessage;
+            isSpecificFieldError = true;
+          }
+          else if (lowermsg.includes('password')) {
+            if (lowermsg.includes('old')) newErrors.oldPassword = backendMessage;
+            if (lowermsg.includes('new')) newErrors.newPassword = backendMessage;
+
+          }
+
+          if (!isSpecificFieldError) {
+            showToast(`${t('editUserProfile.serverError', '[ERROR DEL SERVIDOR]')} ${backendMessage}`, 'error');
+          }
+        }
+        if (isSpecificFieldError) {
+          setFormErrors(newErrors);
+        }
       }
     }
-  });
+  }
+  );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

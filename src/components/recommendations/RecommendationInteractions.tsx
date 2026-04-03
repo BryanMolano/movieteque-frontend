@@ -45,6 +45,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
       else if (stateOption === 'ALL') return true;
     })
     .filter(interaction => {
+      if (interaction.member?.user.id === currentMember?.user?.id) return true;
       if (!isOwner) return interaction.type === 'PUBLIC';
       if (privacySortingOption === 'PUBLIC') return interaction.type === 'PUBLIC';
       else if (privacySortingOption === 'PRIVATE') return interaction.type === 'PRIVATE';
@@ -228,7 +229,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
                 {t('interactions.btnView', '> VER')}
               </Button>
 
-              {isMyInteraction && (
+              {(isMyInteraction && recommendation?.recommendationState === 'Active') && (
                 <>
                   <Button
                     disableRipple

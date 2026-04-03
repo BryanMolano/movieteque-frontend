@@ -162,7 +162,7 @@ export function UserProfile() {
               </Button>
             )}
             <EditUserProfile
-              key={`${currentUser!.id}-${isModalOpen}`}
+              key={`${currentUser?.id}-${isModalOpen}`}
               open={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               user={currentUser}

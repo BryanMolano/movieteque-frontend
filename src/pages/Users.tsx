@@ -8,12 +8,14 @@ import type { Group } from '../interfaces/Group';
 import type { User } from '../interfaces/User';
 import { useSearchUser } from '../hooks/useSearchUser';
 import { useTranslation } from 'react-i18next';
+import { useUser } from '../hooks/useUser';
 
 
 export function Users() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient()
+  const { data: currentUser } = useUser();
   const [searchBar, setSearchBar] = useState('')
   const [textToSearch, setTextToSearch] = useState('')
   const { data: users, isLoading, isError } = useSearchUser(textToSearch)
@@ -43,13 +45,44 @@ export function Users() {
 
         {/* ENCABEZADO Y BUSCADOR */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
-            {t('usersSearch.title')}
-          </Typography>
+
+          {/* --- INICIO CAMBIOS: Contenedor flex para alinear título y botón --- */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography sx={{ fontWeight: 900, letterSpacing: '-1.5px', fontSize: '2rem', fontFamily: 'sans-serif', color: COLORS.primaryLight, textTransform: 'uppercase' }}>
+              {t('usersSearch.title', '[ BUSCAR_USUARIOS ]')}
+            </Typography>
+
+            {currentUser && (
+              <Button
+                disableRipple
+                onClick={() => navigate(`/userProfile/${currentUser.id}`)}
+                sx={{
+                  minWidth: 'auto',
+                  p: '4px 12px',
+                  borderRadius: 0,
+                  fontFamily: 'monospace',
+                  fontWeight: 900,
+                  fontSize: '0.8rem',
+                  transition: 'all 0.1s linear',
+                  border: `1px solid ${COLORS.primaryMid}`,
+                  backgroundColor: 'transparent',
+                  color: COLORS.primaryMid,
+                  '&:hover': {
+                    borderColor: COLORS.primaryLight,
+                    color: COLORS.primaryLight,
+                    backgroundColor: 'rgba(203, 211, 214, 0.05)',
+                  }
+                }}
+              >
+                {t('usersSearch.myProfile', '[ MI_PERFIL ]')}
+              </Button>
+            )}
+          </Box>
+          {/* --- FIN CAMBIOS --- */}
 
           <TextField
             fullWidth
-            placeholder={t('usersSearch.placeholder')}
+            placeholder={t('usersSearch.placeholder', 'Escribe un nombre de usuario...')}
             value={searchBar} // Lo conectaremos en la lógica
             onChange={(e) => setSearchBar(e.target.value)}
             InputProps={{
@@ -68,12 +101,12 @@ export function Users() {
 
           {isLoading && (
             <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', py: 2 }}>
-              {t('usersSearch.searching')}
+              {t('usersSearch.searching', 'BUSCANDO...')}
             </Typography>
           )}
           {/* Mensaje de estado (Cargando / Sin resultados / Escriba para buscar) */}
           <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, mb: 1 }}>
-            {`${t('usersSearch.resultsFound')} [ ${users?.length || 0} ]`}
+            {`${t('usersSearch.resultsFound', 'RESULTADOS ENCONTRADOS')} [ ${users?.length || 0} ]`}
           </Typography>
 
           {/* LISTA DE USUARIOS */}
@@ -119,7 +152,7 @@ export function Users() {
                 onClick={() => navigate(`/userProfile/${user.id}`)}
                 sx={mechanicalBtnSx}
               >
-                {t('usersSearch.viewProfile')}
+                {t('usersSearch.viewProfile', '[ VER_PERFIL ]')}
               </Button>
             </Box>
           ))}
@@ -129,28 +162,6 @@ export function Users() {
     </Box>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const inputTerminalSx = {
   '& .MuiOutlinedInput-root': {
