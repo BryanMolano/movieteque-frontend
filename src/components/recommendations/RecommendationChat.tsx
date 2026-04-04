@@ -27,8 +27,8 @@ export function RecommendationChat({ recommendation, currentMember }: Recommenda
 
   useEffect(() => {
     const token = localStorage.getItem('movieteque-token') || '';
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3030/api'
-    const socketUrl = apiUrl.replace('/api', '');
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3030/api';
+    const socketUrl = apiUrl.replace(/\/api$/, '');
 
     const socket = io(socketUrl, {
       auth: {
