@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { appTheme } from './theme/AppTheme.ts';
+import { Analytics } from '@vercel/analytics/react';
 
 import './i18n/Config.ts';
 
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
         <App />
+        <Analytics />
       </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,
