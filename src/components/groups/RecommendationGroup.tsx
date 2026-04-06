@@ -51,19 +51,13 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
     }))
   };
 
-  // const formatDate = (dateString: string) => {
-  //   if (!dateString) return "??/??/????";
-  //   const datePart = dateString.substring(0, 10);
-  //   const [year, month, day] = datePart.split('-');
-  //   return `${day}/${month}/${year}`;
-  // }
-
   return (
     <Box sx={{
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
       height: '100%',
+      minWidth: 0,
       border: `2px solid ${COLORS.primaryMid}`,
       overflowY: 'auto',
       overflowX: 'hidden',
@@ -82,12 +76,13 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
         display: 'flex',
         justifyContent: 'center'
       }}>
-        <Box sx={{ display: 'flex', border: `2px solid ${COLORS.primaryLight}`, boxShadow: `3px 3px 0px ${COLORS.accentDark}` }}>
+        <Box sx={{ display: 'flex', width: { xs: '100%', sm: 'auto' }, border: `2px solid ${COLORS.primaryLight}`, boxShadow: `3px 3px 0px ${COLORS.accentDark}` }}>
           <Button
             disableRipple
             onClick={() => setViewMode('ACTIVE')}
             sx={{
               ...tabBtnSx,
+              flex: { xs: 1, sm: 'initial' },
               backgroundColor: viewMode === 'ACTIVE' ? COLORS.primaryLight : 'transparent',
               color: viewMode === 'ACTIVE' ? COLORS.primaryDark : COLORS.primaryLight,
             }}
@@ -99,6 +94,7 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
             onClick={() => setViewMode('INACTIVE')}
             sx={{
               ...tabBtnSx,
+              flex: { xs: 1, sm: 'initial' },
               backgroundColor: viewMode === 'INACTIVE' ? COLORS.primaryLight : 'transparent',
               color: viewMode === 'INACTIVE' ? COLORS.primaryDark : COLORS.primaryLight,
               borderLeft: `2px solid ${COLORS.primaryLight}`
@@ -110,7 +106,7 @@ export function RecommendationGroup({ members, isAdmin, group, currentUser }: Re
       </Box>
 
       {/* CONTENIDO DESLIZABLE */}
-      <Box sx={{ p: { xs: 2, lg: 3 }, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ p: { xs: 2, lg: 3 }, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
 
         {/* ESTADO VACÍO DINÁMICO */}
         {groupedByUser.length === 0 && (
@@ -172,17 +168,26 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
   });
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, width: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, width: '100%', minWidth: 0 }}>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `2px solid ${COLORS.primaryMid}`, pb: 1, width: '100%' }}>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 1, sm: 0 },
+        justifyContent: 'space-between',
+        alignItems: { xs: 'stretch', sm: 'center' },
+        borderBottom: `2px solid ${COLORS.primaryMid}`,
+        pb: 1,
+        width: '100%'
+      }}>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
           <Box
             component="img"
             src={user.imgUrl || '/assets/placeholder-avatar.png'}
-            sx={{ width: 40, height: 40, border: `2px solid ${COLORS.primaryLight}`, objectFit: 'cover' }}
+            sx={{ width: 40, height: 40, border: `2px solid ${COLORS.primaryLight}`, objectFit: 'cover', flexShrink: 0 }}
           />
-          <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1.2rem', fontWeight: 900, textTransform: 'uppercase' }}>
+          <Typography noWrap sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontSize: '1.2rem', fontWeight: 900, textTransform: 'uppercase' }}>
             {displayName}
           </Typography>
         </Box>
@@ -193,6 +198,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
             onClick={onToggleSort}
             sx={{
               ...filterBtnSx,
+              flex: { xs: 1, sm: 'initial' },
               backgroundColor: sortPreference === 'PRIORITY' ? COLORS.primaryLight : 'transparent',
               color: sortPreference === 'PRIORITY' ? COLORS.primaryDark : COLORS.primaryMid,
             }}
@@ -204,6 +210,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
             onClick={onToggleSort}
             sx={{
               ...filterBtnSx,
+              flex: { xs: 1, sm: 'initial' }, // 50% ancho en celular
               backgroundColor: sortPreference === 'TIME' ? COLORS.primaryLight : 'transparent',
               color: sortPreference === 'TIME' ? COLORS.primaryDark : COLORS.primaryMid,
               borderLeft: `2px solid ${COLORS.primaryMid}`
@@ -292,7 +299,7 @@ function UserRecommendationRow({ user, memberInfo, recommendations, sortPreferen
   );
 }
 const tabBtnSx = {
-  minWidth: '120px',
+  minWidth: { xs: 0, sm: '120px' },
   borderRadius: 0,
   p: '8px 16px',
   fontFamily: 'monospace',

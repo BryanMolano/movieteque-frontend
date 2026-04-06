@@ -43,26 +43,30 @@ export function Recommendation() {
   }
   if (!recommendation) return null;
   if (!isValidMember) return null;
+
   return (
     <Box sx={{
       backgroundColor: COLORS.primaryDark,
       display: 'grid',
       gridTemplateColumns: { xs: '1fr', md: '300px minmax(0, 1fr) 300px', lg: '350px minmax(0, 1fr) 350px' },
       gap: 3,
+      minHeight: { xs: '100vh', md: 'auto' },
       height: { xs: 'auto', md: 'calc(100vh - 130px)' },
       boxSizing: 'border-box',
-      overflow: 'hidden'
+      width: '100%',
+      overflowX: 'hidden',
+      overflowY: { xs: 'visible', md: 'hidden' }
     }}>
 
-      <Box sx={{ height: '100%', minHeight: 0 }}>
+      <Box sx={{ height: { xs: 'auto', md: '100%' }, minHeight: 0, minWidth: 0 }}>
         <RecommendationSidebar recommendation={recommendation} isAdminOrOwner={isAdminOrOwner} currentMember={currentMember} />
       </Box>
 
-      <Box sx={{ height: '100%', minHeight: 0 }}>
+      <Box sx={{ height: { xs: 'auto', md: '100%' }, minHeight: 0, minWidth: 0 }}>
         <RecommendationChat currentMember={currentMember} recommendation={recommendation} />
       </Box>
 
-      <Box sx={{ height: '100%', minHeight: 0 }}>
+      <Box sx={{ height: { xs: 'auto', md: '100%' }, minHeight: 0, minWidth: 0 }}>
         <RecommendationInteractions recommendation={recommendation} isOwner={isOwner} currentMember={currentMember} />
       </Box>
 

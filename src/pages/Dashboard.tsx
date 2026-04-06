@@ -85,10 +85,21 @@ export function Dashboard() {
   });
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: 4 }}>
-      <Container maxWidth="md">
+    // Reducimos el padding en pantallas xs a 2, y lo mantenemos en 4 en md
+    <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: { xs: 2, md: 4 } }}>
+      <Container maxWidth="md" disableGutters> {/* quitamos gutters por defecto para mayor control */}
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `2px solid ${COLORS.primaryMid}`, pb: 2, mb: 4 }}>
+        {/* HEADER RESPONSIVO */}
+        <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' }, // Columna en móvil, fila en PC
+          justifyContent: 'space-between',
+          alignItems: { xs: 'stretch', sm: 'center' }, // Estirar botón en móvil, centrar en PC
+          gap: { xs: 2, sm: 0 }, // Espacio entre elementos solo cuando están en columna
+          borderBottom: `2px solid ${COLORS.primaryMid}`,
+          pb: 2,
+          mb: 4
+        }}>
           <Typography variant="h4" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}>
             {t('dashboard.title')}
           </Typography>
@@ -139,7 +150,8 @@ export function Dashboard() {
                 {t('dashboard.empty')}
               </Typography>
             ) : (
-              <Grid container spacing={3} alignItems="stretch">
+              // Ajustamos el espaciado interno de la grilla en móviles
+              <Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
                 {groups.map((group) => (
                   <Grid size={{ xs: 12, md: 6 }} key={group.id}>
                     <GroupCard group={group} onClick={() => navigate(`/groups/${group.id}`)} t={t} />
@@ -152,7 +164,9 @@ export function Dashboard() {
               onClick={() => setIsModalOpen(true)}
               disableRipple
               sx={{
-                mt: 4, py: 1.5, px: 4, backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark,
+                mt: 4, py: 1.5, px: 4,
+                width: { xs: '100%', sm: 'auto' }, // Botón de crear 100% ancho en móvil
+                backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark,
                 borderRadius: 0, border: `2px solid ${COLORS.primaryLight}`, boxShadow: `5px 5px 0px ${COLORS.accentMid}`,
                 fontWeight: '900', fontFamily: 'monospace', fontSize: '1rem', transition: 'all 0.05s linear',
                 '&:active': { boxShadow: `2px 2px 0px ${COLORS.accentMid}`, transform: 'translate(3px, 3px)' }
@@ -167,11 +181,14 @@ export function Dashboard() {
           </>
         )}
       </Container>
+
+      {/* MODAL DE INVITACIONES RESPONSIVO */}
       <Modal open={!!inviteData} onClose={handleRejectInvite}>
         <Box sx={{
           position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          width: 450, backgroundColor: COLORS.primaryDark, border: `2px solid ${COLORS.primaryLight}`,
-          boxShadow: `8px 8px 0px ${COLORS.accentMid}`, p: 4, outline: 'none'
+          width: { xs: '90%', sm: 450 }, // Ancho dinámico para que no se salga en móviles
+          backgroundColor: COLORS.primaryDark, border: `2px solid ${COLORS.primaryLight}`,
+          boxShadow: `8px 8px 0px ${COLORS.accentMid}`, p: { xs: 3, sm: 4 }, outline: 'none'
         }}>
           <Typography sx={{ fontWeight: 900, fontSize: '1.5rem', color: COLORS.primaryLight, letterSpacing: '-1px', mb: 2, fontFamily: 'sans-serif' }}>
             {t('dashboard.inviteModal.title', 'NUEVA_INVITACION_DETECTADA')}
@@ -185,7 +202,8 @@ export function Dashboard() {
             </span>
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+          {/* Botones del Modal también se ajustan si es muy pequeño */}
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, justifyContent: 'flex-end' }}>
             <Button disableRipple onClick={handleRejectInvite} sx={{
               border: `2px solid ${COLORS.primaryMid}`, color: COLORS.primaryMid,
               boxShadow: `4px 4px 0px ${COLORS.accentDark}`, borderRadius: 0, fontFamily: 'sans-serif', fontWeight: 900

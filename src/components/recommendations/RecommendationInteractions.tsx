@@ -88,6 +88,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        minWidth: 0,
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
@@ -98,7 +99,6 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
       }}
     >
-      {/* TÍTULO */}
       <Typography
         sx={{
           fontFamily: 'sans-serif',
@@ -114,9 +114,7 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         {t('interactions.title', '> INTERACCIONES')}
       </Typography>
 
-      {/* PANEL DE FILTROS */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2 }}>
-
         <FilterRow>
           <FilterButton active={!showCurrentUserInteractions} onClick={() => setShowCurrentUserInteractions(false)}>
             {t('interactions.filterAll', 'TODAS')}
@@ -154,7 +152,6 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
         </FilterRow>
       </Box>
 
-      {/* LISTA DE INTERACCIONES */}
       {processedInteractions.length === 0 && (
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, textAlign: 'center', mt: 2 }}>
           {t('interactions.empty', '>>> NO_HAY_INTERACCIONES_')}
@@ -171,16 +168,17 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
               display: 'flex',
               flexDirection: 'column',
               p: 1.5,
+              minWidth: 0,
               border: `2px solid ${COLORS.primaryMid}`,
               backgroundColor: isMyInteraction ? 'rgba(97, 123, 133, 0.1)' : 'transparent',
               transition: 'border-color 0.1s linear',
-              '&:hover': { borderColor: COLORS.primaryLight }
+              '&:hover': { borderColor: COLORS.primaryLight },
+              width: '100%',
+              boxSizing: 'border-box'
             }}
           >
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1, minWidth: 0 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0, flexGrow: 1 }}>
                 <Box
                   sx={{
                     width: 40,
@@ -193,13 +191,12 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
                   }}
                 />
 
-                {/* Textos del Usuario */}
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900, fontSize: '1.1rem', textTransform: 'uppercase', lineHeight: 1.1 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0, flexGrow: 1 }}>
+                  <Typography noWrap sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 900, fontSize: '1.1rem', textTransform: 'uppercase', lineHeight: 1.1 }}>
                     {interaction.member?.nickname || interaction.member?.user?.username || 'ANONYMOUS'}
                   </Typography>
 
-                  <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem', mt: 0.5 }}>
+                  <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid, fontSize: '0.8rem', mt: 0.5, wordBreak: 'break-word' }}>
                     #{interaction.number ?? '?'} | {formatTerminalDate(interaction.createdAt)} | [{interaction.state}] | [{interaction.type}]
                   </Typography>
                 </Box>
@@ -207,7 +204,8 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
 
               {interaction.rating && (
                 <Box sx={{ border: `1px solid ${COLORS.primaryMid}`, px: 1, py: 0.5, backgroundColor: 'rgba(0,0,0,0.3)', ml: 1, flexShrink: 0 }}>
-                  <Typography sx={{ fontFamily: 'monospace', color: '#ffcc00', fontWeight: 900 }}>★ {interaction.rating}</Typography>
+                  {/* whiteSpace nowrap preventivo */}
+                  <Typography sx={{ fontFamily: 'monospace', color: '#ffcc00', fontWeight: 900, whiteSpace: 'nowrap' }}>★ {interaction.rating}</Typography>
                 </Box>
               )}
             </Box>
@@ -302,11 +300,9 @@ export function RecommendationInteractions({ recommendation, isOwner, currentMem
           </Button>
         </DialogActions>
       </Dialog>
-
     </Box>
   );
 }
-
 
 const FilterRow = ({ children }: { children: React.ReactNode }) => (
   <Box sx={{ display: 'flex', width: '100%', border: `1px solid ${COLORS.primaryMid}` }}>
@@ -348,10 +344,3 @@ const interactionBtnStyle = {
   transition: 'none',
   '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' }
 };
-
-// const formatTerminalDate = (dateString: string) => {
-//   if (!dateString) return "??/??/????";
-//   const datePart = dateString.substring(0, 10);
-//   const [year, month, day] = datePart.split('-');
-//   return `${day}/${month}/${year}`;
-// }

@@ -1,11 +1,10 @@
-import { Box, Typography, Button, Tooltip, Alert, Snackbar } from '@mui/material';
+import { Box, Typography, Button, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { COLORS } from '../../theme/AppTheme';
 import type { Member } from '../../interfaces/Member';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { movietequeApi } from '../../api/MovietequeApi';
 import type { Group } from '../../interfaces/Group';
-import type { User } from '../../interfaces/User';
 import axios from 'axios';
 import { useState } from 'react';
 import { useToast } from '../../contexts/ToastContext';
@@ -68,6 +67,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        minWidth: 0,
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
@@ -98,7 +98,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
         <Tooltip title={t('groupMembers.manageBans', 'Administrar Baneados')} placement="top" disableInteractive>
           <Button
             disableRipple
-            onClick={() => setIsModalOpen(true)} // Tu futura lógica aquí
+            onClick={() => setIsModalOpen(true)}
             sx={{
               ...squareBtnStyle,
               minWidth: '28px',
@@ -125,6 +125,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
         sortedMembers={sortedMembers}
         group={group}
       />
+
       {/* LISTA DE MIEMBROS */}
       {sortedMembers.length === 0 && (
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryMid }}>
@@ -147,6 +148,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
               alignItems: 'center',
               justifyContent: 'space-between',
               p: 1.5,
+              minWidth: 0,
               border: `2px solid ${COLORS.primaryMid}`,
               backgroundColor: isMemberAdmin ? 'rgba(97, 123, 133, 0.1)' : 'transparent',
               transition: 'border-color 0.1s linear',
@@ -155,9 +157,8 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
               }
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden', flexGrow: 1, mr: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden', flexGrow: 1, mr: { xs: 1, sm: 2 }, minWidth: 0 }}>
 
-              {/* 2. Cuadrado con la foto de perfil del usuario */}
               <Box
                 sx={{
                   width: 36,
@@ -171,8 +172,8 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                 }}
               />
 
-              {/* 1. Lógica de nombres (Nickname vs Username) */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+              {/* Lógica de nombres */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
                 <Typography
                   noWrap
                   sx={{
@@ -182,11 +183,9 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                     fontSize: '1.1rem'
                   }}
                 >
-                  {/* Si tiene nickname lo muestra, si no, muestra el username */}
                   {member.nickname || member.user?.username || 'ANONYMOUS'}
                 </Typography>
 
-                {/* Si TIENE nickname, mostramos el username abajo entre corchetes */}
                 {member.nickname && member.user?.username && (
                   <Typography
                     noWrap
@@ -203,7 +202,7 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
             </Box>
 
             {/* BOTONES DE ACCIÓN */}
-            <Box sx={{ display: 'flex', gap: 1, flexShrink: 0 }}>
+            <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, flexShrink: 0 }}>
 
               <Tooltip title={t('groupMembers.viewProfile', 'Ver Perfil')} placement="top" disableInteractive>
                 <Button
@@ -220,10 +219,9 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                 </Button>
               </Tooltip>
 
-              {/* Botones de Rol (SÓLO SI EL USUARIO ACTUAL ES ADMIN) */}
+              {/* Botones de Rol */}
               {isAdmin && (
                 <>
-                  {/* Botón Asignar Admin */}
                   <Tooltip title={t('groupMembers.makeAdmin', 'Hacer Admin')} placement="top" disableInteractive>
                     <span>
                       <Button
@@ -243,7 +241,6 @@ export function GroupMembersList({ members, isAdmin, group }: GroupMembersListPr
                     </span>
                   </Tooltip>
 
-                  {/* Botón Asignar Usuario */}
                   <Tooltip title={t('groupMembers.makeUser', 'Hacer Usuario')} placement="top" disableInteractive>
                     <span>
                       <Button

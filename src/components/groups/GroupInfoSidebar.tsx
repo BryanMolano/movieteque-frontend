@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { COLORS } from '../../theme/AppTheme'; // Ajusta la ruta según tu estructura
-import type { Group } from '../../interfaces/Group'; // Ajusta la ruta
+import { COLORS } from '../../theme/AppTheme';
+import type { Group } from '../../interfaces/Group';
 import { useState } from 'react';
 import { movietequeApi } from '../../api/MovietequeApi';
 import { useUser } from '../../hooks/useUser';
@@ -91,39 +91,44 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
       alert("ERROR_DE_SISTEMA: NO SE PUDO GENERAR EL ENLACE(noaisistema)");
     }
   };
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        overflowY: 'auto',
+        width: '100%',
+        minWidth: 0,
+        overflowX: 'hidden',
+        overflowY: { xs: 'visible', md: 'auto' },
         '&::-webkit-scrollbar': { width: '6px' },
         '&::-webkit-scrollbar-track': { backgroundColor: 'transparent' },
         '&::-webkit-scrollbar-thumb': { backgroundColor: COLORS.primaryMid, borderRadius: 0 },
         border: `2px solid ${COLORS.primaryMid}`,
         backgroundColor: COLORS.primaryDark,
         p: 2,
-        gap: 3
+        gap: 3,
+        boxSizing: 'border-box'
       }}
     >
-      {/* IMAGEN DEL GRUPO */}
-      <Box
-        sx={{
-          width: '100%',
-          aspectRatio: '1 / 1',
-          border: `2px solid ${COLORS.primaryLight}`,
-          boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
-          backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          flexShrink: 0,
-        }}
-      />
+      <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: { xs: '200px', md: '100%' },
+            aspectRatio: '1 / 1',
+            border: `2px solid ${COLORS.primaryLight}`,
+            boxShadow: `5px 5px 0px ${COLORS.accentDark}`,
+            backgroundImage: `url(${group.imgUrl || '/assets/placeholder-group.png'})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            flexShrink: 0,
+          }}
+        />
+      </Box>
 
       {/* INFORMACIÓN DEL GRUPO */}
-      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
         <Typography
           sx={{
             fontFamily: 'sans-serif',
@@ -132,7 +137,8 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
             letterSpacing: '-1.5px',
             color: COLORS.primaryLight,
             textTransform: 'uppercase',
-            lineHeight: 1.1
+            lineHeight: 1.1,
+            wordBreak: 'break-word'
           }}
         >
           {group.name || t('groupSidebar.nameFallback')}
@@ -147,13 +153,13 @@ export function GroupInfoSidebar({ group, isAdmin, currentMember }: GroupInfoSid
         <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 'bold' }}>
           {`${t('groupSidebar.members')}: ${memberCount}`}
         </Typography>
-        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 'bold' }}>
+        <Typography sx={{ fontFamily: 'monospace', color: COLORS.primaryLight, fontWeight: 'bold', wordBreak: 'break-all' }}>
           {`${t('groupSidebar.nickname')}: ${currentMember?.nickname || ''}`}
         </Typography>
       </Box>
 
       {/* BOTONES DE ACCIÓN (ESTILO TERMINAL) */}
-      <Stack spacing={2} sx={{ pb: 2 }}>
+      <Stack spacing={2} sx={{ pb: 2, width: '100%', minWidth: 0 }}>
         <Button disableRipple sx={mechanicalButtonStyle}
           onClick={handleCopyInvite}>
           {isCopied ? t('groupSidebar.inviteCopied') : t('groupSidebar.copyInvite')}
@@ -362,6 +368,7 @@ const mechanicalButtonStyle = {
   boxShadow: `4px 4px 0px ${COLORS.accentMid}`,
   transition: 'all 0.05s linear',
   justifyContent: 'flex-start',
+  whiteSpace: 'normal', // Añadido para permitir que el texto de los botones salte de línea si es necesario en celulares estrechos
   '&:hover': {
     backgroundColor: COLORS.primaryDark,
     filter: 'brightness(1.2)',
