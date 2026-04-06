@@ -366,5 +366,47 @@
     "codeLabel": "CÓDIGO DE 6 DÍGITOS",
     "verifyingBtn": "VERIFICANDO...",
     "verifyBtn": "VERIFICAR"
+  },
+  "footer": {
+    "privacy": "POLÍTICA DE PRIVACIDAD",
+    "terms": "TÉRMINOS Y CONDICIONES",
+    "about": "[ SOBRE ESTE PROYECTO // OPEN SOURCE ]"
+  },
+  "legal": {
+    "titlePrivacy": "POLÍTICA DE PRIVACIDAD",
+    "titleTerms": "TÉRMINOS Y CONDICIONES",
+    "titleProject": "SOBRE ESTE PROYECTO (OPEN SOURCE)",
+    "privacy": {
+      "h1": "1. Datos Recopilados",
+      "p1": "Para usar Movieteque es obligatorio crear una cuenta proporcionando un correo electrónico, nombre de usuario y contraseña. El correo se verifica manualmente a discreción del usuario. La contraseña se almacena fuertemente encriptada (Bcrypt).",
+      "p2": "La foto de perfil es opcional. Las imágenes de usuario y de grupos se almacenan en un bucket de AWS S3 de acceso público; ten en cuenta que cualquier persona con el enlace podría verlas.",
+      "h2": "2. Mensajes y Chats (Advertencia de Seguridad)",
+      "p3": "El texto escrito por los usuarios (mensajes en tiempo real, interacciones y descripciones de perfil) se guarda en la base de datos en texto plano (sin encriptar). Se recomienda encarecidamente no compartir información personal sensible (contraseñas, tarjetas, direcciones) en estos medios.",
+      "h3": "3. Sesiones y Servicios de Terceros",
+      "li1": "Sesiones: Utilizamos Cookies/Tokens estrictamente necesarios para mantener tu sesión iniciada. No usamos cookies de rastreo publicitario.",
+      "li2": "Infraestructura: Usamos AWS para almacenamiento público de imágenes y envío de correos, y Vercel Analytics para estadísticas anónimas de tráfico sin rastreo invasivo.",
+      "li3": "TMDB: Este producto utiliza la API de TMDB, pero no está respaldado ni certificado por TMDB."
+    },
+    "terms": {
+      "h1": "1. Reglas de Uso",
+      "p1": "Queda estrictamente prohibido subir imágenes ilegales, pornográficas o contenido protegido por derechos de autor a las fotos de perfil o banners de grupo. Cualquier cuenta o grupo que viole esta regla será eliminado de la base de datos sin previo aviso.",
+      "h2": "2. Exención de Responsabilidad",
+      "p2": "Movieteque es un proyecto personal, de código abierto y sin ánimo de lucro. El servicio se ofrece \"tal cual\" (as-is). No se garantiza que la plataforma esté en línea 24/7, ni nos hacemos responsables por la pérdida de datos. Movieteque se reserva el derecho de suspender o borrar cuentas, grupos o imágenes en cualquier momento si se considera que violan las reglas de convivencia o suponen un riesgo para la infraestructura."
+    },
+    "project": {
+      "h1": "El Proyecto Movieteque",
+      "p1": "Movieteque es una pagina sin ánimo de lucro con el objetivo principal de proporcionar un medio específico para que conocidos puedan recomendar e interactuar con peliculas (futuramente con series también). La idea es tener un registro de interacciones (reseñas a una recomendación) y recomendaciones en una comunidad de amigos o familia.",
+      "p2": "Cuenta con un sistema de usuario basado en roles, donde los administradores tienen control sobre baneos y desactivación de recomendaciones, pero los usuarios son libres de recomendar, crear interacciones (tanto a tiempo real como por medio de reseñas) e invitar a cualquier persona. Esta pagina nació como alternativa a sistemas de reseñas de peliculas en los que no se ofrece una intimidad para hablar sobre este arte en circulos cerrados, inhabilitando cualquier posible vinculo e interacción personal por afán de hacer público todo.",
+      "p3": "La segunda intención principal de este proyecto fue aprender, por tanto, no se usó ningún agente de IA o \"vibecoding\", lo único hecho con IA fue el CSS de la pagina(Fuck css)",
+      "h2": "Stack Tecnológico",
+      "li1": "Frontend: React, TypeScript, Material-UI (MUI), React Router, React Query.",
+      "li2": "Backend: NestJS, TypeScript, Postgres, Socket.io para interacciones en tiempo real.",
+      "li3": "Infraestructura: AWS S3 (Almacenamiento de imágenes públicas), AWS SES (Correos electrónicos), Vercel para Frontend, Render para Backend y Neon para base de datos.",
+      "li4": "APIs de Terceros: TMDB API (The Movie Database).",
+      "h3": "Código Abierto (Open Source)",
+      "p4": "Este proyecto está bajo la Licencia MIT. El código fuente está disponible públicamente para su revisión, estudio o bifurcación por parte de reclutadores, desarrolladores y la comunidad.",
+      "btn": "> VER CÓDIGO FUENTE DEL BACKEND EN GITHUB",
+      "btn2": "> VER EL CÓDIGO FUENTE DEL FRONTEND EN GITHUB"
+    }
   }
 }

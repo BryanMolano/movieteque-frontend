@@ -366,5 +366,47 @@
     "codeLabel": "6-DIGIT CODE",
     "verifyingBtn": "VERIFYING...",
     "verifyBtn": "VERIFY"
+  },
+  "footer": {
+    "privacy": "PRIVACY POLICY",
+    "terms": "TERMS & CONDITIONS",
+    "about": "[ ABOUT THIS PROJECT // OPEN SOURCE ]"
+  },
+  "legal": {
+    "titlePrivacy": "PRIVACY POLICY",
+    "titleTerms": "TERMS AND CONDITIONS",
+    "titleProject": "ABOUT THIS PROJECT (OPEN SOURCE)",
+    "privacy": {
+      "h1": "1. Collected Data",
+      "p1": "To use Movieteque, it is mandatory to create an account by providing an email, username, and password. Email verification is done manually at the user's discretion. Passwords are securely hashed (Bcrypt).",
+      "p2": "The profile picture is optional. User and group images are stored in a public-access AWS S3 bucket; please note that anyone with the link could view them.",
+      "h2": "2. Messages and Chats (Security Warning)",
+      "p3": "Text written by users (real-time messages, interactions, and profile descriptions) is stored in the database in plain text (unencrypted). We strongly recommend not sharing sensitive personal information (passwords, credit cards, addresses) through these channels.",
+      "h3": "3. Sessions and Third-Party Services",
+      "li1": "Sessions: We use strictly necessary Cookies/Tokens to keep you logged in. We do not use tracking or advertising cookies.",
+      "li2": "Infrastructure: We use AWS for public image storage and email delivery, and Vercel Analytics for anonymous traffic statistics without invasive tracking.",
+      "li3": "TMDB: This product uses the TMDB API but is not endorsed or certified by TMDB."
+    },
+    "terms": {
+      "h1": "1. Rules of Use",
+      "p1": "Uploading illegal, pornographic, or copyrighted images to profile pictures or group banners is strictly prohibited. Any account or group violating this rule will be deleted from the database without prior notice.",
+      "h2": "2. Disclaimer of Liability",
+      "p2": "Movieteque is a personal, open-source, non-profit project. The service is provided \"as-is\". We do not guarantee 24/7 platform uptime, nor are we responsible for data loss. Movieteque reserves the right to suspend or delete accounts, groups, or images at any time if they are deemed to violate community rules or pose a risk to the infrastructure."
+    },
+    "project": {
+      "h1": "The Movieteque Project",
+      "p1": "Movieteque is a non-profit website with the main objective of providing a specific medium for acquaintances to recommend and interact with movies (and soon series). The idea is to have a log of interactions (reviews of a recommendation) and recommendations within a community of friends or family.",
+      "p2": "It features a role-based user system where administrators have control over bans and disabling recommendations, but users are free to recommend, create interactions (both in real-time and via reviews), and invite anyone. This site was born as an alternative to public movie review systems that lack the intimacy to discuss this art in closed circles, often disabling personal bonds in the rush to make everything public.",
+      "p3": "The second main intention of this project was learning. Therefore, no AI agents or \"vibecoding\" were used; the only thing generated with AI was the site's CSS, cuz fuck CSS.",
+      "h2": "Tech Stack",
+      "li1": "Frontend: React, TypeScript, Material-UI (MUI), React Router, React Query.",
+      "li2": "Backend: NestJS, TypeScript, Postgres, Socket.io for real-time interactions.",
+      "li3": "Infrastructure: AWS S3 (Public image storage), AWS SES (Emails), Vercel for Frontend, Render for Backend, and Neon for the database.",
+      "li4": "Third-Party APIs: TMDB API (The Movie Database).",
+      "h3": "Open Source",
+      "p4": "This project is licensed under the MIT License. The source code is publicly available for review, study, or forking by recruiters, developers, and the community.",
+      "btn": "> VIEW BACKEND'S SOURCE CODE ON GITHUB",
+      "btn2": "> VIEW FRONTEND'S SOURCE CODE ON GITHUB"
+    }
   }
 }

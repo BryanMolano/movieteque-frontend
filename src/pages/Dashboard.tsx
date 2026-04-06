@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useToast } from '../contexts/ToastContext';
 import { useUser } from '../hooks/useUser';
 import { InvitationsModal } from '../components/groups/InvitationsModal';
+import { Footer } from '../utils/Footer';
 
 interface Group {
   id: string;
@@ -85,108 +86,111 @@ export function Dashboard() {
   });
 
   return (
-    // Reducimos el padding en pantallas xs a 2, y lo mantenemos en 4 en md
-    <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: { xs: 2, md: 4 } }}>
-      <Container maxWidth="md" disableGutters> {/* quitamos gutters por defecto para mayor control */}
+    // CONTENEDOR PRINCIPAL: flex column + minHeight 100vh
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: COLORS.primaryDark }}>
 
-        {/* HEADER RESPONSIVO */}
-        <Box sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' }, // Columna en móvil, fila en PC
-          justifyContent: 'space-between',
-          alignItems: { xs: 'stretch', sm: 'center' }, // Estirar botón en móvil, centrar en PC
-          gap: { xs: 2, sm: 0 }, // Espacio entre elementos solo cuando están en columna
-          borderBottom: `2px solid ${COLORS.primaryMid}`,
-          pb: 2,
-          mb: 4
-        }}>
-          <Typography variant="h4" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}>
-            {t('dashboard.title')}
-          </Typography>
-          <Button
-            disableRipple
-            onClick={() => setIsInvitationsModalOpen(true)}
-            sx={{
-              py: 1, px: 3,
-              backgroundColor: 'transparent',
-              color: COLORS.primaryLight,
-              borderRadius: 0,
-              border: `2px solid ${COLORS.primaryLight}`,
-              boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
-              fontWeight: '900',
-              fontFamily: 'monospace',
-              fontSize: '0.9rem',
-              transition: 'all 0.05s linear',
-              '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' },
-              '&:active': { boxShadow: `0px 0px 0px transparent`, transform: 'translate(3px, 3px)' }
-            }}
-          >
-            {t('dashboard.invitations', '[ INVITACIONES ]')}
-          </Button>
+      {/* CAJA DEL CONTENIDO: flexGrow empuja el footer. pb masivo crea el gap inferior */}
+      <Box sx={{ flexGrow: 1, p: { xs: 2, md: 4 }, pb: { xs: 10, md: 40 } }}>
+        <Container maxWidth="md" disableGutters>
 
-          <InvitationsModal
-            open={isInvitationsModalOpen}
-            onClose={() => setIsInvitationsModalOpen(false)}
-            user={currentUser}
-          />
-        </Box>
-
-        {isLoading && (
-          <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '1.2rem' }}>
-            {t('dashboard.loading')}
-          </Typography>
-        )}
-
-        {isError && (
-          <Typography color="#ff5555" sx={{ fontFamily: 'monospace', fontSize: '1.2rem', backgroundColor: '#331111', p: 2, border: '2px solid #ff5555' }}>
-            {t('dashboard.error')}
-          </Typography>
-        )}
-
-        {!isLoading && !isError && groups && (
-          <>
-            {groups.length === 0 ? (
-              <Typography color={COLORS.primaryMid} sx={{ fontFamily: 'monospace' }}>
-                {t('dashboard.empty')}
-              </Typography>
-            ) : (
-              // Ajustamos el espaciado interno de la grilla en móviles
-              <Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
-                {groups.map((group) => (
-                  <Grid size={{ xs: 12, md: 6 }} key={group.id}>
-                    <GroupCard group={group} onClick={() => navigate(`/groups/${group.id}`)} t={t} />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-
+          {/* HEADER RESPONSIVO */}
+          <Box sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            justifyContent: 'space-between',
+            alignItems: { xs: 'stretch', sm: 'center' },
+            gap: { xs: 2, sm: 0 },
+            borderBottom: `2px solid ${COLORS.primaryMid}`,
+            pb: 2,
+            mb: 4
+          }}>
+            <Typography variant="h4" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}>
+              {t('dashboard.title')}
+            </Typography>
             <Button
-              onClick={() => setIsModalOpen(true)}
               disableRipple
+              onClick={() => setIsInvitationsModalOpen(true)}
               sx={{
-                mt: 4, py: 1.5, px: 4,
-                width: { xs: '100%', sm: 'auto' }, // Botón de crear 100% ancho en móvil
-                backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark,
-                borderRadius: 0, border: `2px solid ${COLORS.primaryLight}`, boxShadow: `5px 5px 0px ${COLORS.accentMid}`,
-                fontWeight: '900', fontFamily: 'monospace', fontSize: '1rem', transition: 'all 0.05s linear',
-                '&:active': { boxShadow: `2px 2px 0px ${COLORS.accentMid}`, transform: 'translate(3px, 3px)' }
+                py: 1, px: 3,
+                backgroundColor: 'transparent',
+                color: COLORS.primaryLight,
+                borderRadius: 0,
+                border: `2px solid ${COLORS.primaryLight}`,
+                boxShadow: `3px 3px 0px ${COLORS.accentDark}`,
+                fontWeight: '900',
+                fontFamily: 'monospace',
+                fontSize: '0.9rem',
+                transition: 'all 0.05s linear',
+                '&:hover': { backgroundColor: 'rgba(203, 211, 214, 0.1)' },
+                '&:active': { boxShadow: `0px 0px 0px transparent`, transform: 'translate(3px, 3px)' }
               }}
             >
-              {t('dashboard.createGroupBtn')}
+              {t('dashboard.invitations', '[ INVITACIONES ]')}
             </Button>
-            <CreateGroupModal
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
+
+            <InvitationsModal
+              open={isInvitationsModalOpen}
+              onClose={() => setIsInvitationsModalOpen(false)}
+              user={currentUser}
             />
-          </>
-        )}
-      </Container>
+          </Box>
+
+          {isLoading && (
+            <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '1.2rem' }}>
+              {t('dashboard.loading')}
+            </Typography>
+          )}
+
+          {isError && (
+            <Typography color="#ff5555" sx={{ fontFamily: 'monospace', fontSize: '1.2rem', backgroundColor: '#331111', p: 2, border: '2px solid #ff5555' }}>
+              {t('dashboard.error')}
+            </Typography>
+          )}
+
+          {!isLoading && !isError && groups && (
+            <>
+              {groups.length === 0 ? (
+                <Typography color={COLORS.primaryMid} sx={{ fontFamily: 'monospace' }}>
+                  {t('dashboard.empty')}
+                </Typography>
+              ) : (
+                <Grid container spacing={{ xs: 2, md: 3 }} alignItems="stretch">
+                  {groups.map((group) => (
+                    <Grid size={{ xs: 12, md: 6 }} key={group.id}>
+                      <GroupCard group={group} onClick={() => navigate(`/groups/${group.id}`)} t={t} />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+
+              <Button
+                onClick={() => setIsModalOpen(true)}
+                disableRipple
+                sx={{
+                  mt: 4, py: 1.5, px: 4,
+                  width: { xs: '100%', sm: 'auto' },
+                  backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark,
+                  borderRadius: 0, border: `2px solid ${COLORS.primaryLight}`, boxShadow: `5px 5px 0px ${COLORS.accentMid}`,
+                  fontWeight: '900', fontFamily: 'monospace', fontSize: '1rem', transition: 'all 0.05s linear',
+                  '&:active': { boxShadow: `2px 2px 0px ${COLORS.accentMid}`, transform: 'translate(3px, 3px)' }
+                }}
+              >
+                {t('dashboard.createGroupBtn')}
+              </Button>
+              <CreateGroupModal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+              />
+            </>
+          )}
+        </Container>
+      </Box>
 
       {/* MODAL DE INVITACIONES RESPONSIVO */}
       <Modal open={!!inviteData} onClose={handleRejectInvite}>
         <Box sx={{
           position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          width: { xs: '90%', sm: 450 }, // Ancho dinámico para que no se salga en móviles
+          width: { xs: '90%', sm: 450 },
           backgroundColor: COLORS.primaryDark, border: `2px solid ${COLORS.primaryLight}`,
           boxShadow: `8px 8px 0px ${COLORS.accentMid}`, p: { xs: 3, sm: 4 }, outline: 'none'
         }}>
@@ -202,7 +206,6 @@ export function Dashboard() {
             </span>
           </Typography>
 
-          {/* Botones del Modal también se ajustan si es muy pequeño */}
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, justifyContent: 'flex-end' }}>
             <Button disableRipple onClick={handleRejectInvite} sx={{
               border: `2px solid ${COLORS.primaryMid}`, color: COLORS.primaryMid,
@@ -220,6 +223,9 @@ export function Dashboard() {
           </Box>
         </Box>
       </Modal>
+
+      {/* FOOTER */}
+      <Footer />
 
     </Box >
   );

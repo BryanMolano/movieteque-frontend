@@ -11,6 +11,7 @@ import { Movies } from './pages/Movies';
 import { MovieDetails } from './pages/MovieDetails';
 import { Recommendation } from './pages/Recommendation';
 import { ForgotPassword } from './pages/ForgotPassword';
+import { LegalAndAbout } from './utils/LegalAndAbout';
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-
+          <Route path="/about" element={<LegalAndAbout />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />

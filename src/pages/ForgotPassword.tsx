@@ -8,6 +8,7 @@ import axios from 'axios';
 import { movietequeApi } from '../api/MovietequeApi';
 import { useToast } from '../contexts/ToastContext';
 import { useTranslation } from 'react-i18next';
+import { Footer } from '../utils/Footer';
 
 interface FormErrorEmail {
   email?: string;
@@ -90,7 +91,6 @@ export function ForgotPassword() {
 
         if (Array.isArray(backendMessage)) {
           backendMessage.forEach((msg: string) => {
-            // Buscamos 'token' o 'password' en el array de errores de Zod/Class-validator
             if (msg.toLowerCase().includes('token')) newErrors.resetToken = msg;
             if (msg.toLowerCase().includes('password')) newErrors.newPassword = msg;
           });
@@ -137,100 +137,103 @@ export function ForgotPassword() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: COLORS.primaryDark, padding: 2 }}>
-      <Container maxWidth="xs">
-        <Paper
-          elevation={0}
-          sx={{
-            padding: 4, display: 'flex', flexDirection: 'column', gap: 3,
-            backgroundColor: COLORS.primaryDark, borderRadius: 0,
-            border: `2px solid ${COLORS.primaryMid}`, boxShadow: `10px 10px 0px ${COLORS.accentDark}`,
-          }}
-        >
-          <Typography variant="h5" align="center" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace' }}>
-            {step === 1 ? t('forgotPassword.titleStep1', 'RECUPERAR ACCESO') : t('forgotPassword.titleStep2', 'NUEVA CONTRASEÑA')}
-          </Typography>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: COLORS.primaryDark }}>
 
-          <Typography variant="body2" align="center" color={COLORS.primaryMid} sx={{ mb: 1, minHeight: '40px' }}>
-            {step === 1
-              ? t('forgotPassword.descStep1', 'Ingresa tu correo para recibir un código de recuperación.')
-              : t('forgotPassword.descStep2', { email: savedEmail })}
-          </Typography>
-
-          {step === 1 ? (
-            // --- FORMULARIO PASO 1 ---
-            <Box component="form" onSubmit={handleStep1Submit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <RetroInput
-                label={t('forgotPassword.emailLabel', 'Correo electrónico')}
-                type="email"
-                value={savedEmail}
-                onChange={(e) => {
-                  setSavedEmail(e.target.value);
-                  if (formErrorEmail.email) setFormErrorEmail({}); // Limpia error al escribir
-                }}
-                error={!!formErrorEmail.email}
-                helperText={formErrorEmail.email}
-                disabled={sendToken.isPending}
-              />
-              <Button
-                type="submit"
-                disabled={sendToken.isPending}
-                sx={{ ...mechanicalBtnSx, bgcolor: COLORS.primaryLight, color: COLORS.primaryDark, mt: 1 }}
-              >
-                {sendToken.isPending ? t('forgotPassword.sendingBtn', 'ENVIANDO...') : t('forgotPassword.sendBtn', 'ENVIAR CÓDIGO')}
-              </Button>
-            </Box>
-          ) : (
-            // --- FORMULARIO PASO 2 ---
-            <Box component="form" onSubmit={handleStep2Submit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <RetroInput
-                label={t('forgotPassword.tokenLabel', 'Código de recuperación (6 dígitos)')}
-                type="text"
-                value={resetToken}
-                onChange={(e) => {
-                  setResetToken(e.target.value);
-                  if (formErrors.resetToken) setFormErrors({ ...formErrors, resetToken: undefined });
-                }}
-                error={!!formErrors.resetToken}
-                helperText={formErrors.resetToken}
-                disabled={resetPassword.isPending}
-              />
-              <RetroInput
-                label={t('forgotPassword.newPasswordLabel', 'Nueva contraseña')}
-                type="password"
-                value={newPassword}
-                onChange={(e) => {
-                  setNewPassword(e.target.value);
-                  if (formErrors.newPassword) setFormErrors({ ...formErrors, newPassword: undefined });
-                }}
-                error={!!formErrors.newPassword}
-                helperText={formErrors.newPassword}
-                disabled={resetPassword.isPending}
-              />
-              <Button
-                type="submit"
-                disabled={resetPassword.isPending}
-                sx={{ ...mechanicalBtnSx, bgcolor: COLORS.primaryLight, color: COLORS.primaryDark, mt: 1 }}
-              >
-                {resetPassword.isPending ? t('forgotPassword.savingBtn', 'GUARDANDO...') : t('forgotPassword.executeBtn', 'CAMBIAR CONTRASEÑA')}
-              </Button>
-            </Box>
-          )}
-
-          <Button
-            disableRipple
-            onClick={() => navigate('/login')}
-            disabled={sendToken.isPending || resetPassword.isPending}
+      <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', py: { xs: 8, md: 20 }, px: 2 }}>
+        <Container maxWidth="xs" disableGutters>
+          <Paper
+            elevation={0}
             sx={{
-              mt: 1, color: COLORS.primaryMid, fontFamily: 'monospace', textTransform: 'none',
-              '&:hover': { backgroundColor: 'transparent', color: COLORS.primaryLight, textDecoration: 'underline' }
+              padding: 4, display: 'flex', flexDirection: 'column', gap: 3,
+              backgroundColor: COLORS.primaryDark, borderRadius: 0,
+              border: `2px solid ${COLORS.primaryMid}`, boxShadow: `10px 10px 0px ${COLORS.accentDark}`,
             }}
           >
-            {t('forgotPassword.backToLogin', 'Volver al inicio de sesión')}
-          </Button>
+            <Typography variant="h5" align="center" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace' }}>
+              {step === 1 ? t('forgotPassword.titleStep1', 'RECUPERAR ACCESO') : t('forgotPassword.titleStep2', 'NUEVA CONTRASEÑA')}
+            </Typography>
 
-        </Paper>
-      </Container>
+            <Typography variant="body2" align="center" color={COLORS.primaryMid} sx={{ mb: 1, minHeight: '40px' }}>
+              {step === 1
+                ? t('forgotPassword.descStep1', 'Ingresa tu correo para recibir un código de recuperación.')
+                : t('forgotPassword.descStep2', { email: savedEmail })}
+            </Typography>
+
+            {step === 1 ? (
+              <Box component="form" onSubmit={handleStep1Submit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <RetroInput
+                  label={t('forgotPassword.emailLabel', 'Correo electrónico')}
+                  type="email"
+                  value={savedEmail}
+                  onChange={(e) => {
+                    setSavedEmail(e.target.value);
+                    if (formErrorEmail.email) setFormErrorEmail({});
+                  }}
+                  error={!!formErrorEmail.email}
+                  helperText={formErrorEmail.email}
+                  disabled={sendToken.isPending}
+                />
+                <Button
+                  type="submit"
+                  disabled={sendToken.isPending}
+                  sx={{ ...mechanicalBtnSx, bgcolor: COLORS.primaryLight, color: COLORS.primaryDark, mt: 1 }}
+                >
+                  {sendToken.isPending ? t('forgotPassword.sendingBtn', 'ENVIANDO...') : t('forgotPassword.sendBtn', 'ENVIAR CÓDIGO')}
+                </Button>
+              </Box>
+            ) : (
+              <Box component="form" onSubmit={handleStep2Submit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <RetroInput
+                  label={t('forgotPassword.tokenLabel', 'Código de recuperación (6 dígitos)')}
+                  type="text"
+                  value={resetToken}
+                  onChange={(e) => {
+                    setResetToken(e.target.value);
+                    if (formErrors.resetToken) setFormErrors({ ...formErrors, resetToken: undefined });
+                  }}
+                  error={!!formErrors.resetToken}
+                  helperText={formErrors.resetToken}
+                  disabled={resetPassword.isPending}
+                />
+                <RetroInput
+                  label={t('forgotPassword.newPasswordLabel', 'Nueva contraseña')}
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                    if (formErrors.newPassword) setFormErrors({ ...formErrors, newPassword: undefined });
+                  }}
+                  error={!!formErrors.newPassword}
+                  helperText={formErrors.newPassword}
+                  disabled={resetPassword.isPending}
+                />
+                <Button
+                  type="submit"
+                  disabled={resetPassword.isPending}
+                  sx={{ ...mechanicalBtnSx, bgcolor: COLORS.primaryLight, color: COLORS.primaryDark, mt: 1 }}
+                >
+                  {resetPassword.isPending ? t('forgotPassword.savingBtn', 'GUARDANDO...') : t('forgotPassword.executeBtn', 'CAMBIAR CONTRASEÑA')}
+                </Button>
+              </Box>
+            )}
+
+            <Button
+              disableRipple
+              onClick={() => navigate('/login')}
+              disabled={sendToken.isPending || resetPassword.isPending}
+              sx={{
+                mt: 1, color: COLORS.primaryMid, fontFamily: 'monospace', textTransform: 'none',
+                '&:hover': { backgroundColor: 'transparent', color: COLORS.primaryLight, textDecoration: 'underline' }
+              }}
+            >
+              {t('forgotPassword.backToLogin', 'Volver al inicio de sesión')}
+            </Button>
+
+          </Paper>
+        </Container>
+      </Box>
+
+      <Footer />
     </Box>
   );
 }
