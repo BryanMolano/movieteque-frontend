@@ -10,6 +10,7 @@ import { Users } from './pages/Users';
 import { Movies } from './pages/Movies';
 import { MovieDetails } from './pages/MovieDetails';
 import { Recommendation } from './pages/Recommendation';
+import { ForgotPassword } from './pages/ForgotPassword';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <ToastProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
 
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>

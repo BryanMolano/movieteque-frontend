@@ -1,5 +1,6 @@
 {
   "login": {
+    "forgotPasswordBtn": "¿Olvidaste tu contraseña?",
     "title": "MOVIETEQUE",
     "signInView": ">>> INICIAR SESIÓN",
     "signUpView": ">>> CREAR CUENTA",
@@ -55,6 +56,7 @@
     }
   },
   "groupSidebar": {
+    "loading": ">>> CARGANDO GRUPO..._",
     "nameFallback": "NOMBRE DEL GRUPO",
     "created": ">>> CREADO",
     "unknown": "DESCONOCIDO",
@@ -118,7 +120,12 @@
     "joinBtn": "UNIRSE",
     "goToGroupBtn": "IR A GRUPO",
     "noGroupsMsg": "> ESTE USUARIO NO PERTENECE A NINGÚN GRUPO PÚBLICO.",
-    "inviteToGroupBtn": "[ INVITAR A GRUPO ]"
+    "inviteToGroupBtn": "[ INVITAR A GRUPO ]",
+    "notifSuccess": "[OK] NOTIFICACIONES ACTUALIZADAS",
+    "settingsTitle": ">>> CONFIGURACIÓN_DE_CUENTA",
+    "emailNotVerifiedWarn": "[ ADVERTENCIA ]: CORREO NO VERIFICADO. LAS NOTIFICACIONES ESTÁN DESHABILITADAS.",
+    "verifyEmailBtn": "[ VERIFICAR CORREO ]",
+    "notificationsLabel": "NOTIFICACIONES POR CORREO:"
   },
   "editUserProfile": {
     "success": "[OK] PERFIL ACTUALIZADO",
@@ -329,5 +336,35 @@
     "closeBtn": "CERRAR",
     "anonymous": "DESCONOCIDO",
     "systemError": "ERROR_DE_SISTEMA"
+  },
+  "forgotPassword": {
+    "codeSent": "[OK] CÓDIGO ENVIADO AL CORREO",
+    "success": "[OK] CONTRASEÑA ACTUALIZADA. INICIA SESIÓN.",
+    "titleStep1": "RECUPERAR ACCESO",
+    "titleStep2": "NUEVA CONTRASEÑA",
+    "descStep1": "Ingresa tu correo para recibir un código de recuperación.",
+    "descStep2": "Ingresa el código que enviamos a {{email}} y tu nueva contraseña.",
+    "emailLabel": "Correo electrónico",
+    "sendingBtn": "ENVIANDO...",
+    "sendBtn": "ENVIAR CÓDIGO",
+    "tokenLabel": "Código de recuperación (6 dígitos)",
+    "newPasswordLabel": "Nueva contraseña",
+    "savingBtn": "GUARDANDO...",
+    "executeBtn": "CAMBIAR CONTRASEÑA",
+    "backToLogin": "Volver al inicio de sesión"
+  },
+  "verifyEmail": {
+    "codeSent": "[OK] CÓDIGO ENVIADO AL CORREO",
+    "success": "[OK] CORREO VERIFICADO CON ÉXITO",
+    "titleStep1": "[ VERIFICAR CORREO ]",
+    "titleStep2": "[ VALIDAR CÓDIGO ]",
+    "infoText": "SE ENVIARÁ UN CÓDIGO DE 6 DÍGITOS A LA SIGUIENTE DIRECCIÓN:",
+    "cancelBtn": "CANCELAR",
+    "sendingBtn": "ENVIANDO...",
+    "sendBtn": "ENVIAR CÓDIGO",
+    "descStep2": "Ingresa el código que acabamos de enviar a {{email}}.",
+    "codeLabel": "CÓDIGO DE 6 DÍGITOS",
+    "verifyingBtn": "VERIFICANDO...",
+    "verifyBtn": "VERIFICAR"
   }
 }

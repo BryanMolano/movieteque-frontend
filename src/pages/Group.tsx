@@ -10,8 +10,10 @@ import { GroupInfoSidebar } from '../components/groups/GroupInfoSidebar';
 import { GroupMembersList } from '../components/groups/GroupMembersList';
 import { useEffect } from 'react';
 import { RecommendationGroup } from '../components/groups/RecommendationGroup';
+import { useTranslation } from 'react-i18next';
 
 export function Group() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { data: currentUser } = useUser();
   const { data: group, isLoading } = useGroup(id);
@@ -33,7 +35,8 @@ export function Group() {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.primaryDark, p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography color={COLORS.primaryLight} sx={{ fontFamily: 'monospace', fontSize: '2rem' }}>
-          {`>>> CARGANDO_SISTEMA..._`}
+          {/* {`>>> CARGANDO_SISTEMA..._`} */}
+          {t('dashboard.inviteModal.processing', 'PROCESANDO...')}
         </Typography>
       </Box>
     );

@@ -175,6 +175,22 @@ export function Login() {
               helperText={errors.password?.message ? (errors.password.message.includes(' ') ? errors.password.message : t(errors.password.message)) : undefined}
               disabled={authMutation.isPending}
             />
+            {/* NUEVO */}
+            {isLoginView && (
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 0.5 }}>
+                <Button
+                  disableRipple
+                  onClick={() => navigate('/forgotPassword')}
+                  sx={{
+                    color: COLORS.primaryMid, fontFamily: 'monospace', textTransform: 'none',
+                    fontSize: '0.85rem', minWidth: 0, padding: 0,
+                    '&:hover': { backgroundColor: 'transparent', color: COLORS.primaryLight, textDecoration: 'underline' }
+                  }}
+                >
+                  {t('login.forgotPasswordBtn', '¿Olvidaste tu contraseña?')}
+                </Button>
+              </Box>
+            )}
 
             <Button
               type="submit" fullWidth disableRipple disabled={authMutation.isPending}

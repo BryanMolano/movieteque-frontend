@@ -9,7 +9,6 @@ export const useUser = () => {
       const { data } = await movietequeApi.get<User>('/auth/authUser');
       return data;
     },
-    // Aquí podemos añadir configuraciones extra luego
     staleTime: 1000 * 60 * 5,
   });
 };

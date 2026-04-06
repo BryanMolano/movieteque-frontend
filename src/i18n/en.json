@@ -1,5 +1,6 @@
 {
   "login": {
+    "forgotPasswordBtn": "Did you forget your password?",
     "title": "MOVIETEQUE",
     "signInView": ">>> SIGN IN",
     "signUpView": ">>> CREATE ACCOUNT",
@@ -55,6 +56,7 @@
     }
   },
   "groupSidebar": {
+    "loading": ">>> LOADING GROUP..._",
     "nameFallback": "GROUP NAME",
     "created": ">>> CREATED",
     "unknown": "UNKNOWN",
@@ -118,7 +120,12 @@
     "joinBtn": "JOIN",
     "goToGroupBtn": "GO TO GROUP",
     "noGroupsMsg": "> THIS USER DOES NOT BELONG TO ANY PUBLIC GROUP.",
-    "inviteToGroupBtn": "[ INVITE TO GROUP ]"
+    "inviteToGroupBtn": "[ INVITE TO GROUP ]",
+    "notifSuccess": "[OK] NOTIFICATIONS UPDATED",
+    "settingsTitle": ">>> ACCOUNT_SETTINGS",
+    "emailNotVerifiedWarn": "[ WARNING ]: EMAIL NOT VERIFIED. NOTIFICATIONS ARE DISABLED.",
+    "verifyEmailBtn": "[ VERIFY EMAIL ]",
+    "notificationsLabel": "EMAIL NOTIFICATIONS:"
   },
   "editUserProfile": {
     "success": "[OK] PROFILE UPDATED",
@@ -329,5 +336,35 @@
     "closeBtn": "CLOSE",
     "anonymous": "UNKNOWN",
     "systemError": "SYSTEM_ERROR"
+  },
+  "forgotPassword": {
+    "codeSent": "[OK] RECOVERY CODE SENT",
+    "success": "[OK] PASSWORD UPDATED. PLEASE LOG IN.",
+    "titleStep1": "RECOVER ACCESS",
+    "titleStep2": "NEW PASSWORD",
+    "descStep1": "Enter your email to receive a recovery code.",
+    "descStep2": "Enter the code we sent to {{email}} and your new password.",
+    "emailLabel": "Email address",
+    "sendingBtn": "SENDING...",
+    "sendBtn": "SEND CODE",
+    "tokenLabel": "Recovery code (6 digits)",
+    "newPasswordLabel": "New password",
+    "savingBtn": "SAVING...",
+    "executeBtn": "CHANGE PASSWORD",
+    "backToLogin": "Back to login"
+  },
+  "verifyEmail": {
+    "codeSent": "[OK] CODE SENT TO EMAIL",
+    "success": "[OK] EMAIL SUCCESSFULLY VERIFIED",
+    "titleStep1": "[ VERIFY EMAIL ]",
+    "titleStep2": "[ VALIDATE CODE ]",
+    "infoText": "A 6-DIGIT CODE WILL BE SENT TO THE FOLLOWING ADDRESS:",
+    "cancelBtn": "CANCEL",
+    "sendingBtn": "SENDING...",
+    "sendBtn": "SEND CODE",
+    "descStep2": "Enter the code we just sent to {{email}}.",
+    "codeLabel": "6-DIGIT CODE",
+    "verifyingBtn": "VERIFYING...",
+    "verifyBtn": "VERIFY"
   }
 }

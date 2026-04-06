@@ -6,4 +6,6 @@ export interface User {
   description: string | null;
   createdAt: string;
   updatedAt: string;
+  isEmailVerified: boolean;
+  isNotificationEnable: boolean;
 }
