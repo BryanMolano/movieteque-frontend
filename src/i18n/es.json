@@ -396,7 +396,7 @@
     "project": {
       "h1": "El Proyecto Movieteque",
       "p1": "Movieteque es una pagina sin ánimo de lucro con el objetivo principal de proporcionar un medio específico para que conocidos puedan recomendar e interactuar con peliculas (futuramente con series también). La idea es tener un registro de interacciones (reseñas a una recomendación) y recomendaciones en una comunidad de amigos o familia.",
-      "p2": "Cuenta con un sistema de usuario basado en roles, donde los administradores tienen control sobre baneos y desactivación de recomendaciones, pero los usuarios son libres de recomendar, crear interacciones (tanto a tiempo real como por medio de reseñas) e invitar a cualquier persona. Esta pagina nació como alternativa a sistemas de reseñas de peliculas en los que no se ofrece una intimidad para hablar sobre este arte en circulos cerrados, inhabilitando cualquier posible vinculo e interacción personal por afán de hacer público todo.",
+      "p2": "Cuenta con un sistema de usuario basado en roles, donde los administradores tienen control sobre baneos y desactivación de recomendaciones, pero los usuarios son libres de recomendar, crear interacciones (tanto a tiempo real como por medio de reseñas) e invitar a cualquier persona. Esta pagina nació como alternativa a sistemas de reseñas de peliculas en los que no se ofrece una intimidad para hablar sobre este arte en circulos cerrados, inhabilitando cualquier posible vinculo e interacción personal por afán de hacer público todo. Quiero mejorar aún más a Movieteque, así que si tienes alguna sugerencia, queja o petición por favor envíame un correo a bryansteven3108@gmail.com",
       "p3": "La segunda intención principal de este proyecto fue aprender, por tanto, no se usó ningún agente de IA o \"vibecoding\", lo único hecho con IA fue el CSS de la pagina(Fuck css)",
       "h2": "Stack Tecnológico",
       "li1": "Frontend: React, TypeScript, Material-UI (MUI), React Router, React Query.",
@@ -404,7 +404,7 @@
       "li3": "Infraestructura: AWS S3 (Almacenamiento de imágenes públicas), AWS SES (Correos electrónicos), Vercel para Frontend, Render para Backend y Neon para base de datos.",
       "li4": "APIs de Terceros: TMDB API (The Movie Database).",
       "h3": "Código Abierto (Open Source)",
-      "p4": "Este proyecto está bajo la Licencia MIT. El código fuente está disponible públicamente para su revisión, estudio o bifurcación por parte de reclutadores, desarrolladores y la comunidad.",
+      "p4": "Este proyecto está bajo la Licencia MIT. El código fuente está disponible públicamente para su revisión, estudio o bifurcación por parte de reclutadores, desarrolladores y la comunidad. Sientete libre de apoyar a Movieteque mediante contribuciones al respositorio por Pull Requests o mediante sugerencias a este correo: bryansteven3108@gmail.com",
       "btn": "> VER CÓDIGO FUENTE DEL BACKEND EN GITHUB",
       "btn2": "> VER EL CÓDIGO FUENTE DEL FRONTEND EN GITHUB"
     }

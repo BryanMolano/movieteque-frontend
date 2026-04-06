@@ -396,7 +396,7 @@
     "project": {
       "h1": "The Movieteque Project",
       "p1": "Movieteque is a non-profit website with the main objective of providing a specific medium for acquaintances to recommend and interact with movies (and soon series). The idea is to have a log of interactions (reviews of a recommendation) and recommendations within a community of friends or family.",
-      "p2": "It features a role-based user system where administrators have control over bans and disabling recommendations, but users are free to recommend, create interactions (both in real-time and via reviews), and invite anyone. This site was born as an alternative to public movie review systems that lack the intimacy to discuss this art in closed circles, often disabling personal bonds in the rush to make everything public.",
+      "p2": "It features a role-based user system where administrators have control over bans and disabling recommendations, but users are free to recommend, create interactions (both in real-time and via reviews), and invite anyone. This site was born as an alternative to public movie review systems that lack the intimacy to discuss this art in closed circles, often disabling personal bonds in the rush to make everything public. I want to make Movieteque even better, so if you have any suggestion, complain or petition, email me at bryansteven3108@gmail.com",
       "p3": "The second main intention of this project was learning. Therefore, no AI agents or \"vibecoding\" were used; the only thing generated with AI was the site's CSS, cuz fuck CSS.",
       "h2": "Tech Stack",
       "li1": "Frontend: React, TypeScript, Material-UI (MUI), React Router, React Query.",
@@ -404,7 +404,7 @@
       "li3": "Infrastructure: AWS S3 (Public image storage), AWS SES (Emails), Vercel for Frontend, Render for Backend, and Neon for the database.",
       "li4": "Third-Party APIs: TMDB API (The Movie Database).",
       "h3": "Open Source",
-      "p4": "This project is licensed under the MIT License. The source code is publicly available for review, study, or forking by recruiters, developers, and the community.",
+      "p4": "This project is licensed under the MIT License. The source code is publicly available for review, study, or forking by recruiters, developers, and the community. Feel free to contribute to Movieteque via Pull Requests or by any suggestion at bryansteven3108@gmail.com",
       "btn": "> VIEW BACKEND'S SOURCE CODE ON GITHUB",
       "btn2": "> VIEW FRONTEND'S SOURCE CODE ON GITHUB"
     }
