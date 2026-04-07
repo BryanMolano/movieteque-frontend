@@ -8,7 +8,7 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const [mobileOpen, setMobileOpen] = useState(false); // Estado para el menú móvil
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = [
     { path: '/dashboard', label: t('navbar.groups', 'GRUPOS') },
@@ -74,17 +74,26 @@ export function Navbar() {
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        {/* LOGO */}
-        <Typography
-          variant="h5"
-          color={COLORS.primaryLight}
-          sx={{ fontWeight: 900, letterSpacing: '-1.5px', textShadow: `2px 2px 0px ${COLORS.accentMid}`, cursor: 'pointer' }}
+
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', gap: 1.5, cursor: 'pointer' }}
           onClick={() => navigate('/dashboard')}
         >
-          MOVIETEQUE
-        </Typography>
+          <Box
+            component="img"
+            src="/logo.png"
+            alt="Movieteque Logo"
+            sx={{ height: { xs: 40, md: 50 } }}
+          />
+          <Typography
+            variant="h5"
+            color={COLORS.primaryLight}
+            sx={{ fontWeight: 900, letterSpacing: '-1.5px', textShadow: `2px 2px 0px ${COLORS.accentMid}`, display: { xs: 'none', sm: 'block' } }}
+          >
+            MOVIETEQUE
+          </Typography>
+        </Box>
 
-        {/* --- VISTA ESCRITORIO --- */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
           {renderNavButtons(false)}
           <Button
@@ -102,7 +111,6 @@ export function Navbar() {
           </Button>
         </Box>
 
-        {/* --- VISTA MÓVIL (Botón Toggle) --- */}
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <Button
             disableRipple

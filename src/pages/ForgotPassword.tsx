@@ -149,6 +149,13 @@ export function ForgotPassword() {
               border: `2px solid ${COLORS.primaryMid}`, boxShadow: `10px 10px 0px ${COLORS.accentDark}`,
             }}
           >
+            <Box
+              component="img"
+              src="/logo.png"
+              alt="Movieteque Logo"
+              sx={{ width: 140, height: 'auto', mx: 'auto', display: 'block', mb: -1 }}
+            />
+
             <Typography variant="h5" align="center" color={COLORS.primaryLight} sx={{ fontWeight: 900, fontFamily: 'monospace' }}>
               {step === 1 ? t('forgotPassword.titleStep1', 'RECUPERAR ACCESO') : t('forgotPassword.titleStep2', 'NUEVA CONTRASEÑA')}
             </Typography>

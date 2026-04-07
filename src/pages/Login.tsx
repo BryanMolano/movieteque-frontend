@@ -31,14 +31,13 @@ export function Login() {
   const navigate = useNavigate();
 
   const [isLoginView, setIsLoginView] = useState(true);
-  // NUEVO: Estado para controlar el checkbox de términos
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [searchParams] = useSearchParams();
 
   const toggleView = () => {
     setIsLoginView(!isLoginView);
     clearErrors();
-    setTermsAccepted(false); // Reseteamos el checkbox al cambiar de vista
+    setTermsAccepted(false);
   };
 
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm<LoginFormData>({
@@ -129,7 +128,6 @@ export function Login() {
     authMutation.mutate(data);
   };
 
-  // Lógica combinada para deshabilitar el botón
   const isSubmitDisabled = authMutation.isPending || (!isLoginView && !termsAccepted);
 
   return (
@@ -145,6 +143,14 @@ export function Login() {
               border: `2px solid ${COLORS.primaryMid}`, boxShadow: `10px 10px 0px ${COLORS.accentDark}`,
             }}
           >
+            {/* LOGO */}
+            <Box
+              component="img"
+              src="/logo.png"
+              alt="Movieteque Logo"
+              sx={{ width: 140, height: 'auto', mx: 'auto', display: 'block', mb: -1 }}
+            />
+
             <Typography
               variant="h4" align="center" color={COLORS.primaryLight}
               sx={{ fontWeight: 900, letterSpacing: '-1.5px', textTransform: 'uppercase', textShadow: `2px 2px 0px ${COLORS.accentMid}` }}
@@ -200,7 +206,6 @@ export function Login() {
                 </Box>
               )}
 
-              {/* NUEVO: Checkbox de Términos y Condiciones (Solo en Registro) */}
               {!isLoginView && (
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mt: 1, ml: -1 }}>
                   <Checkbox
@@ -209,7 +214,7 @@ export function Login() {
                     disabled={authMutation.isPending}
                     sx={{
                       color: COLORS.primaryMid,
-                      p: 1, // Reducir padding interno para alinear mejor
+                      p: 1,
                       '&.Mui-checked': { color: COLORS.primaryLight },
                     }}
                   />
@@ -263,7 +268,6 @@ export function Login() {
         </Container>
       </Box>
 
-      {/* FOOTER */}
       <Footer />
     </Box>
   );
