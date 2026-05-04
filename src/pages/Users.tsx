@@ -3,9 +3,6 @@ import { COLORS } from '../theme/AppTheme'; // Ajusta la ruta a tu AppTheme
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { movietequeApi } from '../api/MovietequeApi';
-import type { Group } from '../interfaces/Group';
-import type { User } from '../interfaces/User';
 import { useSearchUser } from '../hooks/useSearchUser';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '../hooks/useUser';
@@ -19,6 +16,7 @@ export function Users() {
   const [searchBar, setSearchBar] = useState('')
   const [textToSearch, setTextToSearch] = useState('')
   const { data: users, isLoading, isError } = useSearchUser(textToSearch)
+
 
   useEffect(() => {
     const timer = setTimeout(() => {

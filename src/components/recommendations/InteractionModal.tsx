@@ -139,7 +139,7 @@ export function InteractionModal({ open, onClose, recommendation, currentMember 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder={t('interactionModal.messagePlaceholder', 'Escribe tu reseña o comentario aquí..._')}
-            inputProps={{ maxLength: 2500 }}
+            inputProps={{ maxLength: 3000 }}
             sx={terminalInputStyle}
 
             error={Boolean(formErrors.message)}
