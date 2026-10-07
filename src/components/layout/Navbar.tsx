@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { AppBar, Box, Button, Toolbar, Typography, Drawer, Stack } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, Drawer, Stack } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { COLORS } from '../../theme/AppTheme';
+import TechText from '../ui/TechText';
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -85,13 +86,22 @@ export function Navbar() {
             alt="Movieteque Logo"
             sx={{ height: { xs: 40, md: 50 } }}
           />
-          <Typography
-            variant="h5"
-            color={COLORS.primaryLight}
-            sx={{ fontWeight: 900, letterSpacing: '-1.5px', textShadow: `2px 2px 0px ${COLORS.accentMid}`, display: { xs: 'none', sm: 'block' } }}
-          >
-            MOVIETEQUE
-          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' }, width: 190, height: 76, my: '-6px', flexShrink: 0 }}>
+            <TechText
+              text="Movieteque"
+              fontWeight={800}
+              fontSize={28}
+              reveal="letter"
+              dashLength={7}
+              dashGap={2}
+              specks={25}
+              fontFamily={'"Geist Mono", monospace'}
+              color="#988775"
+              accentColor="#617B85"
+              letterSpacing={-0.04}
+              speed={0.5}
+            />
+          </Box>
         </Box>
 
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>

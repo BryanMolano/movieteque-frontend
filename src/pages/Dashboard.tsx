@@ -11,6 +11,10 @@ import { useToast } from '../contexts/ToastContext';
 import { useUser } from '../hooks/useUser';
 import { InvitationsModal } from '../components/groups/InvitationsModal';
 import { Footer } from '../utils/Footer';
+import FaultyTerminal from '../components/ui/FaultyTerminal';
+
+// Referencia estable: un array nuevo en cada render reiniciaría el contexto WebGL
+const TERMINAL_GRID_MUL: [number, number] = [2, 1];
 
 interface Group {
   id: string;
@@ -87,7 +91,30 @@ export function Dashboard() {
 
   return (
     // CONTENEDOR PRINCIPAL: flex column + minHeight 100vh
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: COLORS.primaryDark }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 0 }}>
+
+      {/* FONDO ANIMADO: fijo a toda la pantalla, por detrás del contenido */}
+      <Box sx={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
+        <FaultyTerminal
+          scale={1.4}
+          gridMul={TERMINAL_GRID_MUL}
+          digitSize={1.3}
+          timeScale={0.6}
+          pause={false}
+          scanlineIntensity={1}
+          glitchAmount={1}
+          flickerAmount={1}
+          noiseAmp={1}
+          chromaticAberration={0}
+          dither={0}
+          curvature={0.19}
+          tint="#0C2833"
+          mouseReact={true}
+          mouseStrength={0.4}
+          pageLoadAnimation={false}
+          brightness={1}
+        />
+      </Box>
 
       {/* CAJA DEL CONTENIDO: flexGrow empuja el footer. pb masivo crea el gap inferior */}
       <Box sx={{ flexGrow: 1, p: { xs: 2, md: 4 }, pb: { xs: 10, md: 40 } }}>
