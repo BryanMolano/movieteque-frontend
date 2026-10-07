@@ -76,35 +76,37 @@ export function Navbar() {
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
 
-        <Box
-          sx={{ display: 'flex', alignItems: 'center', gap: 1.5, cursor: 'pointer' }}
-          onClick={() => navigate('/dashboard')}
-        >
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           <Box
             component="img"
             src="/logo.png"
             alt="Movieteque Logo"
-            sx={{ height: { xs: 40, md: 50 } }}
+            sx={{ height: { xs: 40, md: 50 }, cursor: 'pointer' }}
+            onClick={() => navigate('/dashboard')}
           />
-          <Box sx={{ display: { xs: 'none', sm: 'block' }, width: 190, height: 76, my: '-6px', flexShrink: 0 }}>
-            <TechText
-              text="Movieteque"
-              fontWeight={800}
-              fontSize={28}
-              reveal="letter"
-              dashLength={7}
-              dashGap={2}
-              specks={25}
-              fontFamily={'"Geist Mono", monospace'}
-              color="#988775"
-              accentColor="#617B85"
-              letterSpacing={-0.04}
-              speed={0.5}
-            />
-          </Box>
         </Box>
 
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
+        <Box
+          sx={{ width: { xs: 130, sm: 190 }, height: 76, my: '-6px', flexShrink: 0, cursor: 'pointer' }}
+          onClick={() => navigate('/dashboard')}
+        >
+          <TechText
+            text="MOVIETEQUE"
+            fontWeight={800}
+            fontSize={28}
+            reveal="letter"
+            dashLength={7}
+            dashGap={2}
+            specks={25}
+            fontFamily={'"Geist Mono", monospace'}
+            color="#988775"
+            accentColor="#617B85"
+            letterSpacing={-0.04}
+            speed={0.5}
+          />
+        </Box>
+
+        <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center', justifyContent: 'flex-end' }}>
           {renderNavButtons(false)}
           <Button
             disableRipple
@@ -121,7 +123,7 @@ export function Navbar() {
           </Button>
         </Box>
 
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ flex: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
           <Button
             disableRipple
             onClick={toggleDrawer(true)}
